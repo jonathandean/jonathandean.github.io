@@ -1,10 +1,12 @@
 # This will be the first part of the title tag for your site <title> site.name + page.title </title>
-name: "JKL"
+name: "Jonathan Dean"
 # Populates the meta description for the site. Should be under 150 characters for best SEO purposes.
-descripiton: "Light-weight scaffolding for a Jekyll project"
+descripiton: "Jonathan Dean - Web Software Engineer"
 
 # Owner (organization or individual) of site content
-author: "mrmrs"
+author: "jonathandean"
+
+excerpt_separator: "<!--more-->"
 
 #url: "[http:// ]"
 url: "http://localhost:4000"
@@ -17,7 +19,7 @@ googleID:
 paginate: 5
 
 # Style of permalinks
-permalink: pretty
+permalink: /:year/:month/:title
 
 # Variable format options for URL styles below
 # pretty                                          => /2009/04/29/slap-chop/index.html
@@ -33,6 +35,6 @@ soundcloud: ""
 flickr: ""
 
 # UnComment once you have pygments installed. Used for code syntax highlighting.
-#pygments: true
+pygments: true
 
 exclude: [Rakefile]

@@ -1,0 +1,45 @@
+---
+layout: post
+title: Running older versions of Selenium RC and keeping Firefox 4
+tags:
+- All
+- random
+- selenium
+- tdd
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  aktt_tweeted: '1'
+  aktt_notify_twitter: 'yes'
+  _syntaxhighlighter_encoded: '1'
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+---
+<p>Some older versions of Selenium RC don't work properly with the new Firefox 4 (we are using 1.0.3 I believe.) The best solution is to upgrade your version of Selenium to at least 1.0.4 I'm told, but we aren't able to do that for our project. So here is a way you can run Firefox 3 and 4 on the same computer so that you can use Firefox 4 as your primary browser and allow Selenium to launch Firefox 3 (even while Firefox 4 is already running.) For the moment I'm short on time so you'll have to refer to some external articles and change a few of the steps. Time permitting I will try to consolidate all steps into this article to make things easier to follow and just in case those articles become unavailable at some point.</p>
+<!--more-->
+<p>
+Do the steps on <a href="http://www.businessinsider.com/how-to-run-firefox-4-and-3-simultaneously-in-mac-os-x-with-multiple-firefox-profiles-2011-3">this post</a> but with the following modifications:
+</p>
+<ul>
+<li>Be sure to name the Firefox 4 app to Firefox4 and keep Firefox 3 named as just Firefox in your Applications folder</li>
+<li>Since you've likely used your default profile already I would keep that one for Firefox 4 and instead create a new profile called Firefox3 to use for when Selenium runs.</li>
+<li>Skip the step for preventing firefox to auto-choose the profiles. Instead, select your new Firefox3 profile while leaving the don't ask at startup option checked.</li>
+</ul>
+
+<p>
+Next we'll create some shortcuts you can add to your dock so that you can click on an icon to load either Firefox 4 or 3 with the appropriate profile. So head on over to <a href="http://weblogs.mozillazine.org/asa/archives/2008/08/shortcut_to_lau.html">this post</a> but with the following modifications:
+</p>
+<ul>
+<li>Some of the paths in this article are out of date, so the script for the Firefox 3 shortcut will be {% highlight text %}do shell script &quot;/Applications/Firefox.app/Contents/MacOS/firefox-bin -P Firefox3 &amp;&gt; /dev/null &amp;&quot;{% endhighlight %}</li>
+<li>The script for the Firefox 4 shortcut will be {% highlight text %}do shell script &quot;/Applications/Firefox4.app/Contents/MacOS/firefox-bin -P default &amp;&gt; /dev/null &amp;&quot;{% endhighlight %}</li>
+</ul>
+
+<p>Known issues/limitations:</p>
+<ul>
+<li>You can set Firefox 4 to be your default web browser but if you don't already have it open then it will open with the Firefox3 profile we set as the one to open on launch. Therefore, you'll need to open Firefox 4 using your shortcut script app before clicking any links that open a browser. If it's already open then it obviously will just keep using the profile it already has.</li>
+<li>If you put these shortcut icons in your dock then clicking them will not show the "open" indicator under them and instead will bring a new Firefox icon into your dock on the right, just as it would if you open an application that isn't in your dock.</li>
+</ul>
+<p>A possible (not perfect) fix to those two problems is to add the Firefox 4 shortcut app to your login items so that it opens when you log in and just keep the normal Firefox4 icon in your dock. The limitation there will be if you close Firefox 4 after being logged in you don't want to click your dock icon as that one would again launch the wrong profile.</p>
+<p>Any ideas to improve this is greatly appreciated!</p>

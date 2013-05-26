@@ -1,0 +1,43 @@
+---
+layout: post
+title: jQuery File Upload and Ruby on Rails
+tags:
+- All
+- Code
+- jquery
+- rails
+- ruby
+status: draft
+type: post
+published: false
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+---
+Here's a basic recipe for using the awesome <a href="http://blueimp.github.com/jQuery-File-Upload/">jQuery File Upload</a> in a <a href="http://rubyonrails.org/">Ruby on Rails</a> application. <strong>Warning: </strong>I haven't tested this code directly and should be treated as pseudo code until I have time to test in a fresh app. The general idea should get you started though, as I actually do have this working in an app. I just haven't tested with the application-specific logic pulled out so I may have made some slight omissions/mistakes.
+
+Let's assume you have <strong>Document</strong> model with a <a href="https://github.com/thoughtbot/paperclip">Paperclip</a> attachment named <strong>attachment</strong> where you intend to save the files you upload. I'm also assuming you have a standard RESTful Rails application setup according to Rails convention.
+
+In your <strong>DocumentsController</strong>'s <strong>create</strong> method (I'm leaving out the extra's for testing existence of the params, etc. just to keep it short and illustrate the point):
+
+{% highlight ruby %}
+class DocumentsController &lt; ApplicationController
+  def new
+  end
+  def create
+    errors = documents = []
+    params[:files].each do |file|
+      document = Document.create( :attachment =&gt; file )
+      if document.errors.any?
+        errors &lt;&lt; document
+      else
+        documents &lt;&lt; document
+      end
+    end
+    # Do what you need with documents and errors here (set flash messages for the user, etc.)
+  end
+end
+{% endhighlight %}

@@ -1,0 +1,880 @@
+---
+layout: post
+title: An introduction to SASS and HAML
+tags:
+- All
+- Code
+- haml
+- rails
+- sass
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+  aktt_tweeted: '1'
+  _syntaxhighlighter_encoded: '1'
+---
+<h4>From my talk on learning HAML and SASS for <a href="http://magmarails.com">Magma Rails 2011</a>.</h4>
+
+Slides and an HTML reference version below. A sample application with all code examples is at <a href="https://github.com/jonathandean/SASS-and-HAML-FTW">https://github.com/jonathandean/SASS-and-HAML-FTW</a>.
+
+<!--more-->
+
+The slide content is posted below the embedded slides for easier reading on the web. Sorry for all of the bullets, it just didn't seem worth the time to rewrite as paragraphs.
+
+<div style="width:425px" id="__ss_9635015"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/jonathandean/introduction-to-haml-9635015" title="Introduction to HAML" target="_blank">Introduction to HAML</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/9635015" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe> <div style="padding:5px 0 12px"> View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/jonathandean" target="_blank">jonathandean</a> </div> </div>
+
+<div style="width:425px" id="__ss_9635040"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/jonathandean/introduction-to-sass" title="Introduction to SASS" target="_blank">Introduction to SASS</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/9635040" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe> <div style="padding:5px 0 12px"> View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/jonathandean" target="_blank">Jon Dean</a> </div> </div>
+
+<h3>An introduction to HAML</h3>
+<h4>What is HAML?</h4>
+<ul>
+  <li>A more concise syntax for coding HTML in your Rails app</li>
+  <li>Uses indentation for nesting markup</li>
+<ul>
+  <li>Reduces code (no closing tags)</li>
+  <li>Fixes the messy markup problem that often clutters views</li>
+</ul>
+  <li>Uses a CSS-like syntax that is easier to read and compare to your style rules</li>
+  <li>Makes coding your View layer faster</li>
+<ul>
+  <li>Note: doesn’t affect render time or client-side performance, simply reduces coding efforts and makes the developer more efficient</li>
+</ul>
+  <li>Easy to learn!</li>
+</ul>
+<h4>Using HAML in Rails</h4>
+<ul>
+  <li>Use it as a replacement for ERB files</li>
+  <li>If you use Bundler, add this to your Gemfile:</li>
+</ul>
+[plain]gem 'haml'[/plain]
+<ul>
+  <li>Files named filename.html.haml (instead of filename.html.erb) will be interpreted by HAML instead of ERB</li>
+</ul>
+<h4>A comparison</h4>
+<h6>HTML</h6>
+[html]
+&amp;lt;body&amp;gt;
+  &amp;lt;div id='wrapper'&amp;gt;
+    &amp;lt;div class='stuff'&amp;gt;
+      &amp;lt;a href='#'&amp;gt;Top&amp;lt;/a&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+[/html]
+<em>7 lines, 78 characters</em>
+<h6>HAML</h6>
+[html]
+%body
+  #wrapper
+    .stuff
+      %a{:href =&amp;gt; '#'}
+[/html]
+<em>4 lines, 36 characters</em>
+<h4>Tag names</h4>
+Use % and then the name of the tag
+
+<h6>HAML</h6>
+[html]
+%body
+
+%div
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;body&amp;gt;&amp;lt;/body&amp;gt;
+
+&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;
+[/html]
+<h4>ID's</h4>
+ID's are just like they are in CSS. They begin with # and are followed by the ID name
+
+<h6>HAML</h6>
+[html]
+%div#mine
+
+%p#yours
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div id='mine'&amp;gt;&amp;lt;/div&amp;gt;
+
+&amp;lt;p id='yours'&amp;gt;&amp;lt;/p&amp;gt;
+[/html]
+<h4>Classes</h4>
+Classes are also just like they are in CSS. They being with a . and are followed by the class name
+
+<h6>HAML</h6>
+[html]
+%div.mine
+
+%p.yours
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div class='mine'&amp;gt;&amp;lt;/div&amp;gt;
+
+&amp;lt;p class='yours'&amp;gt;&amp;lt;/p&amp;gt;
+[/html]
+Here's one way to have multiple classes. We'll go over more options later.
+<h6>HAML</h6>
+[html]
+%div.mine.yours
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div class='mine yours'&amp;gt;&amp;lt;/div&amp;gt;
+[/html]
+<h4>div is the default tag name</h4>
+If you want to leave out the tag name and just put classes and/or ID's, %div is assumed
+
+<h6>HAML</h6>
+[html]
+%div#mine
+[/html]
+or just
+[html]
+#mine
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div id='mine'&amp;gt;&amp;lt;/div&amp;gt;
+[/html]
+<h4>ID's and classes together</h4>
+You can put ID's and classes together as well
+
+<h6>HAML</h6>
+[html]
+#mine.yours
+
+#mine.yours.his
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div class='yours' id='mine'&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div class='yours his' id='mine'&amp;gt;
+&amp;lt;/div&amp;gt;
+[/html]
+<h4>Nesting</h4>
+Tags are nested by indentation only. There are no closing tags!
+
+<h6>HAML</h6>
+[html]
+#mine
+  %p.yours hi!
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div id='mine'&amp;gt;
+  &amp;lt;p class='yours'&amp;gt;hi!&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+[/html]
+<h4>Text content</h4>
+Text can go at the end of the line if there's no other content to nest. It can also be nested itself, which is required with other nested content.
+
+<h6>HAML</h6>
+[html]
+#mine
+  %p.yours hi!
+[/html]
+or
+[html]
+#mine
+  %p.yours
+    hi!
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div id='mine'&amp;gt;
+  &amp;lt;p class='yours'&amp;gt;hi!&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+[/html]
+Another example with text content and a tag
+[html]
+#mine
+  %p.yours
+    hi!
+    %span dude
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div id='mine'&amp;gt;
+  &amp;lt;p class='yours'&amp;gt;
+    hi! &amp;lt;span&amp;gt;dude&amp;lt;/span&amp;gt;
+  &amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+[/html]
+This will <strong>not</strong> work and will produce an error. You cannot have text content on the same line as its parent tag and also nest other tags within it.
+[html]
+#mine
+  %p.yours hi!
+    %span dude
+[/html]
+<h4>Attributes</h4>
+Attributes can be added using a Ruby Hash syntax:
+
+<h6>HAML</h6>
+[html]
+%a{:href =&amp;gt; 'http://hi.com'} hi
+
+%input{:type =&amp;gt; 'submit'}
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;a href='http://hi.com'&amp;gt;hi&amp;lt;/a&amp;gt;
+
+&amp;lt;input type='submit'&amp;gt;
+[/html]
+Or a more HTML-like syntax:
+
+<h6>HAML</h6>
+[html]
+%a(href='http://hi.com') hi
+
+%input(type='submit')
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;a href='http://hi.com'&amp;gt;hi&amp;lt;/a&amp;gt;
+
+&amp;lt;input type='submit'&amp;gt;
+[/html]
+<h4>Boolean attributes</h4>
+Use boolean values for attributes such as 'selected'. To have a value selected, use:
+
+<h6>HAML</h6>
+[html]
+%input{:selected =&amp;gt; true}
+[/html]
+or
+[html]
+%input(selected=true)
+[/html]
+or
+[html]
+%input(selected)
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;input selected&amp;gt;
+[/html]
+To have a value deselected it's the same but with false instead of true. This isn't necessary in these examples of course (because you can just leave out the selected attributes) but is useful if you are getting the value from a variable instead of typing in the boolean value directly.
+
+<h6>HAML</h6>
+[html]
+%input{:selected =&amp;gt; false}
+[/html]
+or
+[html]
+%input(selected=false)
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;input&amp;gt;
+[/html]
+<h4>Using an array for ID's and Classes</h4>
+For the ID attribute it will separate the values by an _ (underscore.) For the Class attribute it will add them as separate classes.
+<h6>HAML</h6>
+[html]
+%p{:class =&amp;gt; ['one','two']} hi
+
+%p{:id=&amp;gt; ['one','two']} hi
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;p class='one two'&amp;gt;hi&amp;lt;/p&amp;gt;
+
+&amp;lt;p id='one_two'&amp;gt;hi&amp;lt;/p&amp;gt;
+[/html]
+<h4>HTML??</h4>
+You can also use regular HTML. This is handy when converting a file over time, using copy and paste with something like a tracking code, or anything else complicated and hard to write as HAML.
+
+<h6>HAML</h6>
+[html]
+#myParagraph
+  &amp;lt;p&amp;gt;Hello there!&amp;lt;/p&amp;gt;
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;div id='myParagraph'&amp;gt;
+  &amp;lt;p&amp;gt;Hello there!&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+[/html]
+<h4>Adding Ruby code</h4>
+Start the line with an = (equals sign) for Ruby code that will output something into the view. Start the line with a &ndash; (dash) for Ruby code that doesn't output anything (which should be rare considering this code usually belongs in the controller.)
+<h6>HAML</h6>
+[html]
+%p= 'hi '*5
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;p&amp;gt;hi hi hi hi hi&amp;lt;/p&amp;gt;
+[/html]
+Note in the following example how the 'end' isn't necessary to close the block. This is done for you based on indentation just like everything else in HAML.
+
+<h6>HAML</h6>
+[html]
+- 5.times do
+  %p= 'hi'
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;p&amp;gt;hi&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;hi&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;hi&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;hi&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;hi&amp;lt;/p&amp;gt;
+[/html]
+<h4>Ruby interpolation</h4>
+Use #{} to interpolate Ruby code
+
+<h6>HAML</h6>
+[html]
+- awesome_guy = 'Jon'
+%p Hi #{awesome_guy}
+[/html]
+is the same as
+[html]
+- awesome_guy = 'Jon'
+%p= &amp;quot;Hi #{awesome_guy}&amp;quot;
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;p&amp;gt;Hi Jon&amp;lt;/p&amp;gt;
+[/html]
+<h4>Filters</h4>
+Filters start with a : (colon) and let you put in indented content to be interpreted in a special way. For example, the :javascript filter wraps some JavaScript in &lt;script&gt; and CDATA tags for inline JavaScript.
+
+<h6>HAML</h6>
+[html]
+:javascript
+  alert('Hello there!');
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;script&amp;gt;
+//&amp;lt;![CDATA[
+  alert('Hello there!');
+//]]&amp;gt;
+&amp;lt;/script&amp;gt;
+[/html]
+The :css filter is similar and wraps some CSS in &lt;style&gt; and CDATA tags for inline CSS.
+<h6>HAML</h6>
+[html]
+:css
+  .mine{
+    color: red;
+  }
+[/html]
+<h6>HTML</h6>
+[html]
+&amp;lt;style&amp;gt;
+/*&amp;lt;![CDATA[*/
+  .mine{
+    color: red;
+  }
+/*]]&amp;gt;*/
+&amp;lt;/style&amp;gt;
+[/html]
+There are quite a few other filters:
+<ul>
+  <li><pre>:plain</pre> does not parse the content</li>
+  <li><pre>:escaped</pre> same as plain but HTML-escapes the text</li>
+  <li><pre>:ruby</pre> pass the content to the normal Ruby interpreter</li>
+  <li><pre>:sass</pre> parse the content with SASS to produce CSS output</li>
+  <li>and more! (<a href="http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html#filters">see the docs</a>)</li>
+</ul>
+You can also make custom filters if you have special needs. See the documentation for <a href="http://haml-lang.com/docs/yardoc/Haml/Filters.html">HAML::Filters</a>
+<h3>An introduction to SASS</h3>
+<h4>What is SASS?</h4>
+<ul>
+  <li>Syntactically Awesome Stylesheets</li>
+  <li>Smarter CSS</li>
+  <li>Gives you variables and methods (mixins) for CSS</li>
+  <li>Lets you nest declarations</li>
+  <li>Provides selector inheritance</li>
+  <li>Lets you do math with your variable values</li>
+  <li>Works by compiling .sass or .scss files into normal valid .css</li>
+  <li>Commonly used in Ruby on Rails applications but can be used in any web project</li>
+</ul>
+<h4>Two available syntaxes</h4>
+Both syntaxes have the same features and produce the same CSS output.
+
+<h6>SASS</h6>
+<ul>
+  <li>HAML-style indentation</li>
+  <li>No brackets or semi-colons, based on indentation</li>
+  <li>Less characters to type</li>
+  <li>Enforced conventions/neatness</li>
+</ul>
+<h6>SCSS</h6>
+<ul>
+  <li>Semi-colon and bracket syntax</li>
+  <li>Superset of normal CSS</li>
+  <li>Normal CSS is also valid SCSS</li>
+  <li>Newer and recommended</li>
+</ul>
+A comparison
+<h6>SASS</h6>
+[css]
+$txt-size: 12px
+$txt-color: #333
+$link-color: #999
+
+#main
+  font-size: $txt-size
+  color: $txt-color
+  a
+    color: $link-color
+[/css]
+<h6>SCSS</h6>
+[css]
+$txt-size: 12px;
+$txt-color: #333;
+$link-color: #999;
+
+#main{
+  font-size: $txt-size;
+  color: $txt-color;
+  a{
+    color: $link-color;
+  }
+}
+[/css]
+Both of these compile to:
+
+<h6>CSS</h6>
+[css]
+#main{
+  font-size: 12px;
+  color: #333333;
+}
+#main a{
+  color: #999999;
+}
+[/css]
+In the examples we've already demonstrated how you can assign values to a variable and how basic nesting works. Variables are pretty self-explanatory when you look at the example. They start with a $, are assigned using a : (colon) just like CSS properties (not using an = like in other languages) and output the set value when referenced again without the : following it.
+
+Nesting in SASS/SCSS not only makes you code more readable it saves you a lot of typing. You can see from the example how putting an anchor (a) tag inside of #main causes it to make a rule for '#main a' for you without making you type #main again. It's also much easier at a glance to see what's going on and provides a more direct correlation to the structure of the markup.
+<h4>Referencing the parent when nesting</h4>
+You can reference the parent selector with &amp; (ampersand)
+
+<h6>SCSS</h6>
+[css]
+#content{
+  font-size: 12px;
+  &amp;amp;, a{
+    color: #333;
+  } 
+}
+[/css]
+<h6>CSS</h6>
+[css]
+#content{
+  font-size: 12px;
+}
+#content, #content a{    
+  color: #333;
+}
+[/css]
+<h4>Selector inheritance</h4>
+You can also extend other CSS declarations with @extend
+
+<h6>SCSS</h6>
+[css]
+.error{
+  color: red;
+}
+.seriousError{
+  @extend .error;
+  font-weight: bold;
+}
+[/css]
+<h6>CSS</h6>
+[css]
+.error, .seriousError{
+  color: red;
+}
+.seriousError{
+  font-weight: bold;
+}
+[/css]
+<h4>Mixins</h4>
+Mixins are sets of reusable styles, almost like methods in other languages.
+
+<h6>SCSS</h6>
+[css]
+@mixin awesome-text{
+  font-size: 24px;
+  font-weight: bold;
+  color: blue;
+}
+p{
+  @include awesome-text;
+}
+[/css]
+<h6>CSS</h6>
+[css]
+p{
+  font-size: 24px;
+  font-weight: bold;
+  color: blue;
+}
+[/css]
+Mixins can also take parameters!
+
+<h6>SCSS</h6>
+[css]
+@mixin awesome-text($size){
+  font-size: $size;
+  font-weight: bold;
+  color: blue;
+}
+p{
+  @include awesome-text(24px);
+}
+li{
+  @include awesome-text(18px);
+}
+[/css]
+<h6>CSS</h6>
+[css]
+p{
+  font-size: 24px;
+  font-weight: bold;
+  color: blue;
+}
+li{
+  font-size: 18px;
+  font-weight: bold;
+  color: blue;
+}
+[/css]
+Here's a more advanced mixin example that has the common styles necessary for image-replacing a link inside of another element. Assume this is your markup:
+
+[html]
+&amp;lt;h1&amp;gt;&amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;Home page&amp;lt;/a&amp;gt;&amp;lt;/h1&amp;gt;
+[/html]
+<h6>SCSS</h6>
+[css]
+@mixin image-replace($image-url){
+  &amp;amp;, a{
+    display: block;
+    background: url($image-url) no-repeat;
+  }
+  a{
+    text-indent: -99999px;
+    text-decoration: none;
+  }
+}
+h1{
+  @include image-replace('images/header.gif');
+  &amp;amp;, a{
+    width: 200px;
+    height: 30px;
+    background-position: 0px -100px;
+  }
+}
+[/css]
+<h6>CSS</h6>
+[css]
+h1, h1 a{
+  display: block;
+  background: url(“images/header.gif”) no-repeat;
+}
+h1 a{
+  text-indent: -99999px;
+  text-decoration: none;
+}
+h1, h1 a {
+  width: 200px;
+  height: 30px;
+  background-position: 0px -100px;
+}
+[/css]
+<h4>Mathematic operations</h4>
+You can do simple math operations with your variable values, even if they have units
+
+<h6>SCSS</h6>
+[css]
+$page-width: 500px;
+$sidebar-width: 100px;
+$content-width: $page-width - $sidebar-width;
+
+#main{
+  width: $page-width;
+  #sidebar{
+    width: $sidebar-width;
+  }
+  #content{
+    width: $content-width;
+  }
+}
+[/css]
+<h6>CSS</h6>
+[css]
+#main{
+  width: 500px;
+}
+#main #sidebar{
+  width: 100px;
+}
+#main #content{
+  width: 400px;
+}
+[/css]
+The supported mathematic operators are +, -, *, / and %
+
+Because the division operator (/) is also valid in normal CSS, the following is not changed:
+<h6>SCSS</h6>
+[css]
+font: 10px/8px;
+[/css]
+<h6>CSS</h6>
+[css]
+font: 10px/8px;
+[/css]
+Therefore, there are only three cases where / is used as division.
+
+1. When one of the values is stored in a variable
+<h6>SCSS</h6>
+[css]
+$content-width: 500px;
+width: $content-width/2;
+[/css]
+<h6>CSS</h6>
+[css]
+width: 250px;
+[/css]
+2. When surrounded by parenthesis
+<h6>SCSS</h6>
+[css]
+width: (500px/2);
+[/css]
+<h6>CSS</h6>
+[css]
+width: 250px;
+[/css]
+3. When part of another math expression
+<h6>SCSS</h6>
+[css]
+width: 10px + 500px/2;
+[/css]
+<h6>CSS</h6>
+[css]
+width: 260px;
+[/css]
+To use variables in the CSS version without doing math operations, use #{} interpolation (described in more detail in the next section.)
+<h6>SCSS</h6>
+[css]
+$some-val: 10px;
+$another-val: 8px;
+font: #{$some-val}/#{$another-val};
+[/css]
+<h6>CSS</h6>
+[css]
+font: 10px/8px;
+[/css]
+<h4>Interpolation</h4>
+You can use variables in selectors and property declarations using interpolation with #{}
+
+<h6>SCSS</h6>
+[css]
+$class-name: wrapper;
+$attribute-name: font;
+div.#{$class-name}{
+  #{$attribute-name}-size: 12px;
+}
+[/css]
+<h6>CSS</h6>
+[css]
+div.wrapper{
+  font-size: 12px;
+}
+[/css]
+<em>Note: If you use RubyMine, it may falsely mark this syntax as invalid.</em>
+<h4>Control directives</h4>
+<h5>@if</h5>
+<h6>SCSS</h6>
+[css]
+$type: big;
+p{
+  @if $type == big{
+    font-size: 24px;
+  }
+}
+[/css]
+<h6>CSS</h6>
+[css]
+p{
+  font-size: 24px;
+}
+[/css]
+<h5>@if / @eles</h5>
+<h6>SCSS</h6>
+[css]
+$type: small;
+p{
+  @if $type == big {
+    font-size: 24px;
+  } @else if $type == medium{
+    font-size: 18px;
+  } @else {
+  font-size: 16px;
+  }
+}
+[/css]
+<h6>CSS</h6>
+[css]
+p{
+  font-size: 16px;
+}
+[/css]
+<h5>@for</h5>
+<h6>SCSS</h6>
+[css]
+@for $i from 1 through 3 {
+  .item-#{$i} {
+    width: 10px * $i; 
+  }
+}
+[/css]
+<h6>CSS</h6>
+[css]
+.item-1{
+  width: 10px; }
+.item-2{
+  width: 20px; }
+.item-3{
+  width: 30px; }
+[/css]
+<h5>@each</h5>
+<h6>SCSS</h6>
+[css]
+@each $item in item1, item2{
+  .#{$item}{
+    width: 500px;
+  }
+}
+[/css]
+<h6>CSS</h6>
+[css]
+.item1{
+  width: 500px; }
+.item2{
+  width: 500px; }
+[/css]
+<h5>@while</h5>
+<h6>SCSS</h6>
+[css]
+$i: 6;
+@while $i &amp;gt; 0 {
+  .item-#{$i} {
+    width: 10px * $i;
+  }
+  $i: $i - 2;
+}
+[/css]
+<h6>CSS</h6>
+[css]
+.item-6{
+  width: 60px; }
+.item-4{
+  width: 40px; }
+.item-2{
+  width: 20px; }
+[/css]
+<h4>Importing other SASS files</h4>
+Import other .sass or .scss files using @import
+
+<h6>SCSS</h6>
+[css]
+@import &amp;quot;reset&amp;quot;;
+[/css]
+or with the file extension if you really want
+[css]
+@import &amp;quot;reset.css.scss&amp;quot;;
+[/css]
+You can also create partials that will only be imported to other files and not compiled to .css files themselves. Just name the partial with an underscore in the front, such as _sample.css.scss. Now import the same way:
+[css]
+@import &amp;quot;sample&amp;quot;;
+[/css]
+Partials are handy for organizing styles into multiple files but compiling to only one file for use on the web.
+
+<em>Note: when using the Rails 3.1 asset pipeline, name your files with .css.scss or .css.sass extentions instead of just .scss or .sass (otherwise the .css part isn't necessary.)</em>
+<h4>Nested properties</h4>
+SASS can simplify the declaration of name-spaced CSS properties:
+
+<h6>SCSS</h6>
+[css]
+.sassy{
+  font:{
+    size: 12px;
+    weight: bold;
+  }
+}
+[/css]
+<h6>CSS</h6>
+[css]
+.sassy{
+  font-size: 12px;
+  font-weight: bold;
+}
+[/css]
+<h4>Color operations</h4>
+You can also do mathematic operations on color values:
+
+<h6>SCSS</h6>
+[css]
+color: #010203 + #040506;
+[/css]
+<h6>CSS</h6>
+[css]
+color: #050709;
+[/css]
+How this is computed:
+#<strong>01</strong>02<em>03</em> + #<strong>04</strong>05<em>06</em> = #<strong>05</strong>07<em>09</em>
+<strong>01</strong> + <strong>04</strong> = <strong>05</strong>
+02 + 05 = 07
+<em>03</em> + <em>06</em> = <em>09</em>
+<h4>Variable defaults</h4>
+Variable defaults will only assign the variable if it hasn't been defined yet. This is handy for when you import a partial in some files but not in all of them and want the value from the partial to take precedence if it has already been defined.
+
+In this example, $page-color will have the value of #333 because it was already defined and so the second assignment doesn't happen:
+[css]
+$page-color: #333;
+$page-color: #666 !default;
+[/css]
+In this example, $section-color is defined as #999 because it hasn't already been defined previously:
+[css]
+$section-color: #999 !default;
+[/css]
+<h4>Using SASS without Rails</h4>
+SASS can be used for any project you have CSS by installing the gem. Ruby is required to run for SASS to be installed and run, but this can be installed locally and isn't required on the server. Once you have the compiled CSS output, just upload those files to the server any way you normally would.
+
+To install the gem (after Ruby is already installed):
+[plain]
+gem install sass
+[/plain]
+Then the easiest way is to have SASS watch for changes to the file and auto-compile on each save. This will cause input.scss to compile to output.css automatically:
+[plain]
+sass --watch path/to/input.scss:path/to/output.css
+[/plain]
+<h4>Using SASS with Rails 3.1</h4>
+The good news is that SASS is included by default with Rails 3.1 for use with the <a href="http://guides.rubyonrails.org/asset_pipeline.html">Asset Pipeline</a>! Just put your filename.css.scss files in app/assets/stylesheets/ and the Asset Pipeline will deal with compiling them for you. See the <a href="https://github.com/jonathandean/SASS-and-HAML-FTW">sample application</a> for an example.
+<h4>Using SASS with older versions of Rails</h4>
+First, add the following to your Gemfile if you're using Bundler:
+[plain]
+gem &amp;quot;sass&amp;quot;
+[/plain]
+(If you aren't using Bundler then install and configure the gem as you would any other gem.)
+
+You can really put your sass files anywhere, but I would recommend using the new convention introduced by Rails 3.1 for if you upgrade some day. You also don't need the .css part of the filename but using filename.css.scss will once again make an upgrade easier later.
+<h3>Resources and next steps</h3>
+The documentation for <a href="http://haml-lang.com/docs.html">HAML</a> and <a href="http://sass-lang.com/docs.html">SASS</a> are the best places to learn more. They are short, easy reads and have plenty of examples to help you out. Also check out and modify the examples in the <a href="https://github.com/jonathandean/SASS-and-HAML-FTW">sample application</a> to understand more of how they work. Finally, start making your own applications using HAML and SASS. It's also really easy to convert your existing applications since CSS is also valid SCSS and HAML also allows plain HTML. So you can really just change your file extensions now and convert as you go!

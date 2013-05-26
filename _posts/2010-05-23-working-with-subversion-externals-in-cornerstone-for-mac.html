@@ -1,0 +1,46 @@
+---
+layout: post
+title: Working with Subversion externals in Cornerstone for Mac
+tags:
+- All
+- Code
+- subversion
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  aktt_tweeted: '1'
+  _sexybookmarks_shortUrl: http://b2l.me/aw54v2
+  _sexybookmarks_permaHash: 04b10b090e830d3d5e2b6862e89b3320
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+  _social_notify: '1'
+  _social_aggregated_ids: a:2:{s:7:"twitter";a:0:{}s:8:"facebook";a:0:{}}
+  _social_aggregation_log: a:10:{i:1364078962;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364080767;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364084529;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364088871;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364096361;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364111426;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364140336;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364184421;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364271590;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364445258;O:8:"stdClass":1:{s:6:"manual";b:0;}}
+  _social_aggregation_next_run: '1368232617'
+---
+I've been using <a href="http://www.zennaware.com/cornerstone/">Zennaware's Cornerstone for Mac</a> as my primary Subversion GUI. The interface is much better than anything I've found for the features it has. (It's only real shortcoming is that it doesn't have support for branching and merging, so I occasionally need to use <a href="http://www.syntevo.com/smartsvn/">SmartSVN</a> when it comes time for working with branches.)<!--more-->
+
+I had a need today to work with some open source code that has its own SVN repository so I decided to give Cornerstone's <a href="http://svnbook.red-bean.com/en/1.0/ch07s03.html">SVN Externals Definitions</a> feature a try. If you aren't familiar SVN Externals they allow you to reference an external repository in your own (or even just have subdirectories reference different locations in the same repository.) This is perfect for if you are using open source code as part of your project and want to keep up to date with the latest code in that project or just reference a particular revision from that project. If you were to put the code in your repository directly it could be a huge hassle to update it in the future.
+
+Adding an externals property in Cornerstone wasn't obvious to me at first:
+
+<ol>
+	<li>Select a directory in your repository</li>
+	<li>In the File menu choose <em>Open Externals for "directory"</em> (or hit Shift+Command+X)</li>
+	<li>Click the + to add a definition</li>
+	<li>In the <em>Check out to</em> box enter the path in your repository to check out the external code. This path is relative to the folder you selected in Step 1</li>
+	<li>In the <em>Check out from</em> box enter the path of the external repository code</li>
+	<li>For <em>Revision</em> keep it at HEAD if you want it to reference the latest revision in that branch. If you want a specific revision you can specify it or click the tiny icon at the right of the input box and it will download a revision log for you to select from.</li>
+	<li>Select File then Save (or Command+S) to save the externals property</li>
+	<li>Commit the property change to your repository</li>
+	<li>Update your repository. The external files will be pulled automatically</li>
+	<li>That's it!</li>
+</ol>
+
+Here's an example of what my screen looked like when I was putting the JWPlayer source code as an external in my repository:
+<img src="http://jonathandean.com/wp-content/uploads/svn_external_add_new.png" alt="Adding a new external" width="600" />
+
+If you want to see the files of externals in your file list in Cornerstone select <em>Show Contents of Externals</em> from the File menu.  

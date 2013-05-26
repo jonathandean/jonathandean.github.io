@@ -1,5 +1,10 @@
 // The internet is run on paragraphs and links. Let people see them please.
 
+body {
+  font-family: "Apollo W02", Cambria, Georgia, serif;
+  font-size: $copy;
+}
+
 h1,h2,h3,h4,h5,h6 {
   font-weight:100;
 }
@@ -36,9 +41,9 @@ h6,.h6 {
   font-size:$type-5;
 }
 
-p {
+p, li {
   // Because 20px body copy is the new Black
-  font-size:$type-4;
+  font-size:$copy;
   line-height:$copy-line-height;
   + p { 
     margin-top:1em;
@@ -46,14 +51,13 @@ p {
 }
 
 .intro {
-  font-size:$type-3;
+  font-size: $type-2;
 }
 
 .post {
    h1 {
-    font-size:$type-2;
     @include breakpoint(one-hand) {
-        font-size:$type-3;
+        font-size:$type-2;
     }
   }
   footer {
@@ -80,8 +84,8 @@ p {
 }
 
 blockquote {
+  font-family: "Apollo MT W02 Italic";
   padding:1em 0 1.75em 0;
-  font-style:italic;
   p {
     font-size:$type-3;
   }

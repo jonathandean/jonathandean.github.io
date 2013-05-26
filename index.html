@@ -3,12 +3,7 @@ layout: default
 ---
 
 <section class="single-column">
-  <article class="post">
-    {% for post in site.posts limit: 1 %}
-       <h1 class="ct h1">{{ post.title }}</h1>
-      {{ post.content }}
-    {% endfor %}
-  </article>
+  <h1 class="ct h1">{{ site.name }}</h1>
   <section class="mt-4">
     <article>
       <ul class="large-list ct mt-1">

@@ -1,0 +1,190 @@
+---
+layout: post
+title: Installing meld diff tool on OS X Snow Leopard (using fink)
+tags:
+- All
+- random
+status: publish
+type: post
+published: true
+meta:
+  _syntaxhighlighter_encoded: '1'
+  _edit_last: '1'
+  aktt_notify_twitter: 'yes'
+  aktt_tweeted: '1'
+  _wp_old_slug: ''
+  _sexybookmarks_shortUrl: http://b2l.me/aw4x84
+  _sexybookmarks_permaHash: 4bb6c86ab38aeb4a2a5270d8e0db0c86
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+---
+<strong>Install fink</strong>
+
+First we're going to install <a href="http://www.finkproject.org">fink</a> as it will provide an OS X-ready version of meld for us (and quite a number of other UNIX programs as well). At the moment you'll need to install fink from source for Snow Leopard (OS X 10.6). If you're using another version of OS X there are binaries available for 10.1 to 10.5 on the main <a href="http://www.finkproject.org/download">downloads</a> page. The download for the source version is located at <a href="http://www.finkproject.org/download/srcdist.php">http://www.finkproject.org/download/srcdist.php</a>. The latest version at the time of this writing is 0.29.10 and can be found directly at <a href="http://downloads.sourceforge.net/fink/fink-0.29.10.tar.gz">http://downloads.sourceforge.net/fink/fink-0.29.10.tar.gz</a>. Download and save that file somewhere.
+
+<!--more-->
+
+Download the tar.gz file and run the following commands:
+{% highlight text %}
+cd &lt;directory you downloaded the file to&gt;
+tar -xvzf fink-0.29.10.tar.gz
+cd fink-0.29.10
+./bootstrap
+{% endhighlight %}
+
+
+The installer will go through a bunch of options. If you aren't sure what to select from any of them just use the default.
+
+When that's done run this to set up your current terminal session to use fink:
+{% highlight text %}
+. /sw/bin/init.sh
+{% endhighlight %}
+
+
+Then you probably want to add that same line to your .profile or .bash_profile file so that future terminal sessions know where to find fink:
+{% highlight text %}
+sudo nano ~/.bash_profile
+{% endhighlight %}
+
+
+You probably also want to update fink (use default options again if you aren't sure):
+{% highlight text %}
+fink selfupdate
+{% endhighlight %}
+
+
+If you want to see the available fink packages you can run the following, but that list will be very large and take a little while to print out (3611 packages for me):
+{% highlight text %}
+fink list
+{% endhighlight %}
+
+
+<strong>Installing meld</strong>
+
+Now to install meld:
+{% highlight text %}
+fink install meld
+{% endhighlight %}
+
+
+It may ask you questions on what dependency packages to use. You can pick whatever you feel is best for your system (and you may see a different list than mine depending on your current packages) but just for reference here's what I chose:
+{% highlight text %}
+Information about 3611 packages read in 0 seconds.
+
+
+WARNING: The package pygtk2-gtk-py26 has a preferred Depends on scipy-core-py26,
+	 but scipy-core-py26 is an obsolete package.
+
+
+fink needs help picking an alternative to satisfy a virtual dependency. The candidates:
+
+(1)	db47-aes-shlibs: Shared Libraries for db47-aes
+(2)	db47-shlibs: Shared Libraries for db47
+
+Pick one: [1] 2
+
+WARNING: The package fontconfig2-dev Depends on system-xfree86-dev,
+	 but system-xfree86-dev only allows things to BuildDepend on it.
+
+
+fink needs help picking an alternative to satisfy a virtual dependency. The candidates:
+
+(1)	lynx: Console based web browser
+(2)	links: Lynx-like text WWW browser with tables
+(3)	w3m: Text-mode WWW browser with tables/frames
+(4)	elinks: Development version of Links text WWW browser
+
+Pick one: [1] 1
+
+fink needs help picking an alternative to satisfy a virtual dependency. The candidates:
+
+(1)	db48-aes: Berkeley DB embedded database - crypto
+(2)	db48: Berkeley DB embedded database - non crypto
+
+Pick one: [1] 2
+
+fink needs help picking an alternative to satisfy a virtual dependency. The candidates:
+
+(1)	ptex-base: ASCII publishing TeX
+(2)	ptex-nox-base: ASCII publishing TeX
+(3)	tetex-nox-base: Base programs for a teTeX installation
+(4)	tetex-base: Base programs for a teTeX installation
+
+Pick one: [1] 1
+
+fink needs help picking an alternative to satisfy a virtual dependency. The candidates:
+
+(1)	ghostscript: Interpreter for PostScript and PDF
+(2)	ghostscript-esp: Enhanced GNU Ghostscript with better CJK and printer support
+(3)	ghostscript6: Interpreter for PostScript and PDF, v6.01
+
+Pick one: [1] 1
+{% endhighlight %}
+
+
+Then you should get a message like this telling you everything that will be installed:
+{% highlight text %}
+The following package will be installed or updated:
+ meld
+The following 221 additional packages will be installed:
+ appleotffonts applesystemfonts atk1 atk1-shlibs audiofile audiofile-bin audiofile-shlibs autoconf automake1.11 automake1.9 avahi avahi-dev blt-dev
+ blt-shlibs cairo cairo-shlibs crypt-ssleay-pm5100 cyrus-sasl2-dev cyrus-sasl2-shlibs daemonic db47 db47-shlibs db48 db48-shlibs dbus dbus-dev
+ dbus-shlibs docbook-dsssl-nwalsh docbook-dtd docbook-utils docbook-xsl esound esound-bin esound-common esound-shlibs expat1 expat1-shlibs
+ fink-obsolete-packages fondu fontconfig2-dev fontconfig2-shlibs freeglut freeglut-shlibs freetype219 freetype219-shlibs gconf2 gconf2-dev gconf2-shlibs
+ gd2 gd2-shlibs gdbm3 gdbm3-shlibs gettext-tools ghostscript ghostscript-fonts glib2-dev glib2-shlibs glitz glitz-shlibs gnome-base gnome-common
+ gnome-doc-utils gnome-keyring gnome-keyring-dev gnome-keyring-shlibs gnome-mime-data gnome-python2-py26 gnome-python2-py26-dev gnome-vfs2-unified
+ gnome-vfs2-unified-dev gnome-vfs2-unified-shlibs gtk+2 gtk+2-dev gtk+2-shlibs gtk-doc html-parser-pm5100 html-tagset-pm intltool40 jadetex libart2
+ libart2-shlibs libavahi-client3-shlibs libavahi-common3-shlibs libavahi-core6-shlibs libavahi-glib1-dev libavahi-glib1-shlibs libbonobo2 libbonobo2-dev
+ libbonobo2-shlibs libbonoboui2 libbonoboui2-dev libbonoboui2-shlibs libdaemon libdaemon-shlibs libdatrie libdatrie-shlibs libffi libffi-shlibs libgcrypt
+ libgcrypt-shlibs libgettext8-dev libglade2 libglade2-shlibs libgnome2 libgnome2-dev libgnome2-shlibs libgnomecanvas2 libgnomecanvas2-dev
+ libgnomecanvas2-shlibs libgnomeui2-dev libgnomeui2-shlibs libgpg-error libgpg-error-shlibs libidl2 libidl2-shlibs libjasper.1 libjasper.1-shlibs libjpeg
+ libjpeg-bin libjpeg-shlibs libjpeg8-shlibs libkpathsea4 libkpathsea4-shlibs libncursesw5 libncursesw5-shlibs libpng3 libpng3-shlibs librarian.08-shlibs
+ libtasn1-3 libtasn1-3-shlibs libthai libthai-dev libthai-shlibs libtiff libtiff-bin libtiff-shlibs libtool14 libtool14-shlibs libtool2 libtool2-shlibs
+ libwww libwww-bin libwww-pm5100 libwww-shlibs libxml2 libxml2-bin libxml2-py26 libxml2-shlibs libxslt libxslt-bin libxslt-shlibs lynx m4 make nkf
+ nose-py26 numpy-py26 openjade openldap24-dev openldap24-shlibs openmotif3 openmotif3-shlibs opensp4 opensp4-dev opensp4-shlibs orbit2 orbit2-dev
+ orbit2-shlibs pango1-xft2-ft219 pango1-xft2-ft219-dev pango1-xft2-ft219-shlibs passwd pixman pixman-shlibs pkgconfig popt popt-shlibs ptex-base
+ ptex-texmf ptexenc ptexenc-shlibs pycairo-py26 pycairo-py26-dev pygobject2-py26 pygobject2-py26-dev pygobject2-py26-shlibs pygtk2-gtk-py26
+ pygtk2-gtk-py26-dev pyorbit2-py26 pyorbit2-py26-dev python26 python26-shlibs rarian rarian-compat readline5 readline5-shlibs scipy-core-py26
+ setuptools-py26 sgml-entities-iso8879 sgmls-pm shared-mime-info sqlite3-dev sqlite3-shlibs system-openssl-dev t1lib5-nox t1lib5-nox-shlibs t1lib5-x11
+ t1lib5-x11-shlibs tcltk tcltk-dev tcltk-shlibs tetex-texmf texi2html texinfo uri-pm5100 xdg-base xfontpath xft2-dev xinitrc xmkmf xml-parser-pm5100
+Do you want to continue? [Y/n] Y
+{% endhighlight %}
+
+
+After a while of installing things, I ended up getting this error message:
+{% highlight text %}
+...
+While trying to install:
+  libgettext3-dev-0.14.5-2
+
+The following inconsistencies found:
+  libgettext8-dev conflicts with libgettext3-dev, but libgettext3-dev is installed
+
+Trying to resolve dependencies...
+Could not resolve inconsistent dependencies!
+
+Fink isn't sure how to install the above packages safely. You may be able to fix things by running:
+
+  fink scanpackages
+  sudo apt-get update
+  sudo apt-get install libgettext3-dev=0.14.5-2
+...
+{% endhighlight %}
+
+
+So I went ahead and ran the suggested steps but got the same error again. Turns out uninstalling libgettext8-dev before installing libgettext3-dev is a better idea, so I added that step in there and ran the following 4 lines:
+{% highlight text %}
+fink scanpackages
+sudo apt-get update
+sudo apt-get remove libgettext8-dev
+sudo apt-get install libgettext3-dev=0.14.5-2
+{% endhighlight %}
+
+
+Then I ran the meld install command again, selecting the same options as before when prompted to help with dependency choices and default value for everything else:
+{% highlight text %}
+fink install meld
+{% endhighlight %}
+
+
+After a <em>really</em> long time of installing it finally worked. Now just type 'meld' in the Terminal and launch the app!

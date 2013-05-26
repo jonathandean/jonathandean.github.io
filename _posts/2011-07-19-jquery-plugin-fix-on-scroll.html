@@ -1,0 +1,37 @@
+---
+layout: post
+title: ! 'New jQuery plugin: Fix on scroll'
+tags:
+- All
+- Code
+- javascript
+- jquery
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  aktt_tweeted: '1'
+  _edit_last: '1'
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+  _syntaxhighlighter_encoded: '1'
+  _social_notify: '1'
+  _social_aggregated_ids: a:2:{s:7:"twitter";a:0:{}s:8:"facebook";a:0:{}}
+  _social_aggregation_log: a:10:{i:1358044480;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358047190;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358049957;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358054480;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358062546;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358077822;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358106699;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358150657;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358237173;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1358410800;O:8:"stdClass":1:{s:6:"manual";b:0;}}
+---
+<p>I added a new jQuery plugin that will fix an element to the top of the browser window once you scroll past it, similar to the functionality of the actions bar in the newest gmail UI.</p>
+
+<p>Find it at <a href="https://github.com/jonathandean/jquery.fixOnScroll">https://github.com/jonathandean/jquery.fixOnScroll</a></p>
+
+<p>Here's a quick sample usage. Let's say I wanted to make a sidebar element with an ID of sidebar stay fixed after I scroll past it, I would just do:</p>
+
+[javascript]
+$(document).ready(function(){
+  $('#sidebar').fixOnScroll();
+});
+[/javascript]
+
+<p>If the top of the sidebar is below the top of the browser window it will just stay in it's normal position until you scroll past it, at which point it will stick to the top of the browser window and always remain visible.</p>
+
+<p>There are more usage examples on the README page of the <a href="https://github.com/jonathandean/jquery.fixOnScroll">git repository</a></p>

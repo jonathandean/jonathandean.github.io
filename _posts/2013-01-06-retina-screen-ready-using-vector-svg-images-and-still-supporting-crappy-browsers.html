@@ -1,0 +1,91 @@
+---
+layout: post
+title: ! 'Retina screen ready: Using vector SVG images and still supporting crappy browsers'
+tags:
+- javascript
+- retina
+- svg
+status: publish
+type: post
+published: true
+---
+<p>I'm not going to dive into why you should use SVG images in your web pages since that's been well covered <a title="retinafy.me" href="http://retinafy.me/">elsewhere</a>. Once you're convinced that SVG images are the way to go, here are a couple of quick little scripts for safely using SVG images in your sites: <a title="Jonathan Dean's SVG Fallback JavaScript" href="https://github.com/jonathandean/svg_fallback">https://github.com/jonathandean/svg_fallback</a>.<!--more--> The recipe is pretty simple:</p>
+
+<ol>
+	<li>Create both an SVG and fallback version for non-compatible browsers (such as a PNG or JPG.) <em>Check out <a title="retinafy.me" href="http://retinafy.me/">retinafy.me</a> for a comprehensive guide.</em></li>
+	<li>Use a standard image tag with the src attribute pointing to your .svg image</li>
+
+  {% highlight html %}
+  <img src="images/logo.svg" alt="" />
+  {% endhighlight %}
+
+	<li>Reference your fallback image one of two ways:
+    <ul>
+      <li>Put a .png file with the same name in the same directory. It will simply become the following in a non-SVG browser:</li>
+      {% highlight html %}
+        <img src="images/logo.png" alt="" />
+      {% endhighlight %}
+	    <li>Add a <em>data-svg-fallback</em> attribute to the image tag pointing to the fallback version. Use this method if your fallback is not a PNG or if it lives in a different directory</li>
+      {% highlight html %}
+        <img src="images/logo.svg" alt="" data-svg-fallback="images/fallback/logo.jpg" />
+      {% endhighlight %}
+      which becomes:
+      {% highlight html %}
+        <img src="images/logo.jpg" alt="" />
+      {% endhighlight %}
+    </ul>
+	<li>Load the <a title="svg_fallback.js" href="https://github.com/jonathandean/svg_fallback/blob/master/svg_fallback.js">svg_fallback.js</a> or <a title="svg_fallback.jquery.js" href="https://github.com/jonathandean/svg_fallback/blob/master/svg_fallback.jquery.js">svg_fallback.jquery.js</a> script before the end of your closing body tag, depending on your preference and whether or not you use jQuery. The jQuery version can also be safely used in your head tag if you wish since it uses a DOM-ready handler, but you should always avoid loading JavaScript in the header when possible.</li>
+</ol>
+
+<p>That's it! For most browsers, the SVG version will be used as is. For browsers that can't use the SVG image, the script will replace all images on the page that have a .svg file extension with the fallback version.</p>
+<h2>CSS image replacement and background images</h2>
+<p>The script will add either an svg or no-svg class to the body element, which you can use in your CSS rules to specify which version to use. Here's an example:</p>
+
+{% highlight css %}
+h1.logo {
+  background: url(logo.svg);
+}
+
+body.no-svg h1.logo {
+  background: url(logo.png);
+}
+{% endhighlight %}
+
+<p>This example will use logo.svg as the background image for h1.logo when SVG is available and logo.png when not. (Other styles removed to simplify the example.)</p>
+
+<p>The other thing to keep in mind is that on retina screens you also likely want to set the scale of the background image. Using <a title="Thomas Fuchs" href="http://mir.aculo.us/">Thomas Fuchs</a>'s <a title="Retina screen CSS media query" href="https://gist.github.com/4161897">retina screen media query</a>, it may look something like this for a 100x100 pixel image:</p>
+
+{% highlight css %}
+h1.logo {
+  background-image: url(logo.svg);
+  background-size: 100px 100px, 100% 100%;
+}
+
+body.no-svg h1.logo {
+  background-image: url(logo.png);
+}
+
+@media (min--moz-device-pixel-ratio: 1.5),
+(-o-min-device-pixel-ratio: 3/2),
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi),
+(min-resolution: 1.5dppx) {
+  h1.logo {
+    background-size: 50px 50px, auto;
+  }
+}
+{% endhighlight %}
+
+
+<p>For more on this, I strongly recommend you pick up a copy of <a title="retinafy.me" href="http://retinafy.me/">retinafy.me</a>.</p>
+<h2>Using with Ruby on Rails and the asset pipeline</h2>
+<p>If you are using Rails and the asset pipeline you should put your images in the page doing something like this:</p>
+
+{% highlight ruby %}
+  <%= image_tag "#{image_path('logo.png')}", alt: "Use an alt value!" %>
+{% endhighlight %}
+
+<p>Just using the default behavior of automatically using a .png extension for the same file path won't work when the asset pipeline adds the digest to the filename during asset compilation.</p>
+<h3>Credits</h3>
+<p>Credit for the basic idea of the script goes to <a title="Thomas Fuchs" href="http://mir.aculo.us/">Thomas Fuchs</a> and this example for his <a title="retinafy.me" href="http://retinafy.me/">retinafy.me</a> book: <a title="SVG script" href="https://gist.github.com/3202087">https://gist.github.com/3202087</a>. There are just a couple of key differences between his version and my adaptation. The original script requires that JavaScript sets the image src regardless of which image is being used. I prefer to take the philosophy of SVG-capable-browsers-first a little farther in that the default SVG image is shown immediately when rendered in the page without waiting for the script to run. His version also assumes that the fallback image is always a .png file in the same directory as the original, which doesn't work if you prefer .jpg images as the alternative or if you are using the Rails asset pipeline with the hash digests turned on (as explained above), which the default and recommended way for production applications.</p>

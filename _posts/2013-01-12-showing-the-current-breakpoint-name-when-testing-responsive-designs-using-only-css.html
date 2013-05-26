@@ -1,0 +1,82 @@
+---
+layout: post
+title: Display and debug the current breakpoint using only CSS
+permalink: /2013/01/showing-the-current-breakpoint-name-when-testing-responsive-designs-using-only-css/
+tags:
+- code
+- css
+- responsive
+status: publish
+type: post
+published: true
+---
+<p class="intro">How to use some simple CSS to show and debug the current breakpoint in your responsive designs.</p>
+
+<p>In building a new version of this website, I was looking for an easy way to see which current breakpoint was being used in the responsive layout. The quickest and easiest way before testing on specific devices is to just resize the browser. So I wanted a way to see when a certain breakpoint would take effect.</p><!--more-->
+
+<p>Turns out, there's a pretty simple way to do this purely in CSS. Just use the <a href="https://developer.mozilla.org/en-US/docs/CSS/::after" title="CSS :after pseudo-element">after pseudo-element</a> and the <a href="https://developer.mozilla.org/en-US/docs/CSS/content" title="CSS content property">content property</a> on some element in page to provide the text for whatever name you've given to your breakpoint. Since I'm using WordPress, the obvious candidate is the admin bar. Not only is it persistent at the top of every page, it only shows up when I'm logged in, allowing me to leave it there for debugging in production if I choose to (though you do suffer a few extra bytes of file size.)</p>
+
+<p>Since I'm using <a href="http://sass-lang.com/" title="SASS">SASS</a>, <a href="http://bourbon.io/" title="bourbon">bourbon</a> and <a href="http://neat.bourbon.io/" title="neat">neat</a>, defining breakpoints is really straightforward and looks like this:</p>
+
+{% highlight scss %}
+$desktop: new-breakpoint(min-width 960px);
+$tablet: new-breakpoint(min-width 768px max-width 959px);
+$mobile-landscape: new-breakpoint(min-width 480px max-width 767px);
+$mobile-portrait: new-breakpoint(max-width 767px);
+{% endhighlight %}
+
+<p>And here is the simple SCSS that will give me the name of the current breakpoint in my WordPress admin bar:</p>
+
+{% highlight scss %}
+#wpadminbar #wp-admin-bar-site-name a.ab-item:after{
+  @include media($desktop){
+    content: ' at desktop';
+  }
+  @include media($tablet){
+    content: ' at tablet';
+  }
+  @include media($mobile-portrait){
+    content: ' at mobile-portrait';
+  }
+  @include media($mobile-landscape){
+    content: ' at mobile-landscape';
+  }
+}
+{% endhighlight %}
+
+<p>Now depending on the current browser window size, my admin bar looks like one of these:</p>
+
+<p><img src="http://www.jonathandean.com/wp-content/uploads/2013/01/Screen-Shot-2013-01-12-at-7.34.21-PM.png" alt="Jonathan Dean at desktop" height="28" class="alignnone size-full wp-image-4764" /></p>
+
+<p><img src="http://www.jonathandean.com/wp-content/uploads/2013/01/Screen-Shot-2013-01-12-at-7.34.50-PM.png" alt="Jonathan Dean at tablet" height="28" class="alignnone size-full wp-image-4763" /></p>
+
+<p><img src="http://www.jonathandean.com/wp-content/uploads/2013/01/Screen-Shot-2013-01-12-at-7.35.22-PM.png" alt="Jonathan Dean at mobile-portrait" height="28" class="alignnone size-full wp-image-4761" /></p>
+
+<p><img src="http://www.jonathandean.com/wp-content/uploads/2013/01/Screen-Shot-2013-01-12-at-7.35.06-PM.png" alt="Jonathan Dean at mobile-landscape" height="29" class="alignnone size-full wp-image-4762" /></p>
+
+<p>You don't need to use WordPress, SASS, bourbon or neat though. This works on any element using pure CSS alone. You can also do something like this with your manually defined CSS breakpoints:</p>
+
+{% highlight scss %}
+@media screen and (min-width: 960px){
+  body:before{
+    content: ' at desktop';
+  }
+}
+@media screen and (min-width: 768px) and (max-width:959px){
+  body:before{
+    content: ' at tablet';
+  }
+}
+@media screen and (max-width: 767px){
+  body:before{
+    content: ' at mobile-portrait';
+  }
+}
+@media screen and (min-width: 480px) and (max-width:767px){
+  body:before{
+    content: ' at mobile-landscape';
+  }
+}
+{% endhighlight %}
+
+<p>This version will add the debug text at the beginning of the body element. Obviously you want to remove this code before your site is live but I think it illustrates how you can use this method without any of the tools I'm using and just CSS alone.</p>

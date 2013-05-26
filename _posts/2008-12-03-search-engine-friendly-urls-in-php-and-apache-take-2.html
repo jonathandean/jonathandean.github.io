@@ -1,0 +1,241 @@
+---
+layout: post
+title: Search engine friendly URLs in PHP and Apache, Take 2
+tags:
+- All
+- apache
+- Code
+- php
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'no'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  _sexybookmarks_shortUrl: http://b2l.me/aw5576
+  _sexybookmarks_permaHash: 94e588eaa24b9337b1684e37967310b4
+  _oembed_f7a32a109efae8279860aac6accbbb14: ! '{{unknown}}'
+  _oembed_e7b563cbee9fd82da7a1a558a8c93249: ! '{{unknown}}'
+  _oembed_ebc060500517e31c4ecb1f704a14ea6d: ! '{{unknown}}'
+  _oembed_b46a968168dba989b2348f093e2c93e1: ! '{{unknown}}'
+  _social_notify: '1'
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+  _social_aggregation_log: a:10:{i:1364078968;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364081873;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364085258;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364088876;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364096366;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364111431;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364140341;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364184426;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364271595;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364445263;O:8:"stdClass":1:{s:6:"manual";b:0;}}
+  _social_aggregated_ids: a:2:{s:7:"twitter";a:0:{}s:8:"facebook";a:0:{}}
+---
+A while back I posted <a href="http://interactivedeveloper.blogspot.com/2008/03/friendly-urls-in-php-and-apache.html">this article about friendly URLs in PHP and Apache</a>. Today I'd like to update that a little to not only show another method but also to enhance it a bit. When we're done we'll have search engine friendly URLs that look like the ones that <a href="http://www.blogger.com/">Blogger</a> uses.<!--more-->
+
+Why? Because search engines tend to penalize dynamic URLs in search result rankings so we want ours to appear as static as possible. Now I know that search engines have come a long way in indexing dynamic content but every little bit helps. So as long as the setup is easy (and it is) we may as well put in that tiny bit of extra effort. Why would static URLs get a higher ranking? I assume because creating a static page takes just a little more effort than a dynamic one and therefore you could argue that the content is likely to be of higher quality. Also, the content isn't going to be compromised by spam bots that are mass posting or even stupid humans that are (mass) posting.
+
+For an easy example, I've listed 5 URL formats that are common and could likely serve  the same content. They are in order with the most search engine friendly at the top.
+
+<ol>
+<li>http://www.example.com/post/title-of-post.html</li>
+<li>http://www.example.com/post/title-of-post</li>
+<li>http://www.example.com/post/654123</li>
+<li>http://www.example.com/post.php?id=654123</li>
+</ol>
+
+
+#3 beats #4 for two reasons. The first is that #4 is obviously dynamic content based on the fact that it is passing a parameter whereas #3 could actually be pointing to the static file post/index.html or post/default.htm. The other reason is that id is considered an especially obvious parameter to dynamic content and is often ignored when indexing. Using post.php?postId=654123 would be slightly better.
+
+#2 is a huge leap over #3 because it actually includes the title of the post in the URL. Of all the things you can do to improve SEO, including your search keywords in the URL is going to give you the best result (and even better if the keyword is in your domain name!) #1 is just a little better still because adding that .html extension really enforces the appearance of being static content. As far as the crawler is concerned there is no way to tell that URL is dynamic.
+
+So how do we make this happen? Well if you're using PHP and Apache 2 you have a few options. (Note, Apache 1 will not work here because it doesn't support the "look back" method that allows Apache to keep looking back in the URL until it finds our file. Without that it would only be able to find /post in the /post/title-of-post/ directory rather than in the root which is where it actually is. That may make more sense later.)
+
+I recently modified Method 3 of <a href="http://www.sitepoint.com/article/search-engine-friendly-urls/3/">this sitepoint article</a> to get set up quickly with the scheme. It's not perfect but it is pretty fast and easy to get up and running with for small sites. If you have a lot of dynamic pages then you may want to combine this method with the <a href="http://interactivedeveloper.blogspot.com/2008/03/friendly-urls-in-php-and-apache.html">URL rewrite method</a> I posted about previously so that you don't have to create lots of files without extensions and update your Apache configuration for each. I like this method because it's easier to mix friendly URL pages with normal directories. I say that because the regex used in the other method requires that you have a file extension for accessing a normal file directly. So it will ignore /somedir/images/img.jpg and /somedir/index.php but it will try to parse /somedir/example/ which can be a bit of a pain. With this method we're only going to worry about particular dynamic files and let the rest operate as usual. A drawback of this method is that you can't use it on your root directory. For instance you can't have http://www.example.com/dynamic-parameter.html. It would have to be something like http://www.example.com/processor/dyanamic-parameter.html.
+
+Now to get down to it. We're going to do a few things here:
+
+<ul>
+<li>Create or modify our .htaccess file to tell Apache that certain files should be processed as PHP, even without an extension (or you could edit your vhost.conf file if you use Plesk or even your main Apache config if you feel comfortable)</li>
+<li>Either remove the .php extension from our dynamic page or create a new file with the same name and no extension and use require_once() to include the .php version</li>
+<li>Add some PHP to parse our URI and set variables we can use to load the dynamic content</li>
+</ul>
+
+So for the first item we're going to open or create a .htaccess in our web root (or whatever folder we want to contain the dynamic pages.) If you only have one dynamic page, say post.php, you'd do something like this, substituting "post" with the name of your dynamic page (minus the .php extension.)
+
+{% highlight html %}
+&lt;Files post&gt;
+AcceptPathInfo On
+ForceType application/x-httpd-php
+&lt;/Files&gt;
+{% endhighlight %}
+
+If you have multiple pages then use filesMatch instead of Files and separate each file with a pipe character (|):
+
+{% highlight html %}
+&lt;filesMatch &quot;post|blog|login|logout&quot;&gt;
+AcceptPathInfo On
+ForceType application/x-httpd-php
+&lt;/filesMatch&gt;
+{% endhighlight %}
+
+Basically what we're doing here with ForceType is telling Apache that these are PHP files and to process them as such. Typically, the .php extension gives it away but we don't want that here.
+
+Now like I said above, you can either remove the .php extension from your file or create a new file and include the .php version. If you are converting existing pages to use this method I'd recommend leaving your .php version in tact in case of bookmarks or indexed pages. So alongside &quot;post.php&quot; you'd create the file &quot;post&quot; with this in it:
+
+{% highlight php %}
+&lt;?php
+require_once('post.php');
+?&gt;
+{% endhighlight %}
+
+So now we have the option of getting to http://www.example.com/post.php by just using http://www.example.com/post and leaving off the file extension. The next thing we need to do is parse the rest of that URL and do something with it. You can do this a lot of ways but I kind of like options so I wrote a pretty generic function that will just give us some variables to work with. Cutting right to the chase:
+
+{% highlight php %}
+&lt;?php
+
+$uriParts = null;
+$dirsToRoot = 0;
+$pathToRoot = '';
+$linkToRoot = '';
+$requestURI = '';
+$requestParamString = '';
+$requestParams = null;
+parseRequestURI();
+
+function parseRequestURI()
+{
+    global $uriParts;
+    global $requestURI;
+    global $requestParamString;
+    global $requestParams;
+    
+    $uriParts = explode('?', $_SERVER['REQUEST_URI']);
+    if(is_array($uriParts) &amp;&amp; !empty($uriParts[1]))
+    {
+        $requestParamString = $uriParts[1];
+        $requestURI = $uriParts[0];
+    }
+    else if(is_array($uriParts))
+        $requestURI = $uriParts[0];
+    else
+        $requestURI = $_SERVER['REQUEST_URI'];
+        
+    if(!empty($requestParamString))
+    {
+        $requestParams = array();
+        $paramPairs = explode('&amp;', $requestParamString);
+        if(is_array($paramPairs))
+        {
+            foreach($paramPairs as $paramPair)
+            {
+                $paramParts = explode('=', $paramPair);
+                $requestParams[$paramParts[0]] = $paramParts[1];
+            }
+        }
+        else
+        {
+            $paramParts = explode('=', $paramPairs);
+            $requestParams[$paramParts[0]] = $paramParts[1];
+        }
+    }
+        
+    $uriParts = explode('/', $requestURI);
+    if(is_array($uriParts))
+    {
+        if(empty($uriParts[0])) array_shift($uriParts);
+        if(empty($uriParts[count($uriParts)-1])) array_pop($uriParts);
+    }
+    if(substr($uriParts[count($uriParts)-1], -5) === '.html') 
+        $uriParts[count($uriParts)-1] = substr($uriParts[count($uriParts)-1], 0, -5);
+    
+    setPathToRoot();
+}
+
+function setPathToRoot()
+{
+    global $uriParts;
+    global $dirsToRoot;
+    global $pathToRoot;
+    global $linkToRoot;
+    
+    $dirsToRoot = count($uriParts)-1;
+        
+    for($i=0; $i&lt;$dirsToRoot; $i++)
+        $pathToRoot .= '../';
+    
+    $linkToRoot = empty($pathToRoot) ? './' : $pathToRoot;
+}
+?&gt;
+{% endhighlight %}
+
+I think the easiest way to use this is to just define this script as an auto prepend file so that it runs at the beginning of every PHP file. You can do that by adding the following line to your .htaccess file:
+
+{% highlight html %}
+php_value auto_prepend_file /path/to/file.php
+{% endhighlight %}
+
+If you're going the auto prepend route make sure you have no whitespace characters outside of the &lt;?php and ?&gt; or you could end up with HTML validation issues. You don't want whitespace showing up before your DOCTYPE declaration!
+
+Anyway, this will give you access to the following variables on every PHP page:
+<ul>
+<li>$requestURI (String): The requested URL (without your domain name) not including any request parameters</li>
+<li>$requestParamString (String): The full key/value pair request parameter string after the ?</li>
+<li>$uriParts (Array): An array of the individual parts of $requestURI. You are mostly going to use this to load your dynamic content. If the last entry has a .html then it will strip it out.</li>
+<li>$requestParams (Array): An associative array of the key/value pairs of $requestParamString</li>
+<li>$pathToRoot (String): Prepending this to a relative path will help resolve it properly for you. Used for including CSS and other files (see below)</li>
+<li>$linkToRoot (String): Just like $pathToRoot but is used for linking to other pages (see below)</li>
+<li>dirsToRoot (Integer): The number of directories your browser will think you are from the root</li>
+</ul>
+
+Here are a few examples of what those variables will look like for different types of URLs:
+
+http://www.example.com/post/something
+{% highlight php %}
+$requestURI='/post/something'
+$requestParamString=''
+$uriParts=Array ( [0] =&gt; post [1] =&gt; something )
+$requestParams=
+$pathToRoot='../../'
+$linkToRoot='../../'
+$dirsToRoot=2
+{% endhighlight %}
+
+http://www.example.com/post/something.html
+{% highlight php %}
+$requestURI='/post/something.html'
+$requestParamString=''
+$uriParts=Array ( [0] =&gt; post [1] =&gt; something )
+$requestParams=
+$pathToRoot='../../'
+$linkToRoot='../../'
+$dirsToRoot=2
+{% endhighlight %}
+
+http://www.example.com/post/something/more.html?name=jon&city=pittsburgh
+{% highlight php %}
+$requestURI='/post/something/more.html'
+$requestParamString='name=jon&amp;amp;city=pittsburgh'
+$uriParts=Array ( [0] =&gt; post [1] =&gt; something [2] =&gt; more )
+$requestParams=Array ( [name] =&gt; jon [city] =&gt; pittsburgh )
+$pathToRoot='../../../'
+$linkToRoot='../../../'
+$dirsToRoot=3
+{% endhighlight %}
+
+http://www.example.com/help
+{% highlight php %}
+$requestURI='/help'
+$requestParamString=''
+$uriParts=Array ( [0] =&gt; help )
+$requestParams=
+$pathToRoot=''
+$linkToRoot='./'
+$dirsToRoot=0
+{% endhighlight %}
+
+I think you can get the idea but a few things to point out here. First, the .html extension has no effect on the $uriParts string which is what we're going to use to get our dynamic variables. Second, you probably would never pass the query string portion after the ? but I added it for completeness. 
+
+The purpose of $pathToRoot and $linkToRoot may not be entirely clear at first. It's there in order to help with a relative path issue you may run into. The reason being is that the browser has no idea that /post is your PHP file and that your currently directory is actually the root of the site (or /). As far as it's concerned, you're in the folder /post/something/. So say you had an images folder in your site root alongside post.php. Typically you could just refer to it using just images/imagename.jpg and that relative path would resolve properly for you. However, your browser thinks you are in the /post/something/ directory so it's going to think you mean /post/something/images/ rather than /images. Sure, you could just use the path /images/imagename.jpg but that only works if your application is at the site root. What if you want to move the site into a subfolder on another server? Or, like in my case, you want to use the Site Preview function in Plesk for your client but the path contains several subdirectories before your root? All you have to do is change images/imagename.jpg to &lt;?php echo $pathToRoot; ?&gt;images/imagename.jpg it will give you the correct relative path. Sure it can be a pain to print that out everywhere but it was a life saver for me to be able to have that kind of portability. (Of course this is great for including style sheets and JavaScript too.)  The only difference between $pathToRoot and $linkToRoot is that when $pathToRoot would normally be an empty string (see the last example above), $linkToRoot will be "./".  When including CSS the empty string would basically indicate the current directory which is fine. For a link the empty string actually indicates the current <span style="font-style:italic;">page</span> so we need to use "./" to explicitly indicate current <span style="font-style:italic;">directory</span> so that the link actually takes us somewhere.
+
+The last part of this puzzle is to do something with those dynamic URLs. Of course, that part is completely up to you. You essentially have two choices as I see it. You can either pass only the parameter values you need and always pass them in a particular order (such as /post/jon/2008-12-04/search-engine-urls) or you can pass your parameters as pairs that come in any order (such as /post/title/search-engine-urls/username/jon/date/2008-12-04). In most cases I prefer the first method but the second can be useful for pages where you don't know all of the parameters being passed. In that case the even indexes of $uriParts will always be the parameter names and the odd indexes will always be the values. Or I guess you can do it the other way around too. The point is that this will get the data to you and now you just have to make something meaningful out of it.
+
+This should go without saying but don't forget to always escape any values being passed to a page before it interacts with your database. Take all precautions you normally would in a dynamic page!
+
+<strong>Update 12/14/2008:</strong> Removed a test for '/' as the last character in setPathToRoot(). All URLs are now treated the same way.
+
+<strong>Update 1/24/2009:</strong> Added $linkToRoot to solve an issue in some cases where $pathToRoot would be an empty string. This works well for including CSS files but not good for making a link to the home page. $linkToRoot is the same value as $pathToRoot except when $pathToRoot is an empty string.  In that case $linkToRoot will be "./"  

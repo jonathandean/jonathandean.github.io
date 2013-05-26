@@ -1,0 +1,46 @@
+---
+layout: post
+title: Fixing blank pages after upgrading to WordPress 3
+tags:
+- All
+- Code
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  aktt_tweeted: '1'
+  _wp_old_slug: ''
+  _sexybookmarks_shortUrl: http://b2l.me/axb56j
+  _sexybookmarks_permaHash: 29b34dd917299030e2c952c459d3850d
+---
+Today I finally clicked the auto-upgrade button to upgrade my WordPress site to the newest version, 3.0.1. I then noticed that I wasn't seeing the content of a lot of my pages. I could still see the lists of posts but I wasn't getting anything on a single post or normal page. I verified the data was in the database.
+
+Here's what my page.php looked like:
+{% highlight php %}
+&lt;?php get_header(); ?&gt;
+&lt;div id=&quot;pageWrapper&quot;&gt;
+	&lt;h2&gt;&lt;?php the_title(); ?&gt;&lt;/h2&gt;
+	&lt;?php the_content(); ?&gt;
+&lt;/div&gt;
+&lt;?php get_footer(); ?&gt;
+{% endhighlight %}
+
+
+This was all fine and dandy for WordPress 2.x but obviously wasn't working for 3.0. Turns out the solution is quite simple. I just need to put the_content() back into <a href="http://codex.wordpress.org/The_Loop">&quot;the loop&quot;</a>:
+
+{% highlight php %}
+&lt;?php get_header(); ?&gt;
+&lt;div id=&quot;pageWrapper&quot;&gt;
+	&lt;?php if (have_posts()) : while (have_posts()) : the_post(); ?&gt;
+		&lt;h2&gt;&lt;?php the_title(); ?&gt;&lt;/h2&gt;
+		&lt;?php the_content(); ?&gt;
+	&lt;?php endwhile; endif; ?&gt;
+&lt;/div&gt;
+&lt;?php get_footer(); ?&gt;
+{% endhighlight %}
+
+
+I'm not sure why the change but I suppose I should have always explicitly used <a href="http://codex.wordpress.org/The_Loop">&quot;the loop&quot;</a>. Maybe I was taking advantage of a bug this whole time? Or maybe this was an intentional change that I should have seen coming. At any rate, if you see your content missing after an upgrade, take a look at your theme and make sure the_content() is always inside <a href="http://codex.wordpress.org/The_Loop">&quot;the loop&quot;</a>.

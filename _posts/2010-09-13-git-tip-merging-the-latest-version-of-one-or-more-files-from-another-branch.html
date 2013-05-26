@@ -1,0 +1,41 @@
+---
+layout: post
+title: ! 'Git tip: merging the latest version of one or more files from another branch'
+tags:
+- All
+- git
+- random
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  aktt_tweeted: '1'
+  _wp_old_slug: ''
+  _sexybookmarks_shortUrl: http://b2l.me/aw8dnr
+  _sexybookmarks_permaHash: ba3337c214d8da7cdb1c63f4abbd0168
+---
+Today I was working in two separate branches in git and wrote a jQuery plugin that was useful to both branches. The problem was that I committed this new file along with changes to other files in order to use it. So I didn't want to use <a href="http://www.kernel.org/pub/software/scm/git/docs/git-cherry-pick.html">cherry-pick</a> to grab the commit because I didn't want the other changes from that commit. There's also the case where there are many commits involving that file in the other branch and you just want the most up to date version of that file. Turns out there's a simple way to merge the latest version of a file (or even multiple files) from another branch into yours. Just follow this syntax:
+{% highlight text %}
+git checkout &lt;other branch name&gt; &lt;path(s) to file(s)&gt;
+{% endhighlight %}
+
+
+Example of a single file:
+{% highlight text %}
+git checkout new_feature public/javascripts/jquery.newplugin.js
+{% endhighlight %}
+
+
+Example for multiple files:
+{% highlight text %}
+git checkout new_feature public/javascripts/jquery.newplugin.js public/stylesheets/jquery.newplugin.css
+{% endhighlight %}
+
+
+Then you can commit and you'll have that file in your branch without causing any git ugliness.
+
+Resource (and a little more detail) on <a href="http://jasonrudolph.com/blog/2009/02/25/git-tip-how-to-merge-specific-files-from-another-branch/">Jason Rudolph's</a> blog.
+

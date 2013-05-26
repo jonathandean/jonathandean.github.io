@@ -1,0 +1,30 @@
+---
+layout: post
+title: delayed_job in Rails 3
+tags:
+- All
+- Code
+- delayed_job
+- rails
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  aktt_tweeted: '1'
+  aktt_notify_twitter: 'yes'
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+---
+<p>I searched for how to use delayed_job and Rails 3 on Google last night and went down a little rabbit hole I thought I could try to help someone else avoid. I ended up at <a href="http://www.dixis.com/?p=335">http://www.dixis.com/?p=335</a> which provided a great, but out of date, article on how to do this. It recommends using <a href="https://github.com/collectiveidea/delayed_job">collectiveidea's fork of delayed_job</a> in the master branch, but as it turns out the latest in the master branch in  is in flux at the moment. The ActiveRecord backend is currently being abstracted into it's own gem (which is a great idea) but that means the generators to make the database tables are no longer there. It also in general seems not ready for prime time.</p>
+<!--more-->
+<p>As of today, here's what you should do for delayed_job and Rails 3:<p>
+<p>In your Gemfile:</a>
+{% highlight text %}gem &quot;delayed_job&quot;, &quot;~&gt; 2.1.4&quot;{% endhighlight %}
+<p>Create the database migration and run it:</p>
+{% highlight text %}$ script/rails generate delayed_job
+$ rake db:migrate{% endhighlight %}
+
+<p>Now get out of here and start writing some code!</p>
+

@@ -1,0 +1,37 @@
+---
+layout: post
+title: Dividing numbers in Ruby returning zero or an integer unexpectedly?
+tags:
+- All
+- Code
+- rails
+- ruby
+status: publish
+type: post
+published: true
+meta:
+  _wp_old_slug: diving-numbers-in-ruby-returning-zero-or-an-integer-unexpectedly
+  aktt_tweeted: '1'
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  _sexybookmarks_shortUrl: http://b2l.me/axme2q
+  _sexybookmarks_permaHash: 833d68c25d8e41f60ce7d8fe8b0390f5
+---
+There's a "quirk" about Ruby that I often forget when going back to it after a long period of time using other languages. If you divide two integers in Ruby then it's going to give you an integer as a result. Consider the following:
+{% highlight ruby %}
+some_int = 3
+another_int = 2
+answer = some_int / another_int  # answer is going to be 1 here
+{% endhighlight %}
+
+
+To fix this you'll need to convert your integers to floats first. The following will work:
+{% highlight ruby %}
+some_int = 3
+another_int = 2
+answer = some_int.to_f / another_int.to_f  # answer is going to be 1.5 here
+{% endhighlight %}
+
+
+the to_f function is going to convert the integers to floats and give you the float (decimal) answer.  

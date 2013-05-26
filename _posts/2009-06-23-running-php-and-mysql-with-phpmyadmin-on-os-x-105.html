@@ -1,0 +1,55 @@
+---
+layout: post
+title: Running PHP and MySQL with phpMyAdmin on OS X 10.5
+tags:
+- All
+- apache
+- apple
+- Code
+- mysql
+- php
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _syntaxhighlighter_encoded: '1'
+  _edit_last: '1'
+  aktt_tweeted: '1'
+  _sexybookmarks_shortUrl: http://b2l.me/aw486u
+  _sexybookmarks_permaHash: 7ba4800c4b13166ce3012c7edeb44c1d
+  Hide SexyBookmarks: '0'
+  Hide OgTags: '0'
+  _social_notify: '1'
+  _social_aggregated_ids: a:2:{s:7:"twitter";a:0:{}s:8:"facebook";a:0:{}}
+  _social_aggregation_log: a:10:{i:1364078964;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364080769;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364084531;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364088873;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364096363;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364111428;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364140338;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364184423;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364271592;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364445260;O:8:"stdClass":1:{s:6:"manual";b:0;}}
+---
+Apache already comes pre-installed on OS X but PHP is not enabled by default. To enable PHP we need to edit our Apache config file by opening the Terminal <!--more-->and typing <em>sudo nano /private/etc/apache2/httpd.conf </em>and hitting enter (put in your admin password when it asks.) Type Control+W to bring up the search option and type <em>php5_module</em> and hit enter. Remove the # from the beginning of that line and then type Control+X to exit, Y to save when it asks, and Enter to overwrite the same filename.
+
+Next, we want to create our PHP config file since it isn't there by default. In the Terminal type <em>cd /private/etc</em> and hit enter, then type <em>sudo cp php.ini.default php.ini</em> and hit enter. This makes a copy of the default configuration we can use to get started with. We'll use that later. Now you can start up Apache by going to System Preferences, Sharing and checking the Web Sharing box. If it was already checked, uncheck it and then recheck it again to restart Apache to accept our changes.
+
+Now you need to install MySQL. Luckily, there's already an install package available at <a title="MySQL.com" href="http://mysql.com">MySQL.com</a> so head on over there and download the latest stable version of 5.X. Now extract the zip, open the dmg and run the .pkg installer. I would also recommend double-clicking the .prefPane file for quick access to startup and shutdown commands without needing the Terminal. I don't necessarily recommend installing the MySQLStartupItem package unless you really need it. In fact, you really shouldn't leave MySQL or your web server running at all when you aren't using it.
+
+Once MySQL is installed you need to start it up. If you installed the preference pane (the .prefPane file) you can just go into System Preferences and then click MySQL. From there just click the button to get it started. Now we are going to want to set a password for the root user. To do that just open up the Terminal and type <em>mysql</em> . If it can't find the mysql command we can add it to your path by editing your bash profile. Just type <em>sudo nano ~/.bash_profile</em> in the Terminal to edit the file, entering your admin password when it asks. Then add a line that looks like this: <em>export PATH=/usr/local/mysql/bin:$PATH</em> and type Control+X, Y, Enter to quit and save your changes. Then you'll need to reload your bash profile by typing <em>source ~/.bash_profile</em>
+
+Now you should be able to type <em>mysql</em> in the Terminal from any directory to connect to mysql. From the <em>mysql&gt; </em>prompt type the following, substituting <em>yourpassword</em> with your desired password and then hit enter: <em>set password for 'root'@'localhost' = password('yourpassword');</em> To make sure it was effective, log out by typing <em>exit;</em> and then enter and log back in again but this time we want to supply our credentials. So type the following to show that we want to log in using the root user and a password: <em>mysql -u root -p</em>
+
+To make sure PHP can connect we need to edit our php configuration to know where the MySQL socket is located. For this type <em>sudo nano /private/etc/php.ini</em> from the Terminal. When the file opens type Control+W to bring up the search box and type in <em>mysql.default_socket</em> and hit enter. After the equals sign on that line enter <em>/tmp/mysql.sock</em> and and type Control+X, Y, Enter to quit and save your changes. Now we need to restart Apache for the change to take effect by going to System Preferences, Sharing and unchecking then rechecking the Web Sharing box. (Or via command-line if you wish.)
+
+Now to install phpMyAdmin just download the latest and extract it into your Sites folder in your user account (/Users/<em>username</em>/Sites/) or the Apache root (/Library/WebServer/Documents/), whichever you prefer. Browse to that folder in the Terminal and type <em>mkdir config</em> to make the config folder and then <em>chmod o+rw config</em> to make it writable. Then browse to the setup folder in your browser, which would be http://localhost/~<em>user</em>/phpmyadmin/setup/ if you installed it in your user's Sites folder or just http://localhost/phpmyadmin/setup/ if you put it in the Apache root. From there click the New Server button and then Save to take the defaults (unless you know other options you need) and then Save again in the Configuration File settings of the Overview page. Now you should be able to log into your server by going to either http://localhost/~<em>user</em>/phpmyadmin/ or http://localhost/phpmyadmin/ and entering your root username and password. It's highly recommended that you create another user with fewer privledges to do most of your work, though.
+
+If you also want to be able to use a .htaccess file you'll need to go to the Terminal and type <em>sudo nano /private/etc/apache2/httpd.conf</em> to edit your Apache config file. Then type Control+W and search for <em>AllowOverride</em>. Change that option from <em>None</em> to <em>All</em> so that it reads <em>AllowOverride All</em> and then  type Control+X, Y, Enter to quit and save your changes. Now we need to do the same for each user account. Do this by typing <em>sudo nano /private/etc/apache2/users/</em>username<em>.conf</em> and making the same change. If you aren't sure what users there are you can type <em>ls /private/etc/apache2/users/ . </em>After you make the changes you'll need to restart Apache again.
+
+Some of this I did today and other parts of it I did a while ago so if anyone wants to give it a run through and let me know how it turns out that would be great. I know it could use some screenshots but those will have to come later since I was already done with this when I decided to write the instructions out.
+
+My final word on this is to be mindful of security and make sure no one who shouldn't can access any applications that are running. I would recommend shutting down MySQL and Apache when you aren't developing to keep risks to a minimum. I'm not going to go into security since I assume that you know what you're doing but it was worth mentioning again that any servers running on your machine are a potential security risk if you don't know how to keep it safe.
+
+References:
+
+<a title="Foundation PHP" href="http://foundationphp.com/tutorials/php_leopard.php">http://foundationphp.com/tutorials/php_leopard.php</a>
+
+<a title="MySQL Documentaion Tutorial" href="http://dev.mysql.com/doc/refman/5.1/en/tutorial.html">http://dev.mysql.com/doc/refman/5.1/en/tutorial.html</a>
+
+<a title="phpMyAdmin Setup Tool" href="http://wiki.phpmyadmin.net/pma/Setup">http://wiki.phpmyadmin.net/pma/Setup</a>
+
+<a title="Enabling .htaccess in OS X" href="http://www.clagnut.com/blog/350/">http://www.clagnut.com/blog/350/</a>  
