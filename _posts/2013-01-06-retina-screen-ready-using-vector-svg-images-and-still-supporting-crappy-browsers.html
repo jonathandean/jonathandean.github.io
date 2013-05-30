@@ -16,23 +16,23 @@ published: true
 	<li>Use a standard image tag with the src attribute pointing to your .svg image</li>
 
   {% highlight html %}
-  <img src="images/logo.svg" alt="" />
-  {% endhighlight %}
+<img src="images/logo.svg" alt="" />
+{% endhighlight %}
 
 	<li>Reference your fallback image one of two ways:
     <ul>
       <li>Put a .png file with the same name in the same directory. It will simply become the following in a non-SVG browser:</li>
       {% highlight html %}
-        <img src="images/logo.png" alt="" />
-      {% endhighlight %}
+<img src="images/logo.png" alt="" />
+{% endhighlight %}
 	    <li>Add a <em>data-svg-fallback</em> attribute to the image tag pointing to the fallback version. Use this method if your fallback is not a PNG or if it lives in a different directory</li>
       {% highlight html %}
-        <img src="images/logo.svg" alt="" data-svg-fallback="images/fallback/logo.jpg" />
-      {% endhighlight %}
+<img src="images/logo.svg" alt="" data-svg-fallback="images/fallback/logo.jpg" />
+{% endhighlight %}
       which becomes:
       {% highlight html %}
-        <img src="images/logo.jpg" alt="" />
-      {% endhighlight %}
+<img src="images/logo.jpg" alt="" />
+{% endhighlight %}
     </ul>
 	<li>Load the <a title="svg_fallback.js" href="https://github.com/jonathandean/svg_fallback/blob/master/svg_fallback.js">svg_fallback.js</a> or <a title="svg_fallback.jquery.js" href="https://github.com/jonathandean/svg_fallback/blob/master/svg_fallback.jquery.js">svg_fallback.jquery.js</a> script before the end of your closing body tag, depending on your preference and whether or not you use jQuery. The jQuery version can also be safely used in your head tag if you wish since it uses a DOM-ready handler, but you should always avoid loading JavaScript in the header when possible.</li>
 </ol>
@@ -83,7 +83,7 @@ body.no-svg h1.logo {
 <p>If you are using Rails and the asset pipeline you should put your images in the page doing something like this:</p>
 
 {% highlight ruby %}
-  <%= image_tag "#{image_path('logo.png')}", alt: "Use an alt value!" %>
+<%= image_tag "#{image_path('logo.png')}", alt: "Use an alt value!" %>
 {% endhighlight %}
 
 <p>Just using the default behavior of automatically using a .png extension for the same file path won't work when the asset pipeline adds the digest to the filename during asset compilation.</p>
