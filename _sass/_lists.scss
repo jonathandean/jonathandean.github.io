@@ -34,7 +34,12 @@
       color:$grey-medium;
     }
     ul {
-      list-style-type:disc; 
-      margin-left:1em;
+      list-style-type:disc;
+    }
+    ol {
+      list-style-type: decimal;
+    }
+    ul, ol {
+      margin-left: 2em;
     }
 }

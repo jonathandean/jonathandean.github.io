@@ -462,8 +462,11 @@ date {
   margin-bottom: .5em;
   color: #777777; }
 .post ul {
-  list-style-type: disc;
-  margin-left: 1em; }
+  list-style-type: disc; }
+.post ol {
+  list-style-type: decimal; }
+.post ul, .post ol {
+  margin-left: 2em; }
 
 a {
   text-decoration: none; }
