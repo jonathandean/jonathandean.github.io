@@ -13,26 +13,25 @@ published: true
 
 <ol>
 	<li>Create both an SVG and fallback version for non-compatible browsers (such as a PNG or JPG.) <em>Check out <a title="retinafy.me" href="http://retinafy.me/">retinafy.me</a> for a comprehensive guide.</em></li>
-	<li>Use a standard image tag with the src attribute pointing to your .svg image</li>
-
-  {% highlight html %}
+	<li>Use a standard image tag with the src attribute pointing to your .svg image
+{% highlight html %}
 <img src="images/logo.svg" alt="" />
-{% endhighlight %}
+{% endhighlight %}</li>
 
 	<li>Reference your fallback image one of two ways:
     <ul>
-      <li>Put a .png file with the same name in the same directory. It will simply become the following in a non-SVG browser:</li>
-      {% highlight html %}
+      <li>Put a .png file with the same name in the same directory. It will simply become the following in a non-SVG browser:
+{% highlight html %}
 <img src="images/logo.png" alt="" />
-{% endhighlight %}
-	    <li>Add a <em>data-svg-fallback</em> attribute to the image tag pointing to the fallback version. Use this method if your fallback is not a PNG or if it lives in a different directory</li>
-      {% highlight html %}
+{% endhighlight %}</li>
+	    <li>Add a <em>data-svg-fallback</em> attribute to the image tag pointing to the fallback version. Use this method if your fallback is not a PNG or if it lives in a different directory
+{% highlight html %}
 <img src="images/logo.svg" alt="" data-svg-fallback="images/fallback/logo.jpg" />
 {% endhighlight %}
       which becomes:
       {% highlight html %}
 <img src="images/logo.jpg" alt="" />
-{% endhighlight %}
+{% endhighlight %}</li>
     </ul>
 	<li>Load the <a title="svg_fallback.js" href="https://github.com/jonathandean/svg_fallback/blob/master/svg_fallback.js">svg_fallback.js</a> or <a title="svg_fallback.jquery.js" href="https://github.com/jonathandean/svg_fallback/blob/master/svg_fallback.jquery.js">svg_fallback.jquery.js</a> script before the end of your closing body tag, depending on your preference and whether or not you use jQuery. The jQuery version can also be safely used in your head tag if you wish since it uses a DOM-ready handler, but you should always avoid loading JavaScript in the header when possible.</li>
 </ol>
