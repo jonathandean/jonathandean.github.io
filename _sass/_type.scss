@@ -74,11 +74,6 @@ p, li {
   }
 }
 
-// Uh you don't need to read this stuff. Let's make it small.
-.meta {
-  font-size:$type-5; 
-}
-
 .ct {
   text-align:center;
   @include breakpoint(one-hand) {
