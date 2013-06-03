@@ -394,13 +394,12 @@ p, li {
     font-size: 32px; } }
 .post footer {
   color: #eeeeee; }
+.post .time {
+  color: #999999; }
 
 @media screen and (min-width: 100px) and (max-width: 479px) {
   .h1-r {
     font-size: 32px; } }
-
-.meta {
-  font-size: 12px; }
 
 .ct {
   text-align: center; }
@@ -430,7 +429,7 @@ em {
   text-transform: uppercase; }
 
 date {
-  color: #777777; }
+  color: #999999; }
 
 .bb {
   border-bottom: 1px dotted #eeeeee; }
@@ -460,7 +459,7 @@ date {
   font-weight: bold; }
 .post dd {
   margin-bottom: .5em;
-  color: #777777; }
+  color: #999999; }
 .post ul {
   list-style-type: disc; }
 .post ol {
@@ -481,7 +480,7 @@ ul.social li {
   nav[role="navigation"] li a,
   ul.social li a {
     font-weight: 100;
-    color: #777777;
+    color: #999999;
     display: block;
     padding-right: 1em;
     text-decoration: none; }
@@ -773,8 +772,11 @@ img {
 
 /* Literal.Number.Integer.Long */
 code {
-  border-radius: 3px;
-  background-color: #eeeeee;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid #eeeeee;
+  border-left-width: 4px;
+  background-color: #fcfcfc;
   display: block;
   font-family: Consolas,  "Andale Mono WT",  "Andale Mono",  "Lucida Console",  "Lucida Sans Typewriter",  "DejaVu Sans Mono",  "Bitstream Vera Sans Mono",  "Liberation Mono",  "Nimbus Mono L",  Monaco,  "Courier New",  Courier,  monospace;
   font-size: 14px;

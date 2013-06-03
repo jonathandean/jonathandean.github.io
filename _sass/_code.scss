@@ -1,6 +1,10 @@
-code { 
-  border-radius: 3px;
-  background-color: $grey-light;
+code {
+  $code-border-radius: 5px;
+  border-top-right-radius: $code-border-radius;
+  border-bottom-right-radius: $code-border-radius;
+  border: 1px solid $grey-light;
+  border-left-width: 4px;
+  background-color: $grey-subtle;
   display: block;
   font-family: 
     Consolas, 
