@@ -1,6 +1,6 @@
           <li>
-            <a href="{{ post.url }}" title="{{post.title}}">
-              <date datetime="{{post.date}}" class="meta">
+            <a class="post-link" href="{{ post.url }}" title="{{post.title}}">
+              <date datetime="{{post.date}}" class="date meta">
                 {{ post.date | date_to_long_string }}
               </date>
               {{ post.title }}

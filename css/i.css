@@ -361,7 +361,7 @@ h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: .25em; }
 
 h1, .h1 {
-  font-size: 64px; }
+  font-size: 52px; }
 
 h2, .h2 {
   font-size: 32px; }
@@ -370,7 +370,7 @@ h3, .h3 {
   font-size: 20px; }
 
 h4, .h4 {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 900; }
 
 h5, .h5 {
@@ -378,7 +378,7 @@ h5, .h5 {
   font-style: italic; }
 
 h6, .h6 {
-  font-size: 12px; }
+  font-size: 16px; }
 
 p, li {
   font-size: 20px;
@@ -397,6 +397,9 @@ p, li {
 .post .time {
   color: #999999; }
 
+.post-link .date {
+  font-size: 16px; }
+
 @media screen and (min-width: 100px) and (max-width: 479px) {
   .h1-r {
     font-size: 32px; } }
@@ -411,7 +414,7 @@ blockquote {
   font-family: "Apollo MT W02 Italic";
   padding: 1em 0 1.75em 0; }
   blockquote p {
-    font-size: 20px; }
+    font-size: 32px; }
   blockquote footer, blockquote footer a {
     font-size: 16px;
     line-height: 2;
@@ -420,10 +423,6 @@ blockquote {
 
 em {
   font-style: italic; }
-
-.bump-it {
-  font-size: 20px;
-  margin-bottom: 1em; }
 
 .author {
   text-transform: uppercase; }
@@ -435,7 +434,7 @@ date {
   border-bottom: 1px dotted #eeeeee; }
 
 .large-list {
-  font-size: 16px; }
+  font-size: 20px; }
   .large-list li {
     border-top: 1px solid #eee; }
   .large-list a {
@@ -453,7 +452,7 @@ date {
 
 .post ul, .post dl {
   line-height: 1.618;
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 1em; }
 .post dt {
   font-weight: bold; }
@@ -473,7 +472,7 @@ a {
 nav[role="navigation"] li,
 ul.social li {
   display: inline-block;
-  font-size: 16px; }
+  font-size: 20px; }
   nav[role="navigation"] li:last-child,
   ul.social li:last-child {
     border-right: none; }

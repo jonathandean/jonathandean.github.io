@@ -86,5 +86,5 @@ body.no-svg h1.logo {
 {% endhighlight %}
 
 <p>Just using the default behavior of automatically using a .png extension for the same file path won't work when the asset pipeline adds the digest to the filename during asset compilation.</p>
-<h3>Credits</h3>
+<h2>Credits</h2>
 <p>Credit for the basic idea of the script goes to <a title="Thomas Fuchs" href="http://mir.aculo.us/">Thomas Fuchs</a> and this example for his <a title="retinafy.me" href="http://retinafy.me/">retinafy.me</a> book: <a title="SVG script" href="https://gist.github.com/3202087">https://gist.github.com/3202087</a>. There are just a couple of key differences between his version and my adaptation. The original script requires that JavaScript sets the image src regardless of which image is being used. I prefer to take the philosophy of SVG-capable-browsers-first a little farther in that the default SVG image is shown immediately when rendered in the page without waiting for the script to run. His version also assumes that the fallback image is always a .png file in the same directory as the original, which doesn't work if you prefer .jpg images as the alternative or if you are using the Rails asset pipeline with the hash digests turned on (as explained above), which the default and recommended way for production applications.</p>
