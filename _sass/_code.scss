@@ -1,10 +1,12 @@
-code {
-  $code-border-radius: 5px;
+.highlighttable, code, .code {
+  $code-border-radius: 6px;
   border-top-right-radius: $code-border-radius;
   border-bottom-right-radius: $code-border-radius;
   border: 1px solid $grey-light;
   border-left-width: 4px;
   background-color: $grey-subtle;
+}
+code, .code {
   display: block;
   font-family: 
     Consolas, 
@@ -24,9 +26,25 @@ code {
   line-height: 1.4;
   letter-spacing: 0.1em;
   margin: 1em 0;
-  overflow: auto;
+  overflow-x: auto;
   padding: 1em;
   @include breakpoint(one-hand) {
     padding:1em 0.2em;
+  }
+}
+.lineno{
+  color: $grey-light;
+}
+.highlighttable{
+  code, .code{
+    border: none;
+    border-radius: none;
+    background-color: transparent;
+  }
+  .linenos {
+    background-color: $grey-medium;
+    .lineno {
+      color: white;
+    }
   }
 }

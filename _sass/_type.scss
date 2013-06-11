@@ -9,10 +9,8 @@ h1,h2,h3,h4,h5,h6 {
   font-weight:100;
 }
 
-// I mean it's not that big.
-
 h1,.h2,.h3,.h4,.h5,.h6 {
-  margin-bottom:.25em;
+  margin-bottom:.35em;
 }
 
 h1,.h1 {
@@ -25,10 +23,11 @@ h2,.h2 {
 
 h3,.h3 {
   font-size:$type-4;
+  font-weight:900;
 }
 
 h4,.h4 {
-  font-size:$type-4;
+  font-size:$type-5;
   font-weight:900;
 }
 
@@ -50,16 +49,22 @@ p, li {
 }
 
 .intro {
-  font-size: $type-3;
+  font-size: $copy*1.2;
 }
 
 .post {
-   h1 {
+  .header h1 {
     @include breakpoint(one-hand) {
         font-size:$type-3;
     }
   }
-  footer {
+  .header{
+    border-bottom: 1px solid $grey-light;
+  }
+  .intro{
+    padding-bottom: 1em;
+  }
+  .footer {
     color:$grey-light;
   }
   .time{

@@ -358,7 +358,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 100; }
 
 h1, .h2, .h3, .h4, .h5, .h6 {
-  margin-bottom: .25em; }
+  margin-bottom: .35em; }
 
 h1, .h1 {
   font-size: 52px; }
@@ -367,10 +367,11 @@ h2, .h2 {
   font-size: 32px; }
 
 h3, .h3 {
-  font-size: 20px; }
+  font-size: 20px;
+  font-weight: 900; }
 
 h4, .h4 {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 900; }
 
 h5, .h5 {
@@ -387,12 +388,16 @@ p, li {
     margin-top: 1em; }
 
 .intro {
-  font-size: 32px; }
+  font-size: 24px; }
 
 @media screen and (min-width: 100px) and (max-width: 479px) {
-  .post h1 {
+  .post .header h1 {
     font-size: 32px; } }
-.post footer {
+.post .header {
+  border-bottom: 1px solid #eeeeee; }
+.post .intro {
+  padding-bottom: 1em; }
+.post .footer {
   color: #eeeeee; }
 .post .time {
   color: #999999; }
@@ -467,7 +472,8 @@ date {
   margin-left: 2em; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: #ff5335; }
 
 nav[role="navigation"] li,
 ul.social li {
@@ -770,20 +776,34 @@ img {
   color: #009999; }
 
 /* Literal.Number.Integer.Long */
-code {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+.highlighttable, code, .code {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
   border: 1px solid #eeeeee;
   border-left-width: 4px;
-  background-color: #fcfcfc;
+  background-color: #fcfcfc; }
+
+code, .code {
   display: block;
   font-family: Consolas,  "Andale Mono WT",  "Andale Mono",  "Lucida Console",  "Lucida Sans Typewriter",  "DejaVu Sans Mono",  "Bitstream Vera Sans Mono",  "Liberation Mono",  "Nimbus Mono L",  Monaco,  "Courier New",  Courier,  monospace;
   font-size: 14px;
   line-height: 1.4;
   letter-spacing: 0.1em;
   margin: 1em 0;
-  overflow: auto;
+  overflow-x: auto;
   padding: 1em; }
   @media screen and (min-width: 100px) and (max-width: 479px) {
-    code {
+    code, .code {
       padding: 1em 0.2em; } }
+
+.lineno {
+  color: #eeeeee; }
+
+.highlighttable code, .highlighttable .code {
+  border: none;
+  border-radius: none;
+  background-color: transparent; }
+.highlighttable .linenos {
+  background-color: #999999; }
+  .highlighttable .linenos .lineno {
+    color: white; }
