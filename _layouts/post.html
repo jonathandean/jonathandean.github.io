@@ -1,15 +1,16 @@
 {% include _head.html %}
 <body>
   <article class="mt-2 post single-column">
-    <!-- This is where the title: in your front matter gets dropped in.-->
-    <h1>
-      {{page.title}}
-    </h1>
-    <p class="meta date">
-      <time class="time post" datetime="{{page.date | date: "%Y-%m-%d"}}" pubdate>{{page.date | date: "%B %d, %Y"}}</time>
-    </p>
+    <header class="header">
+      <h1>
+        {{page.title}}
+      </h1>
+      <p class="meta date">
+        <time class="time post" datetime="{{page.date | date: "%Y-%m-%d"}}" pubdate>{{page.date | date: "%B %d, %Y"}}</time>
+      </p>
+    </header>
     {{content}}
-    <footer class="mt-2">
+    <footer class="mt-2 footer">
     {% if page.author %}
     <p class="meta author">
     <time  class="meta" datetime="{{page.date}}">{{page.date | date: "%d %B %Y"}}</time><br />
