@@ -1,3 +1,13 @@
+.site-header {
+  background-color: #333;
+  &, a{
+  color: white;
+  }
+}
+.home .site-header {
+  padding: 2em 0;
+}
+
 nav[role="navigation"] li,
 ul.social li {
   display:inline-block;

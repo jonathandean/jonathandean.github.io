@@ -1,5 +1,6 @@
 {% include _head.html %}
-<body>
+<body{% if page.url == "/index.html" %} class="home" {% endif %}>
+  {% include _header.html %}
   {{content}}
   {% include _navigation.html %}
   {% include _footer.html %}

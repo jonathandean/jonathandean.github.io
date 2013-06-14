@@ -3,22 +3,19 @@ layout: default
 ---
 
 <section class="single-column">
-  <h1 class="ct h1">{{ site.name }}</h1>
-  <section class="mt-4">
-    <article>
-      <ul class="large-list ct mt-1">
-        {% for post in paginator.posts %}
-          <li>
-            <a href="{{ post.url }}" title="{{post.title}}">
-              <date datetime="{{post.date}}" class="meta">
-                {{ post.date | date_to_long_string }}
-              </date>
-              {{ post.title }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-      <p class="ct"><a href="{{site.url}}/archives/" class="ct" title="Archives">...</a></p>
-    </article>
-  </section>
+  <article>
+    <ul class="large-list ct mt-1">
+      {% for post in paginator.posts %}
+        <li>
+          <a href="{{ post.url }}" title="{{post.title}}">
+            <date datetime="{{post.date}}" class="meta">
+              {{ post.date | date_to_long_string }}
+            </date>
+            {{ post.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <p class="ct"><a href="{{site.url}}/archives/" class="ct" title="Archives">...</a></p>
+  </article>
 </section>

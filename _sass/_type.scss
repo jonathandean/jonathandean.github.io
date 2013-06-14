@@ -48,6 +48,20 @@ p, li {
   }
 }
 
+.identity {
+  // Web font assigned via fonts.com
+  font-size: $type-3;
+  text-transform: lowercase;
+  font-weight: 900;
+  a{
+    text-decoration: none;
+  }
+}
+
+.home .identity {
+  font-size: $type-2;
+}
+
 .intro {
   font-size: $copy*1.2;
 }
@@ -63,6 +77,7 @@ p, li {
   }
   .intro{
     padding-bottom: 1em;
+    text-align: center;
   }
   .footer {
     color:$grey-light;
@@ -84,9 +99,6 @@ p, li {
 
 .ct {
   text-align:center;
-  @include breakpoint(one-hand) {
-    text-align:left;
-  }
 }
 
 blockquote {
@@ -113,4 +125,10 @@ em {
 
 date {
   color:$grey-medium;
+}
+
+.copyright{
+  p{
+    font-size: $type-6;
+  }
 }

@@ -387,6 +387,16 @@ p, li {
   p + p, li + p {
     margin-top: 1em; }
 
+.identity {
+  font-size: 32px;
+  text-transform: lowercase;
+  font-weight: 900; }
+  .identity a {
+    text-decoration: none; }
+
+.home .identity {
+  font-size: 52px; }
+
 .intro {
   font-size: 24px; }
 
@@ -396,7 +406,8 @@ p, li {
 .post .header {
   border-bottom: 1px solid #eeeeee; }
 .post .intro {
-  padding-bottom: 1em; }
+  padding-bottom: 1em;
+  text-align: center; }
 .post .footer {
   color: #eeeeee; }
 .post .time {
@@ -411,9 +422,6 @@ p, li {
 
 .ct {
   text-align: center; }
-  @media screen and (min-width: 100px) and (max-width: 479px) {
-    .ct {
-      text-align: left; } }
 
 blockquote {
   font-family: "Apollo MT W02 Italic";
@@ -434,6 +442,9 @@ em {
 
 date {
   color: #999999; }
+
+.copyright p {
+  font-size: 12px; }
 
 .bb {
   border-bottom: 1px dotted #eeeeee; }
@@ -474,6 +485,14 @@ date {
 a {
   text-decoration: none;
   color: #ff5335; }
+
+.site-header {
+  background-color: #333; }
+  .site-header, .site-header a {
+    color: white; }
+
+.home .site-header {
+  padding: 2em 0; }
 
 nav[role="navigation"] li,
 ul.social li {
