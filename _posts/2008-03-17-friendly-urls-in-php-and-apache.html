@@ -10,26 +10,26 @@ status: publish
 type: post
 published: true
 ---
-I've tried a few different ways of doing friendly URLs in PHP and all have their advantages and disadvantages.  For a good introduction and some other methods that don't necessarily require an Apache server, take a look at <a href="http://www.sitepoint.com/article/search-engine-friendly-urls">this sitepoint article</a>.  I've used Method 2 there before (.htaccess Error Pages) but I don't like what that does to your server logs.
+<p>I've tried a few different ways of doing friendly URLs in PHP and all have their advantages and disadvantages.  For a good introduction and some other methods that don't necessarily require an Apache server, take a look at <a href="http://www.sitepoint.com/article/search-engine-friendly-urls">this sitepoint article</a>.  I've used Method 2 there before (.htaccess Error Pages) but I don't like what that does to your server logs.</p>
 
-For the method I use most often and am describing here, the credit goes to <a href="http://exanimo.com/">ex animo</a>.  He first showed me the .htaccess rewrite rule while we were working on a project at <a href="http://sunkingdigital.com/">sunKING</a> and I have only added a little of my own twist to it.
+<p>For the method I use most often and am describing here, the credit goes to <a href="http://exanimo.com/">ex animo</a>.  He first showed me the .htaccess rewrite rule while we were working on a project at <a href="http://sunkingdigital.com/">sunKING</a> and I have only added a little of my own twist to it.</p>
 
-The basic idea is simple<!--more-->:
+<p>The basic idea is simple:</p>
 <ol><li>You create a rewrite rule that redirects all web page requests to a single page
 </li><li>This page parses the requested URL and determines what page to display</li><li>It's so simple there is no step 3</li></ol>
-So let's take a look at the .htaccess file you'll have to make in order to redirect your web requests:
 
-RewriteEngine on
+<p>So let's take a look at the .htaccess file you'll have to make in order to redirect your web requests:</p>
+
 {% highlight text %}
+RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?permalink=$1 [QSA,L]
 {% endhighlight %}
 
+<p>If you're quick on the uptake you'll notice that all requests except those that have a period in them will be redirected to index.php and that it will get the request URI as a parameter.  The reason for not allowing the period is so that we can still access images and other static assets via their actual filename.  You don't necessarily have to do this but I think it keeps things cleaner when you don't have to parse URIs for images as well.  Not to mention that I can think of no good reason to have a friendly URL to an image or style sheet and can think of plenty of reasons not to.</p>
 
-If you're quick on the uptake you'll notice that all requests except those that have a period in them will be redirected to index.php and that it will get the request URI as a parameter.  The reason for not allowing the period is so that we can still access images and other static assets via their actual filename.  You don't necessarily have to do this but I think it keeps things cleaner when you don't have to parse URIs for images as well.  Not to mention that I can think of no good reason to have a friendly URL to an image or style sheet and can think of plenty of reasons not to.
-
-Anyway, so what do we do with this?  Well, we want to set up index.php to parse the URI being passed in and display the page we want.  You can do this in any number of ways but here's how I normally do my setup for most small sites.  My simplified index.php file will look something like this:
+<p>Anyway, so what do we do with this?  Well, we want to set up index.php to parse the URI being passed in and display the page we want.  You can do this in any number of ways but here's how I normally do my setup for most small sites.  My simplified index.php file will look something like this:</p>
 
 {% highlight php %}
 <?php
@@ -74,21 +74,21 @@ require_once('footer.php'); // common footer
 ?>
 {% endhighlight %}
 
-You can surely (and probably should) do a lot more processing here depending on your site's needs, security concerns, etc. but this is the basic idea. Obviously, you want make sure those include (or require) statements reference the correct file locations. I usually simplify that by setting the include path as I have above.
+<p>You can surely (and probably should) do a lot more processing here depending on your site's needs, security concerns, etc. but this is the basic idea. Obviously, you want make sure those include (or require) statements reference the correct file locations. I usually simplify that by setting the include path as I have above.</p>
 
-Note that in the above example I have my includes directory outside of the public root so that the files aren't directly web accessible.  Some servers can't do this (such as ones running Plesk) so for those you'll have to modify that first line to be like this and put the includes folder in a public directory: 
+<p>Note that in the above example I have my includes directory outside of the public root so that the files aren't directly web accessible.  Some servers can't do this (such as ones running Plesk) so for those you'll have to modify that first line to be like this and put the includes folder in a public directory:</p>
 
 {% highlight php %}
 <?php
 define('INCLUDE_PATH', $_SERVER['DOCUMENT_ROOT'].'/includes/');
 {% endhighlight %}
 
-So what's left?  Not really anything.  All you have to do now is put your PHP files in the proper locations and you're done.  So with the example above you would put the file about.php in your includes/pages folder in order to get to that page via http://example.com/about .  To get to http://example.com/about/me you would just put your me.php file inside of includes/pages/about/me.php .
+<p>So what's left?  Not really anything.  All you have to do now is put your PHP files in the proper locations and you're done.  So with the example above you would put the file about.php in your includes/pages folder in order to get to that page via http://example.com/about .  To get to http://example.com/about/me you would just put your me.php file inside of includes/pages/about/me.php .</p>
 
-In fact, in the time it took you to read to the bottom of this article you could have already had your site up.  Not too shabby, eh?
+<p>In fact, in the time it took you to read to the bottom of this article you could have already had your site up.  Not too shabby, eh?</p>
 
-Just to help you get started I've created a zip file that you can just extract an upload to your server.  If you're using <a href="http://mediatemple.net">Media Temple</a> or other hosts that work similarly you can just upload the contents to the root folder of the website (so the folder that is named like yourdomain.com).  The html folder in the zip is the public root (where you normally put your index.php or index.html file for your home page.)
+<p>Just to help you get started I've created a zip file that you can just extract an upload to your server.  If you're using <a href="http://mediatemple.net">Media Temple</a> or other hosts that work similarly you can just upload the contents to the root folder of the website (so the folder that is named like yourdomain.com).  The html folder in the zip is the public root (where you normally put your index.php or index.html file for your home page.)</p>
 
-If you're using Plesk you'll want to move things around just a little since it won't let you include files out of the public root.  Just put the files in the html folder (index.php and .htaccess) into your httpdocs folder and throw the includes folder in there as well.  Then modify that first line that defines the INCLUDE_PATH constant for the new location as mentioned above.
+<p>If you're using Plesk you'll want to move things around just a little since it won't let you include files out of the public root.  Just put the files in the html folder (index.php and .htaccess) into your httpdocs folder and throw the includes folder in there as well.  Then modify that first line that defines the INCLUDE_PATH constant for the new location as mentioned above.</p>
 
-<a href="http://jonathandean.s3.amazonaws.com/code/friendly-urls.zip">Download the example site (.zip)</a>  
+<p><a href="http://jonathandean.s3.amazonaws.com/code/friendly-urls.zip">Download the example site (.zip)</a></p>
