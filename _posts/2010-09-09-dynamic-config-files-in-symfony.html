@@ -9,31 +9,26 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  aktt_notify_twitter: 'yes'
-  _edit_last: '1'
-  _syntaxhighlighter_encoded: '1'
-  aktt_tweeted: '1'
-  _sexybookmarks_shortUrl: http://b2l.me/axb435
-  _sexybookmarks_permaHash: 1d1e37c36b86b2810637380a206663b7
 ---
-Don't like the idea of manually setting certain values in your Symfony YAML configuration files? Or maybe, like in my case, you want the value of one setting to be set based on the value of a previous one, maybe a calculation of other values for instance. It may not be obvious at first but you <em>can</em> include PHP blocks in your config files. You just need to be a little careful about the line endings in order for it to work properly. If you take a look at your apps/<em>application</em>/config/settings.yml there's already an example in there in how to achieve this:
+<p>Don't like the idea of manually setting certain values in your Symfony YAML configuration files? Or maybe, like in my case, you want the value of one setting to be set based on the value of a previous one, maybe a calculation of other values for instance. It may not be obvious at first but you <em>can</em> include PHP blocks in your config files. You just need to be a little careful about the line endings in order for it to work properly. If you take a look at your apps/<em>application</em>/config/settings.yml there's already an example in there in how to achieve this:</p>
+
 {% highlight text %}
 dev:
   .settings:
-    error_reporting: &lt;?php echo ((E_ALL | E_STRICT) ^ E_NOTICE).&quot;\n&quot; ?&gt;
+    error_reporting: <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
 {% endhighlight %}
 
-Here's a (silly) example of what you may want to put in your app.yml:
+<p>Here's a (silly) example of what you may want to put in your app.yml:</p>
+    
 {% highlight text %}
-&lt;?php $i = 10; ?&gt;
+<?php $i = 10; ?>
 all:
   numbers:
-    option1: &lt;?php echo ($i++) . &quot;\n&quot; ?&gt;
-    option2: &lt;?php echo ($i++) . &quot;\n&quot; ?&gt;
-    default: &lt;?php echo $i . &quot;\n&quot; ?&gt;
+    option1: <?php echo ($i++) . "\n" ?>
+    option2: <?php echo ($i++) . "\n" ?>
+    default: <?php echo $i . "\n" ?>
 {% endhighlight %}
 
-Just note "\n" at the end of the line as this is important. Without it the newline character won't be added and the resulting YAML will be malformed. Also be really careful not to put any spaces or anything in front of a PHP block that doesn't output anything, such as the first line in that example since that will also be malformed YAML. Just always remember to think of what the output will look like and that it must be valid YAML.
+<p>Just note "\n" at the end of the line as this is important. Without it the newline character won't be added and the resulting YAML will be malformed. Also be really careful not to put any spaces or anything in front of a PHP block that doesn't output anything, such as the first line in that example since that will also be malformed YAML. Just always remember to think of what the output will look like and that it must be valid YAML.</p>
 
-<strong>Note:</strong> I'm using Symfony 1.4 and haven't verified this in other versions.
+<p><strong>Note:</strong> I'm using Symfony 1.4 and haven't verified this in other versions.</p>
