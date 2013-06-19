@@ -9,9 +9,10 @@ status: publish
 type: post
 published: true
 ---
-If you're running an Apache server there's no need to hard code your links to force https/http or write server-side code. A few simple rewrite rules will allow you to redirect your secure pages to https and your non-secure pages back to http. We'll just check the server port to see if it's using secure port 443 and redirect the page accordingly.<!--more-->
+<p>If you're running an Apache server there's no need to hard code your links to force https/http or write server-side code. A few simple rewrite rules will allow you to redirect your secure pages to https and your non-secure pages back to http. We'll just check the server port to see if it's using secure port 443 and redirect the page accordingly.</p>
 
-For instance, to redirect the checkout section to use https just use the following in your httpd.conf file (or vhost.conf if using Plesk):
+<p>For instance, to redirect the checkout section to use https just use the following in your httpd.conf file (or vhost.conf if using Plesk):</p>
+
 {% highlight text %}
 <Directory "/var/www/html">
 RewriteEngine on
@@ -24,32 +25,37 @@ RewriteRule ^checkout(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 </Directory>
 {% endhighlight %}
 
-Of course, you need to make sure that the directory path is valid for your setup. This will force http://www.example.com/checkout to redirect to https://www.example.com/checkout
+<p>Of course, you need to make sure that the directory path is valid for your setup. This will force http://www.example.com/checkout to redirect to https://www.example.com/checkout</p>
 
-If you want multiple pages change the RewriteRule to something like:
+<p>If you want multiple pages change the RewriteRule to something like:</p>
+
 {% highlight html %}
 RewriteRule ^(checkout|login)(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 {% endhighlight %}
 
-Just separate the page/folder names you want with the pipe (|) character. Read up on your regular expressions if this doesn't make sense to you.
+<p>Just separate the page/folder names you want with the pipe (|) character. Read up on your regular expressions if this doesn't make sense to you.</p>
 
-The first 4 lines are necessary Apache options we need to use for this to work properly. You can read the Apache manual for more information on those. The RewriteCond is testing if the server port is not 443, meaning we are not requesting via https. The first RewriteRule will ensure that files loaded within the page such as images, CSS, and JavaScript are loaded using the same protocol as the page itself. It matches on those file extensions and then uses the [S] (skip) flag to skip the next rule. This will help to avoid mixed content warnings in browsers. The list isn't comprehensive so be sure to add to it as necessary. The RewriteRule under that uses a regular expression to test if our URI starts with checkout (or login in the second example) and if so it redirects the request to the same URL but this time using SSL.  The [L] flag means that rewrites will end on this rule and the [R] flag means that you redirect the page so that the address changes in the browser. Removing the [R] flag will cause the page to be served via https but the URL to still show http.
+<p>The first 4 lines are necessary Apache options we need to use for this to work properly. You can read the Apache manual for more information on those. The RewriteCond is testing if the server port is not 443, meaning we are not requesting via https. The first RewriteRule will ensure that files loaded within the page such as images, CSS, and JavaScript are loaded using the same protocol as the page itself. It matches on those file extensions and then uses the [S] (skip) flag to skip the next rule. This will help to avoid mixed content warnings in browsers. The list isn't comprehensive so be sure to add to it as necessary. The RewriteRule under that uses a regular expression to test if our URI starts with checkout (or login in the second example) and if so it redirects the request to the same URL but this time using SSL.  The [L] flag means that rewrites will end on this rule and the [R] flag means that you redirect the page so that the address changes in the browser. Removing the [R] flag will cause the page to be served via https but the URL to still show http.</p>
 
-This is all well and good but it's only half of the equation. Once a user leaves a secure page then we should also be able to forward them back to regular http. To do this we just basically set up the reverse of the RewriteCond and RewriteRule:
+<p>This is all well and good but it's only half of the equation. Once a user leaves a secure page then we should also be able to forward them back to regular http. To do this we just basically set up the reverse of the RewriteCond and RewriteRule:</p>
+
 {% highlight html %}
 RewriteCond %{SERVER_PORT} ^443$
 RewriteRule \.(gif|jpg|jpeg|jpe|png|css|js)$ - [S=1]
 RewriteRule !^(checkout|login)(.*)$ http://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 {% endhighlight %}
 
-Notice that instead of checking to see if we are <em>not</em> using port 443 in the RewriteCond we are checking to see if we <em>are</em> using it. Then in the RewriteRule we are making all pages that are <em>not</em> checkout or login redirect to http.
+<p>Notice that instead of checking to see if we are <em>not</em> using port 443 in the RewriteCond we are checking to see if we <em>are</em> using it. Then in the RewriteRule we are making all pages that are <em>not</em> checkout or login redirect to http.</p>
 
-I'm pretty sure if you are using httpd.conf or a .htaccess file you can put these two lines directly below the original ones inside of the &lt;Directory&gt; block but I haven't tested that.  Since I'm using Plesk I needed to put the original block in my vhost.conf file (used for configuration of non-secure pages) and the entire block again but this time with the second set of rules in my vhost_ssl.conf file (used for configuration of secure pages).  Also, if you are using any of the .conf files you will need to restart apache for your changes to take place.
+<p>I'm pretty sure if you are using httpd.conf or a .htaccess file you can put these two lines directly below the original ones inside of the &lt;Directory&gt; block but I haven't tested that.  Since I'm using Plesk I needed to put the original block in my vhost.conf file (used for configuration of non-secure pages) and the entire block again but this time with the second set of rules in my vhost_ssl.conf file (used for configuration of secure pages).  Also, if you are using any of the .conf files you will need to restart apache for your changes to take place.</p>
 
-And just as a final note, these steps will not help you in setting up your SSL certificate. You will already need to have that set up and functional before using this.
+<p>And just as a final note, these steps will not help you in setting up your SSL certificate. You will already need to have that set up and functional before using this.</p>
 
-References:
-<a href="http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html" target="_blank">Apache mod_rewrite manual</a>
-<a href="http://www.askapache.com/htaccess/mod_rewrite-tips-and-tricks.html" target="_blank">Ask Apache rewrite tips</a>
-<a href="http://www.whoopis.com/howtos/apache-rewrite.html" target="_blank">whoopis.com tutorial</a>
-<a href="http://stackoverflow.com/questions/257872/-htaccess-require-ssl-for-a-particular-url/693182#693182" target="_blank">My original post with this answer on Stack Overflow</a>  
+<p>References:<p>
+
+<ul>
+  <li><a href="http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html" target="_blank">Apache mod_rewrite manual</a></li>
+  <li><a href="http://www.askapache.com/htaccess/mod_rewrite-tips-and-tricks.html" target="_blank">Ask Apache rewrite tips</a></li>
+  <li><a href="http://www.whoopis.com/howtos/apache-rewrite.html" target="_blank">whoopis.com tutorial</a></li>
+  <li><a href="http://stackoverflow.com/questions/257872/-htaccess-require-ssl-for-a-particular-url/693182#693182" target="_blank">My original post with this answer on Stack Overflow</a></li>
+</ul>
