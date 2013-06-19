@@ -9,24 +9,12 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  aktt_notify_twitter: 'yes'
-  _syntaxhighlighter_encoded: '1'
-  _edit_last: '1'
-  aktt_tweeted: '1'
-  _sexybookmarks_shortUrl: http://b2l.me/aw47qf
-  _sexybookmarks_permaHash: 4aebe6397798c6d64598b876d1b78a72
-  Hide SexyBookmarks: '0'
-  Hide OgTags: '0'
-  _social_notify: '1'
-  _social_aggregated_ids: a:2:{s:7:"twitter";a:0:{}s:8:"facebook";a:0:{}}
-  _social_aggregation_log: a:10:{i:1364078965;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364081871;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364085256;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364088874;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364096364;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364111429;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364140339;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364184425;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364271593;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364445261;O:8:"stdClass":1:{s:6:"manual";b:0;}}
 ---
-I was pretty disappointed after my Verizon Fios install to learn that the Actiontec M1424WR modem/router combo only goes up to a G wifi signal. I've been using my Time Capsule with an N signal for a while and it's great. I was even more disappointed to find that I wasn't simply able to extend the Fios wifi network to use Time Capsule as an extra base station for my backups.
+<p>I was pretty disappointed after my Verizon Fios install to learn that the Actiontec M1424WR modem/router combo only goes up to a G wifi signal. I've been using my Time Capsule with an N signal for a while and it's great. I was even more disappointed to find that I wasn't simply able to extend the Fios wifi network to use Time Capsule as an extra base station for my backups.</p>
 
-To help anyone who may have a similar problem, the solution was <!--more-->to connect the Time Capsule into one of the Ethernet ports on the Fios router so it would pick up the internet connection from there and create a separate wifi network on the Time Capsule. Now I actually have a better setup since I can force N-only mode on the Time Capsule so that my signal doesn't degrade to G for everyone when a G device is connected (the newest Time Capsules can now support both simultaneously.) The G downgrade would happen more often than not because of my wife's older Mac and my iPhone.
+<p>To help anyone who may have a similar problem, the solution was to connect the Time Capsule into one of the Ethernet ports on the Fios router so it would pick up the internet connection from there and create a separate wifi network on the Time Capsule. Now I actually have a better setup since I can force N-only mode on the Time Capsule so that my signal doesn't degrade to G for everyone when a G device is connected (the newest Time Capsules can now support both simultaneously.) The G downgrade would happen more often than not because of my wife's older Mac and my iPhone.</p>
 
-The recipe:
+<p>The recipe:</p>
 <ol>
 	<li>Connect an ethernet cable between one of the numbered ports on the Fios router and the incoming WAN port of the Time Capsule</li>
 	<li>Open the AirPort Utility and click on Manual Setup with your Time Capsule selected</li>
@@ -34,86 +22,4 @@ The recipe:
 	<li>Under the Internet Connection tab change Connection Sharing to Off (Bridge Mode). I'm not sure if this is necessary but it worked for me and sounds like a good idea</li>
 	<li>Click Update to reboot your Time Capsule</li>
 </ol>
-After this setup I have a B/G wifi network that everyone else will use in the house, including my Fios TV boxes, and another N-only wifi network that my MacBook Pro can connect to for the internet and Time Machine backups. This also allows me to make my Time Machine backups even more secure because I never have to give someone else access to the wifi information.
-
-By the way, the Fios TV menus are way better looking and easier to use than Comcast. I haven't looked at the on-demand service a lot yet but at first glance it looks much better too. I haven't really noticed the internet being faster but that's probably because the bottleneck will continue to be the servers I connect to and not my connection to the internet. If I don't lose my internet connection for 30 minutes at a time randomly then I'll know for sure that Fios internet is better too :)
-
-Fios internet speed test results are below.
-
-Time Capsule wifi:
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxLeftArrowDown.gif" border="0" alt="" width="34" height="65" /></td>
-<td style="vertical-align: middle; background-image: url(http://www2.verizon.net/micro/speedtest/java/images/boxMid.gif);" height="65" valign="top">
-<div style="font-size: smaller; text-align: center;">Your <span style="color: #cc0000; font-weight: bold;">download</span>
-speed is:
-<span style="color: #309618; font-weight: bold;">7.543 Mbps</span></div></td>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxRight.gif" border="0" alt="" width="14" height="65" /></td>
-</tr>
-</tbody></table>
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxLeftArrowUp.gif" border="0" alt="" width="34" height="65" /></td>
-<td style="vertical-align: middle; background-image: url(http://www2.verizon.net/micro/speedtest/java/images/boxMid.gif);" height="65" valign="top">
-<div style="font-size: smaller; text-align: center;">Your <span style="color: #cc0000; font-weight: bold;">upload</span>
-speed is:
-<span style="color: #309618; font-weight: bold;">5.957 Mbps</span></div></td>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxRight.gif" border="0" alt="" width="14" height="65" /></td>
-</tr>
-</tbody></table>
-Actiontec wifi:
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxLeftArrowDown.gif" border="0" alt="" width="34" height="65" /></td>
-<td style="vertical-align: middle; background-image: url(http://www2.verizon.net/micro/speedtest/java/images/boxMid.gif);" height="65" valign="top">
-<div style="font-size: smaller; text-align: center;">Your <span style="color: #cc0000; font-weight: bold;">download</span>
-speed is:
-<span style="color: #309618; font-weight: bold;">7.601 Mbps</span></div></td>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxRight.gif" border="0" alt="" width="14" height="65" /></td>
-</tr>
-</tbody></table>
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxLeftArrowUp.gif" border="0" alt="" width="34" height="65" /></td>
-<td style="vertical-align: middle; background-image: url(http://www2.verizon.net/micro/speedtest/java/images/boxMid.gif);" height="65" valign="top">
-<div style="font-size: smaller; text-align: center;">Your <span style="color: #cc0000; font-weight: bold;">upload</span>
-speed is:
-<span style="color: #309618; font-weight: bold;">5.033 Mbps</span></div></td>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxRight.gif" border="0" alt="" width="14" height="65" /></td>
-</tr>
-</tbody></table>
-Actiontec wired Ethernet:
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxLeftArrowDown.gif" border="0" alt="" width="34" height="65" /></td>
-<td style="vertical-align: middle; background-image: url(http://www2.verizon.net/micro/speedtest/java/images/boxMid.gif);" height="65" valign="top">
-<div style="font-size: smaller; text-align: center;">Your <span style="color: #cc0000; font-weight: bold;">download</span>
-speed is:
-<span style="color: #309618; font-weight: bold;">7.845 Mbps</span></div></td>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxRight.gif" border="0" alt="" width="14" height="65" /></td>
-</tr>
-</tbody></table>
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxLeftArrowUp.gif" border="0" alt="" width="34" height="65" /></td>
-<td style="vertical-align: middle; background-image: url(http://www2.verizon.net/micro/speedtest/java/images/boxMid.gif);" height="65" valign="top">
-<div style="font-size: smaller; text-align: center;">Your <span style="color: #cc0000; font-weight: bold;">upload</span>
-speed is:
-<span style="color: #309618; font-weight: bold;">5.967 Mbps</span></div></td>
-<td><img src="http://www2.verizon.net/micro/speedtest/java/images/boxRight.gif" border="0" alt="" width="14" height="65" /></td>
-</tr>
-</tbody></table>
-<table border="0" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td></td>
-<td style="vertical-align: middle; background-image: url(http://www2.verizon.net/micro/speedtest/java/images/boxMid.gif);" height="65" valign="top"></td>
-<td></td>
-</tr>
-</tbody></table>  
+<p>After this setup I have a B/G wifi network that everyone else will use in the house, including my Fios TV boxes, and another N-only wifi network that my MacBook Pro can connect to for the internet and Time Machine backups. This also allows me to make my Time Machine backups even more secure because I never have to give someone else access to the wifi information.</p>
