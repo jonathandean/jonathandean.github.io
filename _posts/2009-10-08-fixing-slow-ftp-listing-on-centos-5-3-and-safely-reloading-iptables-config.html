@@ -7,43 +7,33 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  _syntaxhighlighter_encoded: '1'
-  aktt_notify_twitter: 'yes'
-  _edit_last: '1'
-  _sexybookmarks_shortUrl: http://b2l.me/aw7t8q
-  _sexybookmarks_permaHash: 5f129db8c27ca2ae4021b3c5ec383f9d
-  aktt_tweeted: '1'
-  Hide SexyBookmarks: '0'
-  Hide OgTags: '0'
-  _social_notify: '1'
-  _social_aggregated_ids: a:2:{s:7:"twitter";a:0:{}s:8:"facebook";a:0:{}}
-  _social_aggregation_log: a:10:{i:1364078963;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364080768;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364084529;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364088872;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364096362;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364111427;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364140337;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364184422;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364271591;O:8:"stdClass":1:{s:6:"manual";b:0;}i:1364445259;O:8:"stdClass":1:{s:6:"manual";b:0;}}
 ---
-I first went looking for a solution as to why connecting to FTP on my new CentOS 5.3 server was very slow. I found this post that had the answer: <a href="http://www.electrictoolbox.com/directory-listing-slow-ftp-server-centos/">http://www.electrictoolbox.com/directory-listing-slow-ftp-server-centos/</a>
+<p>I first went looking for a solution as to why connecting to FTP on my new CentOS 5.3 server was very slow. I found this post that had the answer: <a href="http://www.electrictoolbox.com/directory-listing-slow-ftp-server-centos/">http://www.electrictoolbox.com/directory-listing-slow-ftp-server-centos/</a></p>
 
-The gist of it is to edit <em>/etc/sysconfig/iptables-config</em> and add the following<!--more-->:
+<p>The gist of it is to edit <em>/etc/sysconfig/iptables-config</em> and add the following:</p>
 
 <code>IPTABLES_MODULES="ip_conntrack_ftp"</code>
 
-<strong>However, the big lesson here is that if you reload your iptables now you may end up losing a lot of your rules.</strong> In fact I did this and my website (and every other service) immediately was unable to connect. I was <em>extremely</em> lucky that I was just playing around a few minutes before with how to back up the existing rules. So before you do anything with iptables, run this first to export your currently active rules:
+<p><strong>However, the big lesson here is that if you reload your iptables now you may end up losing a lot of your rules.</strong> In fact I did this and my website (and every other service) immediately was unable to connect. I was <em>extremely</em> lucky that I was just playing around a few minutes before with how to back up the existing rules. So before you do anything with iptables, run this first to export your currently active rules:</p>
 
-<code>iptables-save -c > /etc/iptables-save</code>
+<p><code>iptables-save -c > /etc/iptables-save</code></p>
 
-Now proceed to reloading your iptables-config:
+<p>Now proceed to reloading your iptables-config:</p>
 
 <code>/etc/init.d/iptables restart</code>
 
-Then make sure to re-apply the rules you saved with iptables-save by using iptables-restore:
+<p>Then make sure to re-apply the rules you saved with iptables-save by using iptables-restore:</p>
 
 <code>cat /etc/iptables-save | iptables-restore -c</code>
 
-Now I don't pretend to be any expert on iptables. I'm sure that someone very experienced with iptables will be able to tell that right away and maybe even provide a better solution. I just know that my limited experience tells me that the rules I have set in my iptables config files are less than what's actually active right now. My guess (and I cannot confirm this) is that Plesk applied many of the rules I had in place. I had also applied a few of my own rules using the iptables command and I didn't edit any config files so that was my first hint that what is actually running at the moment is not from config files alone.
+<p>Now I don't pretend to be any expert on iptables. I'm sure that someone very experienced with iptables will be able to tell that right away and maybe even provide a better solution. I just know that my limited experience tells me that the rules I have set in my iptables config files are less than what's actually active right now. My guess (and I cannot confirm this) is that Plesk applied many of the rules I had in place. I had also applied a few of my own rules using the iptables command and I didn't edit any config files so that was my first hint that what is actually running at the moment is not from config files alone.</p>
 
-So unless you are very experienced with iptables, do yourself a favor and use iptables-save before making any changes to your config files and/or restarting iptables.
+<p>So unless you are very experienced with iptables, do yourself a favor and use iptables-save before making any changes to your config files and/or restarting iptables.</p>
 
 
-References:
-<a href="http://www.electrictoolbox.com/directory-listing-slow-ftp-server-centos/">Directory listings slow with ftp server and CentOS</a>
-<a href="http://www.faqs.org/docs/iptables/iptables-save.html">iptables-save</a>
-<a href="http://www.faqs.org/docs/iptables/iptables-restore.html">iptables-restore</a>  
+<p>References:<p>
+<ul>
+  <li><a href="http://www.electrictoolbox.com/directory-listing-slow-ftp-server-centos/">Directory listings slow with ftp server and CentOS</a></li>
+  <li><a href="http://www.faqs.org/docs/iptables/iptables-save.html">iptables-save</a></li>
+  <li><a href="http://www.faqs.org/docs/iptables/iptables-restore.html">iptables-restore</a></li>
+</ul>
