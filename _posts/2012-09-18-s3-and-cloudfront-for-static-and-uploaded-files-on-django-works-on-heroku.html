@@ -11,24 +11,16 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  aktt_notify_twitter: 'yes'
-  _edit_last: '1'
-  _syntaxhighlighter_encoded: '1'
-  Hide SexyBookmarks: '0'
-  Hide OgTags: '0'
-  aktt_tweeted: '1'
-  _social_aggregation_next_run: '1368232460'
 ---
-This isn't the only way to make this happen but it worked well for me. For this solution I'm using the handy <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> to easily use separate folders in the same S3 bucket for static and media (uploaded) files.<!--more--> Of course using that package isn't strictly necessary so if you want to see a good example using just <a title="django-storages" href="http://pypi.python.org/pypi/django-storages">django-storages</a>, check out <a href="http://stackoverflow.com/a/8888930">this Stack Overflow answer</a>. (<a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> uses <a title="django-storages" href="http://pypi.python.org/pypi/django-storages">django-storages</a> under the hood, so either way you are using it.) To use <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> without Cloundfront, just use the instructions here: <a href="http://pypi.python.org/pypi/django-s3-folder-storage">http://pypi.python.org/pypi/django-s3-folder-storage</a>. <em>Note</em>: the relevant instructions for using with <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">AWS Cloudfront</a> are repeated below.
+<p>This isn't the only way to make this happen but it worked well for me. For this solution I'm using the handy <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> to easily use separate folders in the same S3 bucket for static and media (uploaded) files.<!--more--> Of course using that package isn't strictly necessary so if you want to see a good example using just <a title="django-storages" href="http://pypi.python.org/pypi/django-storages">django-storages</a>, check out <a href="http://stackoverflow.com/a/8888930">this Stack Overflow answer</a>. (<a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> uses <a title="django-storages" href="http://pypi.python.org/pypi/django-storages">django-storages</a> under the hood, so either way you are using it.) To use <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> without Cloundfront, just use the instructions here: <a href="http://pypi.python.org/pypi/django-s3-folder-storage">http://pypi.python.org/pypi/django-s3-folder-storage</a>. <em>Note</em>: the relevant instructions for using with <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">AWS Cloudfront</a> are repeated below.</p>
 
-First, let's add <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> to your <em><strong>requirements.txt</strong></em>
+<p>First, let's add <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> to your <em><strong>requirements.txt</strong></em></p>
 
 {% highlight text %}
 django-s3-folder-storage
 {% endhighlight %}
 
-Add it to your installed apps in your <em><strong>settings.py</strong></em> file:
+<p>Add it to your installed apps in your <em><strong>settings.py</strong></em> file:</p>
 
 {% highlight python %}
 INSTALLED_APPS = (
@@ -38,7 +30,7 @@ INSTALLED_APPS = (
 )
 {% endhighlight %}
 
-We are going to make two simple custom storage classes that extend the ones <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> gives you. Make a new file (here we'll call it <em><strong>storage.py</strong></em>) with the following:
+<p>We are going to make two simple custom storage classes that extend the ones <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> gives you. Make a new file (here we'll call it <em><strong>storage.py</strong></em>) with the following:</p>
 
 {% highlight python %}
 import urlparse
@@ -61,27 +53,27 @@ class StaticFilesStorage(StaticStorage):
         super(StaticFilesStorage, self).__init__(*args, **kwargs)
 {% endhighlight %}
 
-Now you want to add the appropriate settings. <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> adds two new settings on top of what you'd normally set for <a title="django-storages" href="http://pypi.python.org/pypi/django-storages">django-storages</a>: <em>DEFAULT_S3_PATH</em> and <em>STATIC_S3_PATH</em> for your uploaded and static files, respectively. Here's an example of what to put in your <em><strong>settings.py</strong></em>:
+<p>Now you want to add the appropriate settings. <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> adds two new settings on top of what you'd normally set for <a title="django-storages" href="http://pypi.python.org/pypi/django-storages">django-storages</a>: <em>DEFAULT_S3_PATH</em> and <em>STATIC_S3_PATH</em> for your uploaded and static files, respectively. Here's an example of what to put in your <em><strong>settings.py</strong></em>:</p>
 
 {% highlight python %}
 DEFAULT_FILE_STORAGE = 'storage.MediaFilesStorage'
-DEFAULT_S3_PATH = &quot;media&quot;
+DEFAULT_S3_PATH = "media"
 STATICFILES_STORAGE = 'storage.StaticFilesStorage'
-STATIC_S3_PATH = &quot;static&quot;
+STATIC_S3_PATH = "static"
 
-AWS_STORAGE_BUCKET_NAME = &quot;[BUCKET_NAME_HERE]&quot;
-CLOUDFRONT_DOMAIN = &quot;[CLOUDFRONT_DOMAIN_HERE].cloudfront.net&quot;
+AWS_STORAGE_BUCKET_NAME = "[BUCKET_NAME_HERE]"
+CLOUDFRONT_DOMAIN = "[CLOUDFRONT_DOMAIN_HERE].cloudfront.net"
 
 MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
 MEDIA_URL = '//%s/%s/' % (CLOUDFRONT_DOMAIN, DEFAULT_S3_PATH)
-STATIC_ROOT = &quot;/%s/&quot; % STATIC_S3_PATH
+STATIC_ROOT = "/%s/" % STATIC_S3_PATH
 STATIC_URL = '//%s/%s/' % (CLOUDFRONT_DOMAIN, STATIC_S3_PATH)
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
-AWS_ACCESS_KEY_ID = &quot;[ACCESS_KEY_HERE]&quot;
-AWS_SECRET_ACCESS_KEY = &quot;[SECRET_KEY_HERE]&quot;
+AWS_ACCESS_KEY_ID = "[ACCESS_KEY_HERE]"
+AWS_SECRET_ACCESS_KEY = "[SECRET_KEY_HERE]"
 {% endhighlight %}
 
-Now when you run <em>collectstatic</em> your files will be send to S3 and served on the site from <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a>.
+<p>Now when you run <em>collectstatic</em> your files will be send to S3 and served on the site from <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a>.</p>
 
-<strong>Special note about custom <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a> domains:</strong> If you created a custom subdomain for <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a> using a CNAME alias, be careful if you need to serve these static files over HTTPS. If your SSL certificate isn't for the wildcard domain or otherwise isn't valid for the subdomain then you may get SSL warnings in the browser that makes them not work. For instance, if you set up <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a> to use <em>static.example.com</em> and are using it on <em>example.com</em>, make sure the SSL certificate is also valid for static.example.com. I'm not an SSL expert by any means, just sharing what I found to be true. Using the domain that <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a> gives you should work by default, however.
+<p><strong>Special note about custom <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a> domains:</strong> If you created a custom subdomain for <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a> using a CNAME alias, be careful if you need to serve these static files over HTTPS. If your SSL certificate isn't for the wildcard domain or otherwise isn't valid for the subdomain then you may get SSL warnings in the browser that makes them not work. For instance, if you set up <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a> to use <em>static.example.com</em> and are using it on <em>example.com</em>, make sure the SSL certificate is also valid for static.example.com. I'm not an SSL expert by any means, just sharing what I found to be true. Using the domain that <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">Cloudfront</a> gives you should work by default, however.</p>
