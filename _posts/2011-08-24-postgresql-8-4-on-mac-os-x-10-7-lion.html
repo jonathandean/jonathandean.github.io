@@ -9,110 +9,90 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  aktt_notify_twitter: 'yes'
-  _edit_last: '1'
-  _syntaxhighlighter_encoded: '1'
-  aktt_tweeted: '1'
-  Hide SexyBookmarks: '0'
-  Hide OgTags: '0'
 ---
-This should probably work for any version but 8.4 is what I needed and tested.  If you want to make life easier, you should consider using the <a href="http://russbrooks.com/2010/11/25/install-postgresql-9-on-os-x">homebrew install method</a> instead.
+<p>This should probably work for any version but 8.4 is what I needed and tested.  If you want to make life easier, you should consider using the <a href="http://russbrooks.com/2010/11/25/install-postgresql-9-on-os-x">homebrew install method</a> instead.</p>
 
-<!--more-->
+<p><strong>Important:</strong> If you also need the Ruby gem you may want to skip to the alternate install method below and save yourself some time. Or you can try to see how to get this method working where I failed (I'd greatly appreciate a comment with your fix if you do.)</p>
 
-<strong>Important:</strong> If you also need the Ruby gem you may want to skip to the alternate install method below and save yourself some time. Or you can try to see how to get this method working where I failed (I'd greatly appreciate a comment with your fix if you do.)
-
-First, create the postgres user as there is an issue with the automatic installers creating it <sup>[1]</sup>:
+<p>First, create the postgres user as there is an issue with the automatic installers creating it <sup>[1]</sup>:</p>
 
 {% highlight text %}sudo dscl . -create /Users/postgres UserShell /usr/bin/false{% endhighlight %}
 
-Next, <a href="http://www.enterprisedb.com/products-services-training/pgdownload#osx">download the installer dmg from the PostgreSQL site</a>
+<p>Next, <a href="http://www.enterprisedb.com/products-services-training/pgdownload#osx">download the installer dmg from the PostgreSQL site</a></p>
 
-Run the installer. It may give you a message about shared memory. If so, click OK, restart your computer and run the installer again.
+<p>Run the installer. It may give you a message about shared memory. If so, click OK, restart your computer and run the installer again.</p>
 
-After the installer finishes I still got the following error message:
+<p>After the installer finishes I still got the following error message:</p>
 
 {% highlight text %}Problem running post-install step.
 Installation may not complete correctly
 The database cluster initialization failed.{% endhighlight %}
 
-Supposedly, the creation of the postgres user is the cause for this, though doing it first doesn't seem to avoid the error.
+<p>Supposedly, the creation of the postgres user is the cause for this, though doing it first doesn't seem to avoid the error.</p>
 
-Now if you type psql at the command prompt it may still blow up on you as it did for me. This is probably because it's pointing to the system install of PostgreSQL and not the one we just installed. Confirm that by doing:
+<p>Now if you type psql at the command prompt it may still blow up on you as it did for me. This is probably because it's pointing to the system install of PostgreSQL and not the one we just installed. Confirm that by doing:</p>
 
 {% highlight text %}which psql{% endhighlight %}
 
-
-and you'll probably get
+<p>and you'll probably get</p>
 
 {% highlight text %}/usr/bin/psql{% endhighlight %}
 
-
-We really want the version in /Library/PostgreSQL/{version}/bin so we fix that by adding that directory to our path. If you use bash you can add the following to your ~/.bash_profile (substituting 8.4 for your actual version number if you installed a different one - from now on I'll just assume 8.4 though):
+<p>We really want the version in /Library/PostgreSQL/{version}/bin so we fix that by adding that directory to our path. If you use bash you can add the following to your ~/.bash_profile (substituting 8.4 for your actual version number if you installed a different one - from now on I'll just assume 8.4 though):</p>
 
 {% highlight text %}export PATH=/Library/PostgreSQL/8.4/bin:$PATH{% endhighlight %}
 
-
-If you already have an export PATH line in there then don't replace it, just add the /Library/PostgreSQL/8.4/bin part to somewhere before $PATH, being sure to separate it from the next path via a colon (:). Now save ~/.bash_profile and go to the command prompt and type
+<p>If you already have an export PATH line in there then don't replace it, just add the /Library/PostgreSQL/8.4/bin part to somewhere before $PATH, being sure to separate it from the next path via a colon (:). Now save ~/.bash_profile and go to the command prompt and type</p>
 
 {% highlight text %}source ~/.bash_profile{% endhighlight %}
 
-
-and you should be able to now do
+<p>and you should be able to now do</p>
 
 {% highlight text %}which psql{% endhighlight %}
 
-
-and get
+<p>and get</p>
 
 {% highlight text %}/Library/PostgreSQL/8.4/bin/psql{% endhighlight %}
 
-Make sure the data directory is owned by the appropriate user (if that data directory doesn't exist, make it first):
+<p>Make sure the data directory is owned by the appropriate user (if that data directory doesn't exist, make it first):</p>
 
 {% highlight text %}sudo chown postgres /Library/PostgreSQL/8.4/data/{% endhighlight %}
 
-
-And then initialize it:
+<p>And then initialize it:</p>
 
 {% highlight text %}sudo -u postgres initdb -D /Library/PostgreSQL/8.4/data{% endhighlight %}
 
-
-You can now start the database server using:
+<p>You can now start the database server using:</p>
 
 {% highlight text %}sudo -u postgres postgres -D /Library/PostgreSQL/8.4/data{% endhighlight %}
 
-
-or
+<p>or</p>
 
 {% highlight text %}sudo -u postgres pg_ctl -D /Library/PostgreSQL/8.4/data -l logfile start{% endhighlight %}
 
-You should be all good to go now. Some other helpful things to get you started:
+<p>You should be all good to go now. Some other helpful things to get you started:</p>
 
-Create a database:
+<p>Create a database:</p>
 
 {% highlight text %}sudo -u postgres createdb new_database_name{% endhighlight %}
 
-
-Connect to that database:
+<p>Connect to that database:</p>
 
 {% highlight text %}sudo -u postgres psql -d new_database_name{% endhighlight %}
 
-
-Create a new role as a superuser and assign a password:
+<p>Create a new role as a superuser and assign a password:</p>
 
 {% highlight text %}sudo -u postgres createuser -P -s -e new_user_name{% endhighlight %}
 
-<strong>Alternate installation from source if you have trouble building the Ruby gem for Rails</strong>
+<h2>Alternate installation from source if you have trouble building the Ruby gem for Rails</h2>
 
-The above got a PostgreSQL server running for me but I had issues using it with the Rails gem. Seemed to be incompatible architectures and it didn't matter which arch flags I used to compile the gem. So instead I installed the 64 bit version of 8.4 from source. (If you want the latest version you can try using homebrew or macports instead.) If you already tried the above and it failed just use the uninstaller provided in /Library/PostgreSQL/8.4 and start over this way.
+<p>The above got a PostgreSQL server running for me but I had issues using it with the Rails gem. Seemed to be incompatible architectures and it didn't matter which arch flags I used to compile the gem. So instead I installed the 64 bit version of 8.4 from source. (If you want the latest version you can try using homebrew or macports instead.) If you already tried the above and it failed just use the uninstaller provided in /Library/PostgreSQL/8.4 and start over this way.</p>
 
-Extract the download and then go into the extracted directory:
+<p>Extract the download and then go into the extracted directory:</p>
 
 {% highlight text %}cd postgresql-8.4.8{% endhighlight %}
 
-
-Then (assuming you have already created the postgres user as above):
+<p>Then (assuming you have already created the postgres user as above):</p>
 
 {% highlight text %}
 ./configure
@@ -122,65 +102,58 @@ mkdir /usr/local/pgsql/data
 {% endhighlight %}
 
 
-Open ~/.bash_profile and add:
+<p>Open <em>~/.bash_profile</em> and add:</p>
 
 {% highlight text %}export PATH=/usr/local/pgsql/bin:$PATH{% endhighlight %}
 
-
-Then reload your profile:
+<p>Then reload your profile:</p>
 
 {% highlight text %}source ~/.bash_profile{% endhighlight %}
 
-
-Initialize:
+<p>Initialize:</p>
 
 {% highlight text %}initdb -D /usr/local/pgsql/data{% endhighlight %}
 
-
-Start the database:
+<p>Start the database:</p>
 
 {% highlight text %}postgres -D /usr/local/pgsql/data{% endhighlight %}
 
-
-or with:
+<p>or with:</p>
 
 {% highlight text %}pg_ctl -D /usr/local/pgsql/data -l logfile start{% endhighlight %}
 
+<p><strong>Important note:</strong> this method will make the owner of your database the current Mac OS user, not the conventional postgres user.</p>
 
-Important note: this method will make the owner of your database the current Mac OS user, not the conventional postgres user.
-
-Now to install the Ruby gem:
+<p>Now to install the Ruby gem:</p>
 
 {% highlight text %}export PATH=/usr/local/pgsql/bin:$PATH
-env ARCHFLAGS=&amp;quot;-arch x86_64&amp;quot; gem install pg{% endhighlight %}
+env ARCHFLAGS=&"-arch x86_64&" gem install pg{% endhighlight %}
 
-You should be all good to go now. Some other helpful things to get you started:
+<p>You should be all good to go now. Some other helpful things to get you started:</p>
 
-Create a database:
+<p>Create a database:</p>
 
 {% highlight text %}createdb new_database_name{% endhighlight %}
 
-
-Connect to that database:
+<p>Connect to that database:</p>
 
 {% highlight text %}psql -d new_database_name{% endhighlight %}
 
-
-Create a new role as a superuser and assign a password:
+<p>Create a new role as a superuser and assign a password:</p>
 
 {% highlight text %}createuser -P -s -e new_user_name{% endhighlight %}
 
-<strong>Note:</strong> If you have trouble starting apache via the built in web sharing or even MAMP, check the Console app and verify that you are getting an error similar to this:
+<p><strong>Note:</strong> If you have trouble starting apache via the built in web sharing or even MAMP, check the Console app and verify that you are getting an error similar to this:</p>
 
 {% highlight text %}dyld: Library not loaded: /usr/lib/libpq.5.dylib{% endhighlight %}
 
-
-If so do the following:
+<p>If so do the following:</p>
 
 {% highlight text %}sudo mv /usr/lib/libpq.5.dylib /usr/lib/libpq.5.dylib.backup
 sudo ln -s /usr/local/pgsql/lib/libpq.5.dylib /usr/lib/libpq.5.dylib{% endhighlight %}
 
-Credits:
+<p>Credits:</p>
+
 <ul>
 	<li><sup>[1]</sup> <a href="http://www.docmoto.com/en/node/196">http://www.docmoto.com/en/node/196</a></li>
 </ul>
