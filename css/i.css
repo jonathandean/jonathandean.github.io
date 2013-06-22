@@ -387,6 +387,15 @@ p, li {
   p + p, li + p {
     margin-top: 1em; }
 
+.green {
+  color: teal; }
+
+.blue {
+  color: #445588; }
+
+.red {
+  color: #990000; }
+
 .identity {
   font-size: 32px;
   text-transform: lowercase;

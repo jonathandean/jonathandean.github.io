@@ -416,14 +416,13 @@ gem 'haml'
 {% endhighlight %}
     
 <p>There are quite a few other filters:</p>
-<!-- TODO use a definition list! -->
-<ul>
-  <li><pre>:plain</pre> does not parse the content</li>
-  <li><pre>:escaped</pre> same as plain but HTML-escapes the text</li>
-  <li><pre>:ruby</pre> pass the content to the normal Ruby interpreter</li>
-  <li><pre>:sass</pre> parse the content with SASS to produce CSS output</li>
-  <li>and more! (<a href="http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html#filters">see the docs</a>)</li>
-</ul>
+<dl>
+  <dt><pre>:plain</pre></dt><dd>does not parse the content</dd>
+  <dt><pre>:escaped</pre></dt><dd>same as plain but HTML-escapes the text</dd>
+  <dt><pre>:ruby</pre></dt><dd>pass the content to the normal Ruby interpreter</dd>
+  <dt><pre>:sass</pre></dt><dd>parse the content with SASS to produce CSS output</dd>
+  <dt>and more!</dt><dd>(<a href="http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html#filters">see the docs</a>)</dd>
+</dl>
 <p>You can also make custom filters if you have special needs. See the documentation for <a href="http://haml-lang.com/docs/yardoc/Haml/Filters.html">HAML::Filters</a></p>
 <hr>
     
@@ -900,11 +899,10 @@ color: #010203 + #040506;
 color: #050709;
 {% endhighlight %}
 <p>How this is computed:</p>
-    <!-- TODO emphasize with colors instead -->
-<p>#<strong>01</strong>02<em>03</em> + #<strong>04</strong>05<em>06</em> = #<strong>05</strong>07<em>09</em></p>
-<p><strong>01</strong> + <strong>04</strong> = <strong>05</strong></p>
-<p>02 + 05 = 07</p>
-<p><em>03</em> + <em>06</em> = <em>09</em></p>
+<p>#<span class="green">01</span><span class="red">02</span><span class="blue">03</span> + #<span class="green">04</span><span class="red">05</span><span class="blue">06</span> = #<span class="green">05</span><span class="red">07</span><span class="blue">09</span></p>
+<p><span class="green">01</span> + <span class="green">04</span> = <span class="green">05</span></p>
+<p><span class="red">02</span> + <span class="red">05</span> = <span class="red">07</span></p>
+<p><span class="blue">03</span> + <span class="blue">06</span> = <span class="blue">09</span></p>
 
 
 <h3>Variable defaults</h3>
