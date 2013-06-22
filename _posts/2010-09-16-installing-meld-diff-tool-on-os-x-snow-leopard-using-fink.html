@@ -7,67 +7,61 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  _syntaxhighlighter_encoded: '1'
-  _edit_last: '1'
-  aktt_notify_twitter: 'yes'
-  aktt_tweeted: '1'
-  _wp_old_slug: ''
-  _sexybookmarks_shortUrl: http://b2l.me/aw4x84
-  _sexybookmarks_permaHash: 4bb6c86ab38aeb4a2a5270d8e0db0c86
-  Hide SexyBookmarks: '0'
-  Hide OgTags: '0'
 ---
-<strong>Install fink</strong>
+<h2>Install fink</h2>
 
-First we're going to install <a href="http://www.finkproject.org">fink</a> as it will provide an OS X-ready version of meld for us (and quite a number of other UNIX programs as well). At the moment you'll need to install fink from source for Snow Leopard (OS X 10.6). If you're using another version of OS X there are binaries available for 10.1 to 10.5 on the main <a href="http://www.finkproject.org/download">downloads</a> page. The download for the source version is located at <a href="http://www.finkproject.org/download/srcdist.php">http://www.finkproject.org/download/srcdist.php</a>. The latest version at the time of this writing is 0.29.10 and can be found directly at <a href="http://downloads.sourceforge.net/fink/fink-0.29.10.tar.gz">http://downloads.sourceforge.net/fink/fink-0.29.10.tar.gz</a>. Download and save that file somewhere.
+<p>First we're going to install <a href="http://www.finkproject.org">fink</a> as it will provide an OS X-ready version of meld for us (and quite a number of other UNIX programs as well). At the moment you'll need to install fink from source for Snow Leopard (OS X 10.6). If you're using another version of OS X there are binaries available for 10.1 to 10.5 on the main <a href="http://www.finkproject.org/download">downloads</a> page. The download for the source version is located at <a href="http://www.finkproject.org/download/srcdist.php">http://www.finkproject.org/download/srcdist.php</a>. The latest version at the time of this writing is 0.29.10 and can be found directly at <a href="http://downloads.sourceforge.net/fink/fink-0.29.10.tar.gz">http://downloads.sourceforge.net/fink/fink-0.29.10.tar.gz</a>. Download and save that file somewhere.</p>
 
-<!--more-->
-
-Download the tar.gz file and run the following commands:
+<p>Download the tar.gz file and run the following commands:</p>
+ 
 {% highlight text %}
-cd &lt;directory you downloaded the file to&gt;
+cd /path/to/download
 tar -xvzf fink-0.29.10.tar.gz
 cd fink-0.29.10
 ./bootstrap
 {% endhighlight %}
 
+<p>The installer will go through a bunch of options. If you aren't sure what to select from any of them just use the default.</p>
 
-The installer will go through a bunch of options. If you aren't sure what to select from any of them just use the default.
+<p>When that's done run this to set up your current terminal session to use fink:</p>
 
-When that's done run this to set up your current terminal session to use fink:
 {% highlight text %}
 . /sw/bin/init.sh
 {% endhighlight %}
 
 
-Then you probably want to add that same line to your .profile or .bash_profile file so that future terminal sessions know where to find fink:
+<p>Then you probably want to add that same line to your .profile or .bash_profile file so that future terminal sessions know where to find fink:</p>
+
 {% highlight text %}
 sudo nano ~/.bash_profile
 {% endhighlight %}
 
 
-You probably also want to update fink (use default options again if you aren't sure):
+<p>You probably also want to update fink (use default options again if you aren't sure):</p>
+
 {% highlight text %}
 fink selfupdate
 {% endhighlight %}
 
 
-If you want to see the available fink packages you can run the following, but that list will be very large and take a little while to print out (3611 packages for me):
+<p>If you want to see the available fink packages you can run the following, but that list will be very large and take a little while to print out (3611 packages for me):</p>
+
 {% highlight text %}
 fink list
 {% endhighlight %}
 
 
-<strong>Installing meld</strong>
+<h2>Installing meld</h2>
 
-Now to install meld:
+<p>Now to install meld:</p>
+
 {% highlight text %}
 fink install meld
 {% endhighlight %}
 
 
-It may ask you questions on what dependency packages to use. You can pick whatever you feel is best for your system (and you may see a different list than mine depending on your current packages) but just for reference here's what I chose:
+<p>It may ask you questions on what dependency packages to use. You can pick whatever you feel is best for your system (and you may see a different list than mine depending on your current packages) but just for reference here's what I chose:</p>
+
 {% highlight text %}
 Information about 3611 packages read in 0 seconds.
 
@@ -122,7 +116,8 @@ Pick one: [1] 1
 {% endhighlight %}
 
 
-Then you should get a message like this telling you everything that will be installed:
+<p>Then you should get a message like this telling you everything that will be installed:</p>
+
 {% highlight text %}
 The following package will be installed or updated:
  meld
@@ -151,7 +146,8 @@ Do you want to continue? [Y/n] Y
 {% endhighlight %}
 
 
-After a while of installing things, I ended up getting this error message:
+<p>After a while of installing things, I ended up getting this error message:</p>
+
 {% highlight text %}
 ...
 While trying to install:
@@ -172,7 +168,8 @@ Fink isn't sure how to install the above packages safely. You may be able to fix
 {% endhighlight %}
 
 
-So I went ahead and ran the suggested steps but got the same error again. Turns out uninstalling libgettext8-dev before installing libgettext3-dev is a better idea, so I added that step in there and ran the following 4 lines:
+<p>So I went ahead and ran the suggested steps but got the same error again. Turns out uninstalling libgettext8-dev before installing libgettext3-dev is a better idea, so I added that step in there and ran the following 4 lines:</p>
+
 {% highlight text %}
 fink scanpackages
 sudo apt-get update
@@ -181,10 +178,11 @@ sudo apt-get install libgettext3-dev=0.14.5-2
 {% endhighlight %}
 
 
-Then I ran the meld install command again, selecting the same options as before when prompted to help with dependency choices and default value for everything else:
+<p>Then I ran the meld install command again, selecting the same options as before when prompted to help with dependency choices and default value for everything else:</p>
+
 {% highlight text %}
 fink install meld
 {% endhighlight %}
 
 
-After a <em>really</em> long time of installing it finally worked. Now just type 'meld' in the Terminal and launch the app!
+<p>After a <em>really</em> long time of installing it finally worked. Now just type 'meld' in the Terminal and launch the app!</p>
