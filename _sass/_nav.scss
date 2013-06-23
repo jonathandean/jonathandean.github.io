@@ -11,8 +11,7 @@
 nav[role="navigation"] li,
 ul.social li {
   display:inline-block;
-  font-size:$type-4;
-  //border-right: 1px solid #ddd;
+  font-size: $copy;
 
   &:last-child {
     border-right: none;

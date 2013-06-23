@@ -354,32 +354,40 @@ body {
   font-family: "Apollo W02", Cambria, Georgia, serif;
   font-size: 20px; }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-bottom: .35em;
   font-weight: 100; }
 
-h1, .h2, .h3, .h4, .h5, .h6 {
-  margin-bottom: .35em; }
+h4, h5, h6,
+.h4, .h5, .h6 {
+  margin-top: 2em; }
 
 h1, .h1 {
-  font-size: 52px; }
+  font-size: 58px;
+  margin-top: 1em; }
 
 h2, .h2 {
-  font-size: 32px; }
+  font-size: 46px;
+  margin-top: 1em; }
 
 h3, .h3 {
+  font-size: 32px;
+  font-weight: 900;
+  margin-top: 1.5em; }
+
+h4, .h4 {
   font-size: 20px;
   font-weight: 900; }
 
-h4, .h4 {
-  font-size: 16px;
+h5, .h5 {
+  font-size: 20px;
+  font-style: italic;
   font-weight: 900; }
 
-h5, .h5 {
-  font-size: 16px;
-  font-style: italic; }
-
 h6, .h6 {
-  font-size: 16px; }
+  font-size: 20px;
+  font-style: italic; }
 
 p, li {
   font-size: 20px;
@@ -404,7 +412,7 @@ p, li {
     text-decoration: none; }
 
 .home .identity {
-  font-size: 52px; }
+  font-size: 46px; }
 
 .intro {
   font-size: 24px; }
@@ -436,7 +444,7 @@ blockquote {
   font-family: "Apollo MT W02 Italic";
   padding: 1em 0 1.75em 0; }
   blockquote p {
-    font-size: 32px; }
+    font-size: 20px; }
   blockquote footer, blockquote footer a {
     font-size: 16px;
     line-height: 2;
@@ -453,7 +461,7 @@ date {
   color: #999999; }
 
 .copyright p {
-  font-size: 12px; }
+  font-size: 16px; }
 
 .bb {
   border-bottom: 1px dotted #eeeeee; }
