@@ -8,29 +8,68 @@
   padding: 2em 0;
 }
 
-nav[role="navigation"] li,
-ul.social li {
-  display:inline-block;
-  font-size: $copy;
+nav[role="navigation"] {
+  li {
+    display:inline-block;
+    font-size: $copy;
 
-  &:last-child {
-    border-right: none;
-  }
-  a {
-    font-weight:100;
-    color:$grey-medium;
-    display:block;
-    padding-right:1em;
-    text-decoration: none;
-    &:hover,
-    &:focus {
-      color:$orange;
+    a {
+      font-weight:900;
+      color:$grey-medium;
+      display:block;
+      padding-right:1em;
+      text-decoration: none;
+      &:hover,
+      &:focus {
+        color:$orange;
+      }
+      &:active {
+        color: #666;
+      }
     }
-    &:active {
-      color: #666;
+    &:last-child a {
+      padding-right: 0;
+    }
+  }
+  ul.social {
+    float: right;
+    li {
+      font-size: 26px;
+      a {
+        padding-right: 0.5em;
+      }
+      &:last-child a {
+        padding-right: 0;
+      }
+    }
+    .text {
+      display: none;
+    }
+  }
+  @include breakpoint(one-hand) {
+    ul.social {
+      float: none;
+    }
+  }
+  .column{
+    float: left;
+    &.left{
+      width: 60%;
+    }
+    &.right{
+      width: 40%;
+    }
+  }
+  @include breakpoint(one-hand) {
+    .column {
+      float: none;
+      &.left, &.right {
+        width: 100%;
+      }
     }
   }
 }
+
 
 .horizontal {
   li {display:inline-block;}
