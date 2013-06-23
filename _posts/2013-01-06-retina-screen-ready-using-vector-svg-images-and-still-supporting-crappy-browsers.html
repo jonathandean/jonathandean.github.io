@@ -81,8 +81,8 @@ body.no-svg h1.logo {
 <h2>Using with Ruby on Rails and the asset pipeline</h2>
 <p>If you are using Rails and the asset pipeline you should put your images in the page doing something like this:</p>
 
-{% highlight ruby %}
-<%= image_tag "#{image_path('logo.png')}", alt: "Use an alt value!" %>
+{% highlight erb %}
+<%= image_tag 'logo.svg', "data-svg-fallback" => image_path('logo.png') %>
 {% endhighlight %}
 
 <p>Just using the default behavior of automatically using a .png extension for the same file path won't work when the asset pipeline adds the digest to the filename during asset compilation.</p>
