@@ -1,3 +1,5 @@
+@import url("http://fast.fonts.com/t/1.css?apiType=css&projectid=19d01077-d8b9-4911-bdcb-54bbca2f72fa");
+@import url(../webfonts/ss-social.css);
 /* normalize.css v2.1.0 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
@@ -365,8 +367,23 @@ ol, ul {
     .half-column section.left, .half-column section.right {
       margin-right: 0;
       margin-left: 0; } }
+@font-face {
+  font-family: "Apollo W01";
+  src: url("../webfonts/7eb32e91-59c3-45ee-9471-294a8b486847.eot?#iefix");
+  src: url("../webfonts/7eb32e91-59c3-45ee-9471-294a8b486847.eot?#iefix") format("eot"), url("../webfonts/49ed263d-0117-4bda-9bf7-4b48af91c5a4.woff") format("woff"), url("../webfonts/a1f73cd1-f4bb-4d22-84c3-1d4fcf7c0efe.ttf") format("truetype"), url("../webfonts/ebc654f3-be53-4f29-abeb-9dbf7f229b94.svg#ebc654f3-be53-4f29-abeb-9dbf7f229b94") format("svg"); }
+
+@font-face {
+  font-family: "Apollo MT W01 Italic";
+  src: url("../webfonts/e772a2bc-6d95-40ac-96c4-7472327e4da5.eot?#iefix");
+  src: url("../webfonts/e772a2bc-6d95-40ac-96c4-7472327e4da5.eot?#iefix") format("eot"), url("../webfonts/e65fd33a-0c23-4c9f-8a9f-94e1c1f5f695.woff") format("woff"), url("../webfonts/8bb97857-745b-48c3-9a2d-73c3ab5988e1.ttf") format("truetype"), url("../webfonts/c8f0913d-e578-41b0-9305-d1c41e789f12.svg#c8f0913d-e578-41b0-9305-d1c41e789f12") format("svg"); }
+
+@font-face {
+  font-family: "AvantGardeGothicITCW01X";
+  src: url("../webfonts/d042c69d-2a74-4689-9915-3c34306a3b76.eot?#iefix");
+  src: url("../webfonts/d042c69d-2a74-4689-9915-3c34306a3b76.eot?#iefix") format("eot"), url("../webfonts/0312a390-01c7-423e-ad0c-b5b4f25229af.woff") format("woff"), url("../webfonts/16e3b729-9cc0-490e-9de3-d678f36aba08.ttf") format("truetype"), url("../webfonts/2c90e8aa-95a7-463c-956c-c7fac7412d35.svg#2c90e8aa-95a7-463c-956c-c7fac7412d35") format("svg"); }
+
 body {
-  font-family: "Apollo W02", Cambria, Georgia, serif;
+  font-family: "Apollo W01", Cambria, Georgia, serif;
   font-size: 20px; }
 
 h1, h2, h3, h4, h5, h6,
@@ -420,6 +437,7 @@ p, li {
   color: #990000; }
 
 .identity {
+  font-family: "AvantGardeGothicITCW01X", sans-serif;
   font-size: 32px;
   text-transform: lowercase;
   font-weight: 900; }
@@ -456,7 +474,7 @@ p, li {
   text-align: center; }
 
 blockquote {
-  font-family: "Apollo MT W02 Italic";
+  font-family: "Apollo MT W01 Italic";
   padding: 1em 0 1.75em 0; }
   blockquote p {
     font-size: 20px; }
@@ -466,7 +484,7 @@ blockquote {
     text-decoration: none;
     color: #999; }
 
-em {
+em, i {
   font-style: italic; }
 
 .author {
