@@ -12,10 +12,10 @@ published: true
 
 <p>I had some trouble today with washed out images when using Save for Web in Photoshop and thought I should share. In the past I've been able to solve this by unchecking the Convert to sRGB option but that didn't cut it this time. In case you aren't familiar, you can find that option by clicking the more options arrow to the right of the Preset drop down menu.</p>
 
-<p><img title="Convert to sRGB" src="http://jonathandean.com/wp-content/uploads/2009/03/converttosrgb.gif" alt="Convert to sRGB" width="228" height="452" /></p>
+<p><img title="Convert to sRGB" src="{{ site.url }}/img/converttosrgb.gif" alt="Convert to sRGB" width="228" height="452" /></p>
 
 <p>After some poking around I came across <a href="http://www.gballard.net/psd/saveforwebshift.html">this interestingly formatted article</a> on the issue. Unfortunately the solutions there didn't work for me but it did point me in the right direction. It turns out my color profile was set to Working CMYK and not RGB. (You want CMYK for print, not for web.) Anyway, all I had to do was go to Edit -&gt; Convert to Profile and select Working RGB instead.</p>
 
-<p><img title="Convert to Profile" src="http://jonathandean.com/wp-content/uploads/2009/03/converttoprofile_sm.gif" alt="Convert to Profile" width="450" height="246" /></p>
+<p><img title="Convert to Profile" src="{{ site.url }}/img/converttoprofile_sm.gif" alt="Convert to Profile" width="450" height="246" /></p>
 
 <p>After that my Save for Web images looked just as I designed. There is one big drawback of this though. After converting the profile it flatted my file so make sure you don't save and close the file too quickly and lose your layers. After saving for web I stepped back in history a few steps to get my layers back and saved it again to be safe. It's not a big deal for me in this case because I only need to save for web once but I would have to do this step each time. I suppose the moral of the story is to check your color profile before you begin designing so that you don't run into this mess in the end. If anyone has a better solution that doesn't flatten your file I'd love to hear it.</p>
