@@ -484,8 +484,11 @@ blockquote {
     text-decoration: none;
     color: #999; }
 
-em, i {
+em, .em {
   font-style: italic; }
+
+strong, .strong {
+  font-weight: bold; }
 
 .author {
   text-transform: uppercase; }

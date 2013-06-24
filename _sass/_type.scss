@@ -147,8 +147,11 @@ blockquote {
   }
 }
 
-em, i {
+em, .em, {
   font-style:italic;
+}
+strong, .strong{
+  font-weight: bold;
 }
 
 .author {
