@@ -120,7 +120,7 @@ Refactoring becomes somewhat limited to your ability to change your data model. 
 
 What if you want to use a different data store for those currency conversion rates? Maybe they start as a database model and then are moved out into an API service you created or that is built by someone else. Not all data makes sense in a relational database and sometimes they change. Don't move all of your code around to accommodate it.
 
-### ActiveRecords as "persistence layer configuration"
+### ActiveRecord as "persistence layer configuration"
 
 ActiveRecord models can and mostly should be void of all business logic and act simply as "persistence layer configuration." To that end they can store validations at the data level, relationships between other models, etc. Outside of that, there's probably a better place for your logic. It should be a rare thing to define a method in a Rails model.
 
