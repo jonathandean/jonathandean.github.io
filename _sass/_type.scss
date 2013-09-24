@@ -1,5 +1,10 @@
 @import url("http://fast.fonts.com/t/1.css?apiType=css&projectid=19d01077-d8b9-4911-bdcb-54bbca2f72fa");
 @font-face{
+  font-family:"Apollo W01 Semi Bold";
+  src:url("../webfonts/96aeeaac-4deb-4172-870b-742359d8c23a.eot?#iefix");
+  src:url("../webfonts/96aeeaac-4deb-4172-870b-742359d8c23a.eot?#iefix") format("eot"),url("../webfonts/c4a3f3bd-672a-4783-945f-8c176eec356e.woff") format("woff"),url("../webfonts/102c7f5c-de92-4d27-ac20-b68b0cba00ba.ttf") format("truetype"),url("../webfonts/7f2cf210-25d1-4023-b855-45d43797a31c.svg#7f2cf210-25d1-4023-b855-45d43797a31c") format("svg");
+}
+@font-face{
   font-family:"Apollo W01";
   src:url("../webfonts/7eb32e91-59c3-45ee-9471-294a8b486847.eot?#iefix");
   src:url("../webfonts/7eb32e91-59c3-45ee-9471-294a8b486847.eot?#iefix") format("eot"),url("../webfonts/49ed263d-0117-4bda-9bf7-4b48af91c5a4.woff") format("woff"),url("../webfonts/a1f73cd1-f4bb-4d22-84c3-1d4fcf7c0efe.ttf") format("truetype"),url("../webfonts/ebc654f3-be53-4f29-abeb-9dbf7f229b94.svg#ebc654f3-be53-4f29-abeb-9dbf7f229b94") format("svg");
@@ -151,7 +156,7 @@ em, .em, {
   font-style:italic;
 }
 strong, .strong{
-  font-weight: bold;
+  font-family:"Apollo W01 Semi Bold";
 }
 
 .author {
