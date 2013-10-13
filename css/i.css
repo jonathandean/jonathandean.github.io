@@ -542,6 +542,18 @@ date {
 .post ul, .post ol {
   margin-left: 2em; }
 
+.float-list {
+  text-align: center; }
+  .float-list li {
+    display: inline-block;
+    padding: 10px; }
+    .float-list li ul {
+      display: none;
+      float: none;
+      clear: both; }
+  .float-list li.expanded, .float-list li.expanded ul, .float-list li.expanded li {
+    display: block; }
+
 a {
   text-decoration: none;
   color: #ff5335; }
