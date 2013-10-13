@@ -2,7 +2,6 @@
 layout: post
 title: The Slow Recovery from RSI
 tags:
-- All
 - RSI
 status: publish
 type: post

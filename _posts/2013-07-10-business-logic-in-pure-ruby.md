@@ -2,7 +2,6 @@
 layout: post
 title: Business Logic in Pure Ruby
 tags:
-- All
 - ruby
 - rails
 status: publish
