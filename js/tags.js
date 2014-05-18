@@ -7,4 +7,9 @@ $(function(){
     e.preventDefault();
     expandTag($(e.target).parent().attr('data-tag-slug'));
   });
+
+  if(window.location.hash) {
+    var name = window.location.hash.replace('#', '');
+    expandTag(name);
+  }
 });
