@@ -31,7 +31,9 @@ nav[role="navigation"] {
     }
   }
   ul.social {
-    float: right;
+    margin: 1em auto;
+    width: 200px;
+    display: block;
     li {
       font-size: 26px;
       a {

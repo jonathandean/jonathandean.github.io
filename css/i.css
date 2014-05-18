@@ -557,7 +557,9 @@ nav[role="navigation"] li {
   nav[role="navigation"] li:last-child a {
     padding-right: 0; }
 nav[role="navigation"] ul.social {
-  float: right; }
+  margin: 1em auto;
+  width: 200px;
+  display: block; }
   nav[role="navigation"] ul.social li {
     font-size: 26px; }
     nav[role="navigation"] ul.social li a {
