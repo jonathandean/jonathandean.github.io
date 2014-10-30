@@ -423,7 +423,6 @@ p, li {
 
 .identity {
   font-size: 24px;
-  text-transform: lowercase;
   font-weight: 300; }
   .identity a {
     text-decoration: none; }
@@ -607,6 +606,9 @@ nav[role="navigation"] .column {
 img {
   max-width: 100%;
   margin: 1em 0; }
+  img.ct {
+    margin: 1em auto;
+    display: block; }
 
 .highlight {
   background: #ffffff; }
