@@ -5,7 +5,7 @@ tags:
 - sexism
 status: publish
 type: post
-published: true
+published: false
 ---
 
 <p class="intro">It is an inarguable fact that there are women in the tech industry that have been the target of immoral and sometimes criminal abuse by males within the industry. How do men help to solve this problem?</p>
