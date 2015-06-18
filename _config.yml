@@ -9,3 +9,6 @@ github_username:  jonathandean
 
 # Build settings
 markdown: kramdown
+
+# Style of permalinks
+permalink: /:year/:month/:title
