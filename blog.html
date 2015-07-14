@@ -1,0 +1,28 @@
+---
+layout: default
+title: Posts
+permalink: /archives/
+---
+
+<section class="container text-c">
+
+  <header>
+    <h1 class="h4 mt3 thin">Posts</h1>
+  </header>
+
+  {% for post in site.posts %}
+    <article class="border-t p1 border-gray-lightest">
+      <h2 class="h5 m0 thin">
+        <a class="hover-link" href="{{ post.url | prepend: site.baseurl }}">
+          <time class="time small light" datetime="{{ page.date | date: "%Y-%m-%d" }}" pubdate>{{ post.date | date: "%B %d, %Y" }}</time>
+          <header>{{ post.title }}</header>
+        </a>
+      </h2>
+    </article>
+  {% endfor %}
+
+  <footer>
+    <p class="light small p1 border-t border-gray-lightest"><a href="{{ "/feed.xml" | prepend: site.baseurl }}">subscribe via RSS</a></p>
+  </footer>
+
+</section>

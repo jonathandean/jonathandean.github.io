@@ -12,3 +12,7 @@ markdown: kramdown
 
 # Style of permalinks
 permalink: /:year/:month/:title
+
+exclude:
+  - "bower_components"
+  - "bower.json"
