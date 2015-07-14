@@ -9,6 +9,6 @@
   "main": "index.html",
   "license": "MIT",
   "dependencies": {
-    "humblekit": "git@github.com:yorthehunter/humblekit.git#~0.4.4"
+    "humblekit": "git@github.com:yorthehunter/humblekit.git#master"
   }
 }

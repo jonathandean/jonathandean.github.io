@@ -21,3 +21,8 @@ nav.social {
     }
   }
 }
+.intro {
+  @extend %text-c;
+  @extend .h4;
+  @extend %thin;
+}

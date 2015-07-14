@@ -4,18 +4,20 @@
 @charset "utf-8";
 
 $font-family-base: 'Open Sans', sans-serif;
-$font-size-base: 16px;
+$font-size-base: 14px;
 $font-weight-base: 300;
+$headings-weight: 400;
 
 $base-red: #ff5c61;
 // $base-red: #ff5335; // old red
 $base-red-soft: lighten($base-red, 0.25);
 $base-red-light: lighten($base-red, 0.35);
+$base-red-dark: darken($base-red, 0.25);
 
 $link-color:               $base-red;
 $link-hover-color:         $base-red-soft;
 $link-active-color:        $base-red;
-$link-visited-color:       $base-red;
+$link-visited-color:       $base-red-dark;
 $link-light-color:         $base-red-soft;
 $link-light-hover-color:   $base-red-light;
 $link-light-active-color:  $base-red-soft;
