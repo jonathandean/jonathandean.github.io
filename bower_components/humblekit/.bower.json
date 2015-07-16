@@ -1,0 +1,78 @@
+{
+  "name": "humblekit",
+  "homepage": "https://github.com/yorthehunter/humblekit",
+  "authors": [
+    "yorthehunter <boru.design@gmail.com>"
+  ],
+  "description": "basic css toolkit",
+  "main": "app/assets/stylesheets",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "css",
+    "sass",
+    "scss",
+    "modular",
+    "smacss",
+    "typography",
+    "grid",
+    "framework",
+    "vertical",
+    "rhythm",
+    "mixins",
+    "styles",
+    "stylesheets"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bin",
+    "config",
+    "db",
+    "lib",
+    "log",
+    "public",
+    "test",
+    "vendor",
+    ".bower.json",
+    "bower.json",
+    "config.ru",
+    "Gemfile",
+    "Gemfile.lock",
+    "Guardfile",
+    "Rakefile",
+    "README.md",
+    "hologram_config.yml",
+    "app/controllers",
+    "app/helpers",
+    "app/inputs",
+    "app/mailers",
+    "app/models",
+    "app/views",
+    "app/assets/javascripts",
+    "app/assets/images",
+    "app/assets/stylesheets/site/",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "app/assets/stylesheets/barebones.scss",
+    "app/assets/stylesheets/application.scss",
+    "app/assets/stylesheets/_custom_variables.scss",
+    "doc_assets",
+    "tests"
+  ],
+  "devDependencies": {
+    "Cortana": "~1.2.8"
+  },
+  "_release": "16d92221c6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "16d92221c67e6a8e660a66a828e8ad2aedab4605"
+  },
+  "_source": "git@github.com:yorthehunter/humblekit.git",
+  "_target": "master",
+  "_originalSource": "git@github.com:yorthehunter/humblekit.git"
+}
