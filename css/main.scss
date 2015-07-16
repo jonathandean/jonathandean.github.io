@@ -1,5 +1,4 @@
 ---
-layout: null
 ---
 
 $font-family-base: 'Open Sans', sans-serif;
@@ -21,7 +20,6 @@ $link-light-hover-color:   $base-red-light;
 $link-light-active-color:  $base-red-soft;
 $link-light-visited-color: $base-red-soft;
 
-// Import partials from `sass_dir` (defaults to `_sass`)
 @import "../bower_components/humblekit/app/assets/stylesheets/humble_kit";
 @import "fonts";
 @import "base";
