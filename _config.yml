@@ -16,3 +16,6 @@ permalink: /:year/:month/:title
 exclude:
   - "bower_components"
   - "bower.json"
+
+gems:
+  - jekyll-redirect-from

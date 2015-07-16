@@ -1,3 +1,10 @@
+img {
+  max-width: 100%;
+}
+.text-c img {
+  display: inline-block;
+}
+
 .hover-link, a.hover-link {
   & {
     color: $text-base-color;
@@ -23,6 +30,35 @@ nav.social {
 }
 .intro {
   @extend %text-c;
-  @extend .h4;
+  @extend .h5;
   @extend %thin;
+  font-style: italic;
+}
+// Do post headings differently so we can get the styles we want without needing classes in the Markdown files
+.post {
+  h1, .h1 {
+    @extend %f3;
+  }
+  h2, .h2 {
+    @extend %f4;
+    @extend %mt2;
+  }
+  h3, .h3 {
+    @extend %f5;
+  }
+  h4, .h4 {
+    @extend %f6;
+  }
+  h5, .h5 {
+    @extend %f5;
+  }
+  h6, .h6 {
+    @extend %f6;
+  }
+//  h2, .h2,
+  h3, .h3,
+  h4, .h4,
+  h5, .h5, {
+    font-weight: 600;
+  }
 }
