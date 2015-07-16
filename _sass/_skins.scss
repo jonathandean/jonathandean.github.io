@@ -1,4 +1,9 @@
-.bb {
-  border-bottom:1px dotted $grey-light;
+.skin-dark {
+  background-color: #333; // TODO use vars
+  &, a {
+    color: white;
+    &.color-dark {
+      color: #999;
+    }
+  }
 }
-
