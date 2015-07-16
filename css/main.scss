@@ -24,11 +24,9 @@ $link-light-active-color:  $base-red-soft;
 $link-light-visited-color: $base-red-soft;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "../bower_components/humblekit/app/assets/stylesheets/humble_kit",
-        "fonts",
-        "base",
-        "layout",
-        "skins",
-        "syntax-highlighting"
-;
+@import "../bower_components/humblekit/app/assets/stylesheets/humble_kit";
+@import "fonts";
+@import "base";
+@import "layout";
+@import "skins";
+@import "syntax-highlighting";
