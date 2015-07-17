@@ -3,9 +3,8 @@ layout: post
 title: The Slow Recovery from RSI
 tags:
 - RSI
-status: publish
 type: post
-published: true
+published: false
 ---
 
 <p class="intro"><a href="{% post_url 2013-06-24-dealing-with-rsi %}">As mentioned previously</a>, I have been dealing with severe RSI for a while now. As I slowly recover, here are a few more things I've learned and some detail about what has helped and what hasn't.</p>
