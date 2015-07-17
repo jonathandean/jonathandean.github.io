@@ -5,7 +5,7 @@ tags:
 - ruby
 - rails
 type: post
-published: true
+published: false
 ---
 <p class="intro">Why "the Rails way" of putting all business logic in models will cause you pain as your application grows and limit your ability to scale. Avoid this by putting that logic in pure Ruby classes and think about ActiveRecord differently.</p>
 
