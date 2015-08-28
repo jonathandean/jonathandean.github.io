@@ -62,3 +62,23 @@ nav.social {
     font-weight: 600;
   }
 }
+blockquote {
+  font-style: italic;
+  @extend %ml2;
+  @extend %m2;
+  &:before {
+    content: open-quote;
+    @extend %f3;
+    vertical-align: -0.3em;
+    line-height: 0.1em;
+  }
+  &:after {
+    content: close-quote;
+    @extend %f3;
+    vertical-align: -0.3em;
+    line-height: 0.1em;
+  }
+  p {
+    display: inline;
+  }
+}
