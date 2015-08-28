@@ -5,7 +5,7 @@ date:   2015-08-25 12:00:00
 published: true
 ---
 
-Dear fellow employees of Stitch Fix,
+_Dear fellow employees of Stitch Fix,_
 
 I have been working at Stitch Fix for just over three years. It's the longest I've worked at any company. I've grown a lot in that time, some of it in my personal life and some of it thanks to this company and all of you amazing people who work with me there.
 
@@ -17,7 +17,7 @@ A couple of years ago, less than a year into my time here, I had such bad RSI pa
 
 That's when I learned a lot about you, my co-workers, and in particular our leadership team. You were mad and I still have the emails to prove it. Not because I wasn't working, but because I was still trying to.
 
-> "...I really appreciate how hard you have worked to support Stitch Fix but that you should make sure that you are OK.  Your health is the most important thing and not ops related projects."
+> ...I really appreciate how hard you have worked to support Stitch Fix but that you should make sure that you are OK.  Your health is the most important thing and not ops related projects.
 
 You made it very clear to me that my value to the company was far more than any project and any amount of missed savings. You told me that this money was a temporary pain but that I was of permanent value to the team. You were invested in me for the long haul and it didn't matter how much time it took for me to get better. I _had_ to get healthy and there was no other option. You let me know that I was not replaceable. You told me that I shouldn't dare try to write a line of code until I am well again.
 
@@ -29,6 +29,6 @@ Now I'm building a new team here at Stitch Fix and my first hire started this we
 
 I'm looking forward to the next three years.
 
-Sincerely,
+_Sincerely,_
 
-Jon in PQ
+_Jon in PQ_
