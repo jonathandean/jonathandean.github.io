@@ -5,8 +5,6 @@ date:   2015-08-25 12:00:00
 published: true
 ---
 
-# An open letter to my coworkers
-
 Dear fellow employees of Stitch Fix,
 
 I have been working at Stitch Fix for just over three years. It's the longest I've worked at any company. I've grown a lot in that time, some of it in my personal life and some of it thanks to this company and all of you amazing people who work with me there.
