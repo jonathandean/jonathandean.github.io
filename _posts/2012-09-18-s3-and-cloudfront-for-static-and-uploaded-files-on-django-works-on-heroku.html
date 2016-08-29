@@ -8,7 +8,7 @@ tags:
 - s3
 status: publish
 type: post
-published: true
+published: false
 ---
 <p>This isn't the only way to make this happen but it worked well for me. For this solution I'm using the handy <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> to easily use separate folders in the same S3 bucket for static and media (uploaded) files.<!--more--> Of course using that package isn't strictly necessary so if you want to see a good example using just <a title="django-storages" href="http://pypi.python.org/pypi/django-storages">django-storages</a>, check out <a href="http://stackoverflow.com/a/8888930">this Stack Overflow answer</a>. (<a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> uses <a title="django-storages" href="http://pypi.python.org/pypi/django-storages">django-storages</a> under the hood, so either way you are using it.) To use <a title="django-s3-folder-storage" href="http://pypi.python.org/pypi/django-s3-folder-storage">django-s3-folder-storage</a> without Cloundfront, just use the instructions here: <a href="http://pypi.python.org/pypi/django-s3-folder-storage">http://pypi.python.org/pypi/django-s3-folder-storage</a>. <em>Note</em>: the relevant instructions for using with <a title="AWS Cloudfront" href="http://aws.amazon.com/cloudfront/">AWS Cloudfront</a> are repeated below.</p>
 
