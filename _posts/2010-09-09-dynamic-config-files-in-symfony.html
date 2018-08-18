@@ -1,11 +1,9 @@
 ---
-layout: post
+layout: default
 title: Dynamic config files in Symfony
 tags:
 - php
 - symfony
-status: publish
-type: post
 published: false
 ---
 <p>Don't like the idea of manually setting certain values in your Symfony YAML configuration files? Or maybe, like in my case, you want the value of one setting to be set based on the value of a previous one, maybe a calculation of other values for instance. It may not be obvious at first but you <em>can</em> include PHP blocks in your config files. You just need to be a little careful about the line endings in order for it to work properly. If you take a look at your apps/<em>application</em>/config/settings.yml there's already an example in there in how to achieve this:</p>

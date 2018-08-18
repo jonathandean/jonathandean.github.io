@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Running PHP and MySQL with phpMyAdmin on OS X 10.5
 tags:
 - apache
@@ -7,8 +7,6 @@ tags:
 - mac
 - mysql
 - php
-status: publish
-type: post
 published: false
 ---
 <p>Apache already comes pre-installed on OS X but PHP is not enabled by default. To enable PHP we need to edit our Apache config file by opening the Terminal <!--more-->and typing <em>sudo nano /private/etc/apache2/httpd.conf </em>and hitting enter (put in your admin password when it asks.) Type Control+W to bring up the search option and type <em>php5_module</em> and hit enter. Remove the # from the beginning of that line and then type Control+X to exit, Y to save when it asks, and Enter to overwrite the same filename.</p>

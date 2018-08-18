@@ -1,9 +1,9 @@
 ---
-layout: post
+layout: default
 title: The Slow Recovery from RSI
 tags:
 - RSI
-type: post
+
 published: false
 ---
 
