@@ -1,10 +1,8 @@
 ---
-layout: post
+layout: default
 title: ! 'Git tip: merging the latest version of one or more files from another branch'
 tags:
 - git
-status: publish
-type: post
 published: false
 ---
 <p>Today I was working in two separate branches in git and wrote a jQuery plugin that was useful to both branches. The problem was that I committed this new file along with changes to other files in order to use it. So I didn't want to use <a href="http://www.kernel.org/pub/software/scm/git/docs/git-cherry-pick.html">cherry-pick</a> to grab the commit because I didn't want the other changes from that commit. There's also the case where there are many commits involving that file in the other branch and you just want the most up to date version of that file. Turns out there's a simple way to merge the latest version of a file (or even multiple files) from another branch into yours. Just follow this syntax:</p>

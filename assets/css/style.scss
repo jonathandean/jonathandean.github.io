@@ -1,0 +1,146 @@
+---
+---
+
+// Headers
+$header-heading-color: #fff !default;
+$header-bg-color: #333 !default;
+$header-bg-color-secondary: #333 !default;
+
+// Text
+$section-headings-color: #444 !default;
+$body-text-color: #444 !default;
+$body-link-color: #ff5b60 !default;
+$blockquote-text-color: #819198 !default;
+
+// Non-theme variables
+$body-light-text-color: #989898;
+$border-color: #eff0f1;
+
+@import "{{ site.theme }}";
+@import "ss-social";
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300italic,300,600');
+
+body{
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+h1.project-name {
+  a {
+    color: $header-heading-color;
+    text-decoration: none;
+  }
+}
+
+.page-header {
+
+  @include large {
+    padding: 3rem;
+  }
+
+  @include medium {
+    padding: 2rem;
+  }
+
+  @include small {
+    padding: 1rem;
+  }
+}
+
+.main-content {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+  }
+}
+
+ul.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  li {
+    margin: 0;
+    padding: 2rem 0;
+    border-top: solid 1px $border-color;
+    &:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    a{
+      text-decoration: none;
+      color: $body-text-color;
+    }
+    time {
+      color: $body-light-text-color;
+      font-size: 0.8em;
+    }
+    a:hover header {
+      text-decoration: underline;
+    }
+  }
+}
+.site-footer {
+  text-align: center;
+}
+footer nav {
+  padding-bottom: 1rem;
+  a {
+    margin-right: 1rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+.site-footer-credits {
+  font-size: 0.8rem;
+}
+
+nav.social {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      font-size: 1.5rem;
+      display: inline-block;
+      padding-left: .5rem;
+      padding-right: .5rem;
+      vertical-align: middle;
+      a {
+        color: $body-light-text-color;
+        &:hover {
+          color: $body-link-color;
+          text-decoration: none;
+        }
+      }
+    }
+    .text {
+      display: none;
+    }
+  }
+}
+
+p.intro {
+  font-style: italic;
+  color: $body-light-text-color;
+  text-align: center;
+}
+header.post-header {
+  text-align: center;
+  border-bottom: solid 1px $border-color;
+  margin-bottom: 2rem;
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+article footer.comments {
+  margin-top: 2rem;
+}

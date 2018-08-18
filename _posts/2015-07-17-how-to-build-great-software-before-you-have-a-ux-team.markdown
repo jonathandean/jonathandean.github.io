@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title:  "How to build great software before you have a UX team"
 date:   2015-07-17 08:10:00
 categories: ux
