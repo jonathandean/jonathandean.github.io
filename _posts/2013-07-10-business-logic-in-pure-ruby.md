@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Business Logic in Pure Ruby
 tags:
 - ruby
