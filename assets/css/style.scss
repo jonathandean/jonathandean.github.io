@@ -35,6 +35,10 @@ h1.project-name {
   }
 }
 
+a {
+  text-decoration: underline;
+}
+
 .page-header {
 
   @include large {
@@ -74,8 +78,8 @@ ul.post-list {
     }
 
     a{
-      text-decoration: none;
       color: $body-text-color;
+      text-decoration: none;
     }
     time {
       color: $body-light-text-color;
@@ -93,6 +97,10 @@ footer nav {
   padding-bottom: 1rem;
   a {
     margin-right: 1rem;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
     &:last-child {
       margin-right: 0;
     }
@@ -115,9 +123,9 @@ nav.social {
       vertical-align: middle;
       a {
         color: $body-light-text-color;
+        text-decoration: none;
         &:hover {
           color: $body-link-color;
-          text-decoration: none;
         }
       }
     }
