@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: How do men help defeat sexism in tech?
 tags:
 - sexism

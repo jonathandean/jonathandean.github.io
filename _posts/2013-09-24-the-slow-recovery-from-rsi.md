@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: The Slow Recovery from RSI
 tags:
 - RSI
