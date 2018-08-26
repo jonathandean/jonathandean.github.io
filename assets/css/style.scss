@@ -15,6 +15,7 @@ $blockquote-text-color: #819198 !default;
 // Non-theme variables
 $body-light-text-color: #989898;
 $border-color: #eff0f1;
+$twitter-blue: #1da1f2;
 
 @import "{{ site.theme }}";
 @import "ss-social";
@@ -54,6 +55,11 @@ a {
   }
 }
 
+.project-tagline {
+  color: $body-light-text-color;
+  opacity: 1;
+}
+
 .main-content {
   h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
@@ -85,13 +91,32 @@ ul.post-list {
       color: $body-light-text-color;
       font-size: 0.8em;
     }
-    a:hover header {
+    a:hover header .post-title {
       text-decoration: underline;
+    }
+    &.post-tag-tweets {
+      header {
+        //margin: auto;
+        //white-space: nowrap;
+        //overflow: hidden;
+        //text-overflow: ellipsis;
+        //font-style: italic;
+        font-size: 0.9em;
+        .icon {
+          color: $twitter-blue;
+          //font-size: 1.3rem;
+          //vertical-align: text-top;
+        }
+      }
     }
   }
 }
+
 .site-footer {
   text-align: center;
+}
+.site-footer-credits {
+  color: $body-light-text-color;
 }
 footer nav {
   padding-bottom: 1rem;
@@ -151,4 +176,8 @@ header.post-header {
 
 article footer.comments {
   margin-top: 2rem;
+}
+
+twitterwidget {
+  margin: auto;
 }
