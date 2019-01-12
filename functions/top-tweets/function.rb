@@ -4,6 +4,12 @@ require 'net/https'
 require 'uri'
 require 'json'
 
+# package with:
+# > cd functions/top-tweets
+# > chmod 644 $(find ./vendor/ -type f)
+# > chmod 755 $(find ./vendor/ -type d)
+# > zip -r function.zip function.rb vendor
+
 class TopTweets
   def self.handler(event:, context:)
 
