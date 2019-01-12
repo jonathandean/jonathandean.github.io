@@ -75,6 +75,8 @@ class TopTweets
           client.unfavorite(tweet)
         end
 
+        sleep ENV.fetch("SLEEP_BETWEEN_GITHUB_CALLS_IN_SECONDS").to_i
+
       end
     end
 
