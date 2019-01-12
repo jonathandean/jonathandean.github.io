@@ -3,7 +3,7 @@ require 'net/http'
 require 'net/https'
 require 'uri'
 require 'json'
-
+require 'time'
 # package with:
 # > cd functions/top-tweets
 # > chmod 644 $(find ./vendor/ -type f)
@@ -72,10 +72,25 @@ class TopTweets
         json = JSON.parse(res.body)
 
         if json['success'] === true
+          puts "successfully posted to github pages, unfavoriting"
           client.unfavorite(tweet)
-        end
+        else
+          puts "failed to posted to github pages:"
+          puts json.inspect
 
-        sleep ENV.fetch("SLEEP_BETWEEN_GITHUB_CALLS_IN_SECONDS").to_i
+          if json['error']['nextValidRequestDate']
+            next_valid_time = Time.parse(json['error']['nextValidRequestDate'])
+            puts "next valid time is: #{next_valid_time}"
+
+            seconds_until_next_valid_time = next_valid_time.to_i - Time.now.to_i
+            puts "seconds_until_next_valid_time: #{seconds_until_next_valid_time}"
+
+            if seconds_until_next_valid_time > 0
+              puts "sleeping"
+              sleep seconds_until_next_valid_time
+            end
+          end
+        end
 
       end
     end
