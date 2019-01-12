@@ -87,7 +87,7 @@ class TopTweets
 
             if seconds_until_next_valid_time > 0
               puts "sleeping"
-              sleep seconds_until_next_valid_time
+              sleep seconds_until_next_valid_time + 10
             end
           end
         end
