@@ -37,9 +37,9 @@ class TopTweets
     end
 
     timeline = if ENV.fetch("NUMBER_OF_TWEETS").to_i > 0
-                client.user_timeline(ENV.fetch("TWITTER_USERNAME"), count: ENV.fetch("NUMBER_OF_TWEETS"), exclude_replies: true, include_rts: false)
+                client.user_timeline(ENV.fetch("TWITTER_USERNAME"), count: ENV.fetch("NUMBER_OF_TWEETS"), exclude_replies: false, include_rts: false)
                else
-                 client.get_all_tweets(ENV.fetch("TWITTER_USERNAME"), exclude_replies: true, include_rts: false)
+                 client.get_all_tweets(ENV.fetch("TWITTER_USERNAME"), exclude_replies: false, include_rts: false)
                end
 
     timeline.each do |tweet|
