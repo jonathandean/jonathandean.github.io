@@ -33,7 +33,7 @@ class TopTweets
       if favorited
         uri = URI.parse(post_url)
         https = Net::HTTP.new(uri.host,uri.port)
-        # https.use_ssl = true
+        https.use_ssl = true
         req = Net::HTTP::Post.new(uri.path)
 
         data = {
