@@ -2,7 +2,7 @@
 layout: post
 title:  "An open letter to my coworkers"
 date:   2015-08-25 12:00:00
-published: true
+published: false
 ---
 
 _Dear fellow employees of Stitch Fix,_
