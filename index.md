@@ -19,4 +19,17 @@ layout: default
       </a>
     </li>
   {% endfor %}
+  {% assign tweets = site.data.tweets | sort %}
+  	{% for tweet in tweets reversed %}
+  		{% assign tweetData = tweet[1] %}
+      <li class="post-tag-tweets">
+        <a href="{{ tweetData.url }}" target="_blank">
+          <time datetime="{{ tweetData.created_at | date: "%Y-%m-%d" }}" pubdate>{{ tweetData.created_at | date: "%B %d, %Y" }}</time>
+          <header>
+            <span class="icon ss-icon ss-social ss-twitter"></span>
+            <span class="post-title">{{ tweetData.text }}</span>
+          </header>
+        </a>
+      </li>
+  {% endfor %}
 </ul>
