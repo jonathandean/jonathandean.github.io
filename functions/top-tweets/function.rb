@@ -6,6 +6,7 @@ require 'json'
 require 'time'
 # package with:
 # > cd functions/top-tweets
+# > docker run -v `pwd`:`pwd` -w `pwd` -i -t lambci/lambda:build-ruby2.5 bundle install --deployment
 # > chmod 644 $(find ./vendor/ -type f)
 # > chmod 755 $(find ./vendor/ -type d)
 # > zip -r function.zip function.rb vendor
