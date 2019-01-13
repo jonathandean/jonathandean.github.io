@@ -10,6 +10,10 @@ require 'time'
 # > chmod 644 $(find ./vendor/ -type f)
 # > chmod 755 $(find ./vendor/ -type d)
 # > zip -r function.zip function.rb vendor
+#
+# run test with:
+# > cd [project root]
+# > rspec functions/top-tweets/spec/
 
 class TopTweets
   def self.handler(event:, context:)
@@ -38,8 +42,10 @@ class TopTweets
     end
 
     timeline = if ENV.fetch("NUMBER_OF_TWEETS").to_i > 0
-                client.user_timeline(ENV.fetch("TWITTER_USERNAME"), count: ENV.fetch("NUMBER_OF_TWEETS"), exclude_replies: false, include_rts: false)
+                 puts "Fetching timeline as far back as allowed..."
+                 client.user_timeline(ENV.fetch("TWITTER_USERNAME"), count: ENV.fetch("NUMBER_OF_TWEETS"), exclude_replies: false, include_rts: false)
                else
+                 puts "Fetching timeline up to #{ENV.fetch("NUMBER_OF_TWEETS").to_i} tweets..."
                  client.get_all_tweets(ENV.fetch("TWITTER_USERNAME"), exclude_replies: false, include_rts: false)
                end
 
