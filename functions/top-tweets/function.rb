@@ -42,26 +42,46 @@ class TopTweets
     end
 
     timeline = if ENV.fetch("NUMBER_OF_TWEETS").to_i > 0
-                 puts "Fetching timeline as far back as allowed..."
+                 puts "Fetching timeline up to #{ENV.fetch("NUMBER_OF_TWEETS").to_i} tweets..."
                  client.user_timeline(ENV.fetch("TWITTER_USERNAME"), count: ENV.fetch("NUMBER_OF_TWEETS"), exclude_replies: false, include_rts: false)
                else
-                 puts "Fetching timeline up to #{ENV.fetch("NUMBER_OF_TWEETS").to_i} tweets..."
+                 puts "Fetching timeline as far back as allowed..."
                  client.get_all_tweets(ENV.fetch("TWITTER_USERNAME"), exclude_replies: false, include_rts: false)
                end
 
     timeline.each do |tweet|
-      favorited = tweet.attrs[:favorited]
+      post_to_github = tweet.attrs[:favorited]
+      puts "attrs:"
+      puts tweet.attrs
       puts "id: #{tweet.id}"
       puts "url: #{tweet.url}"
-      puts tweet.text
-      puts tweet.full_text
+      puts "text: #{tweet.text}"
+      puts "full_text: #{tweet.full_text}"
+
+      text = tweet.full_text ? tweet.full_text : tweet.text
+
+      if tweet.attrs[:is_quote_status]
+        puts "this tweet quotes another tweet"
+        if tweet.attrs[:quoted_status]
+          text = "#{text} <blockquote>@#{tweet.attrs[:quoted_status][:user][:screen_name]}: #{tweet.attrs[:quoted_status][:text]}</blockquote>"
+        else
+          text = "#{text} <blockquote>This tweet is unavailable.</blockquote>"
+        end
+      elsif tweet.attrs[:in_reply_to_screen_name]
+        puts "this tweet replies to another tweet"
+        text = "RE @#{tweet.attrs[:in_reply_to_screen_name]}: #{text}"
+      end
+
+      puts "will use text:"
+      puts text
+
       puts "created_at: #{tweet.created_at}"
       puts "favs: #{tweet.favorite_count}"
       puts "rts: #{tweet.retweet_count}"
-      puts "post to github: #{favorited}"
+      puts "post to github: #{post_to_github}"
       puts "==="
 
-      if favorited
+      if false && post_to_github
         uri = URI.parse(post_url)
         https = Net::HTTP.new(uri.host,uri.port)
         https.use_ssl = true
@@ -70,7 +90,7 @@ class TopTweets
         data = {
           "fields[tweet_id]" => tweet.id,
           "fields[url]" => tweet.url,
-          "fields[text]" => tweet.text,
+          "fields[text]" => text,
           "fields[created_at]" => tweet.created_at,
         }
         req.set_form_data(data)
@@ -85,7 +105,7 @@ class TopTweets
           puts "failed to posted to github pages:"
           puts json.inspect
 
-          if json['error']['nextValidRequestDate']
+          if json['error'] && json['error']['nextValidRequestDate']
             next_valid_time = Time.parse(json['error']['nextValidRequestDate'])
             puts "next valid time is: #{next_valid_time}"
 
