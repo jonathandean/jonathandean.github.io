@@ -1,35 +1,17 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: default
+layout: home
+title: About
+permalink: /
+redirect_from:
+  - /about/
 ---
 
-<ul class="post-list">
-  {% for post in site.posts %}
-    <li class="{% for tag in post.tags %}post-tag-{{ tag }} {% endfor %}">
-      <a href="{{ post.url | prepend: site.baseurl }}">
-        <time datetime="{{ page.date | date: "%Y-%m-%d" }}" pubdate>{{ post.date | date: "%B %d, %Y" }}</time>
-        <header>
-           {% if post.tags contains "tweets" %}
-             <span class="icon ss-icon ss-social ss-twitter"></span>
-           {% endif %}
-          <span class="post-title">{{ post.title }}</span>
-        </header>
-      </a>
-    </li>
-  {% endfor %}
-  {% assign tweets = site.data.tweets | sort %}
-  	{% for tweet in tweets reversed %}
-  		{% assign tweetData = tweet[1] %}
-      <li class="post-tag-tweets">
-        <a href="{{ tweetData.url }}" target="_blank">
-          <time datetime="{{ tweetData.created_at | date: "%Y-%m-%d" }}" pubdate>{{ tweetData.created_at | date: "%B %d, %Y" }}</time>
-          <header>
-            <span class="icon ss-icon ss-social ss-twitter"></span>
-            <span class="post-title">{{ tweetData.text }}</span>
-          </header>
-        </a>
-      </li>
-  {% endfor %}
-</ul>
+Head of Engineering at [Anomalie](https://www.dressanomalie.com/) where we are using technology to help brides say "yes" to the perfect dress. 
+
+Read more in Forbes: [A Bride’s Best Friend Today? Engineers. Anomalie Invests In Tech As Demand Surges](https://www.forbes.com/sites/joanverdon/2020/04/28/a-brides-best-friend-today-engineers-anomalie-invests-in-tech-as-demand-surges/#5566f97e4c66).
+
+Formerly Principal Engineer and Director of Engineering at [Stitch Fix](https://www.stitchfix.com/) from very early startup to IPO and beyond.
+
+Located in and originally from [Pittsburgh, PA](https://www.visitpittsburgh.com/about-pittsburgh/technology-in-pittsburgh/). 
+
+![Image of Jon Dean](/images/jon.jpg "Image of Jon Dean")

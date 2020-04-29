@@ -16,7 +16,7 @@
 title: Jon Dean
 email: jon@jonathandean.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Director of Engineering at Stitch Fix
+  Head of Engineering at Anomalie
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://jonathandean.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jonathanedean
@@ -27,6 +27,10 @@ markdown: kramdown
 theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
+  - jekyll-redirect-from
+
+whitelist:
+  - jekyll-redirect-from
 
 show_downloads: false
 github:

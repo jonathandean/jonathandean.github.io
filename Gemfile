@@ -9,9 +9,10 @@ source "https://rubygems.org"
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 gem "jekyll"
+gem 'jekyll-redirect-from'
+
 
 group :development do
-  gem 'twitter'
   gem 'rspec'
   gem 'dotenv'
 end
@@ -22,7 +23,6 @@ end
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "jekyll-feed"
   gem "github-pages"
 end
 

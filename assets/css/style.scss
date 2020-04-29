@@ -60,7 +60,13 @@ a {
   opacity: 1;
 }
 
+article.page p {
+  text-align: center;
+}
+
 .main-content {
+  max-width: 42rem;
+
   h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
   }
